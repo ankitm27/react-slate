@@ -44,6 +44,16 @@ export default class Dimensions {
     internal.height.final = internal.height.constrain(value);
   }
 
+  hasWidthConstrain() {
+    // $FlowFixMe
+    return this[INTERNAL].width.constrain !== NoConstrain;
+  }
+
+  hasHeightConstrain() {
+    // $FlowFixMe
+    return this[INTERNAL].height.constrain !== NoConstrain;
+  }
+
   setWidthConstrain(constrain: number => number) {
     // $FlowFixMe
     this[INTERNAL].width.constrain = constrain;
@@ -51,7 +61,7 @@ export default class Dimensions {
 
   setHeightConstrain(constrain: number => number) {
     // $FlowFixMe
-    this[INTERNAL].width.constrain = constrain;
+    this[INTERNAL].height.constrain = constrain;
   }
 
   valueOf(): DimensionsValue {

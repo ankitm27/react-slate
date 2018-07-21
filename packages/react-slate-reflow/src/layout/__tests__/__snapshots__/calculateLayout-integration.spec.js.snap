@@ -1618,6 +1618,60 @@ Object {
 }
 `;
 
+exports[`calculateLayout integration suite should calculate layout for node -> text with width constrain 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "body": "Hello World",
+          "dimensions": Object {
+            "height": 1,
+            "width": 11,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 0,
+          },
+          "type": "UnitLayout",
+        },
+      ],
+      "dimensions": Object {
+        "height": 1,
+        "width": 5,
+      },
+      "placement": Object {
+        "x": 0,
+        "y": 0,
+      },
+      "type": "ContainerLayout",
+    },
+  ],
+  "dimensions": Object {
+    "height": 1,
+    "width": 5,
+  },
+  "placement": Object {
+    "x": 0,
+    "y": 0,
+  },
+  "type": "RootLayout",
+}
+`;
+
+exports[`calculateLayout integration suite should calculate layout for node -> text with width constrain 2`] = `
+Array [
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Hello",
+      "x": 0,
+      "y": 0,
+    },
+  },
+]
+`;
+
 exports[`calculateLayout integration suite should calculate layout for node -> text without style/layout props 1`] = `
 Object {
   "children": Array [

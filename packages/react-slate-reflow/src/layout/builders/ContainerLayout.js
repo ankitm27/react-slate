@@ -45,10 +45,18 @@ export default class ContainerLayout implements LayoutBuilder {
       this.insetBounds = insetBounds;
       this.outsetBounds = outsetBounds;
       this.isInline = isInline;
-      getWidthConstrain &&
+      if (getWidthConstrain) {
+        // Set width constrain and use parent's width to calculate current
+        // element's width.
         this.dimensions.setWidthConstrain(getWidthConstrain(this));
-      getHeightConstrain &&
-        this.dimensions.setWidthConstrain(getHeightConstrain(this));
+        this.dimensions.width = this.parentLayout.dimensions.width;
+      }
+      if (getHeightConstrain) {
+        // Set height constrain and use parent's height to calculate current
+        // element's height.
+        this.dimensions.setHeightConstrain(getHeightConstrain(this));
+        this.dimensions.height = this.parentLayout.dimensions.height;
+      }
     }
   }
 

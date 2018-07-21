@@ -3,13 +3,13 @@
 import type ContainerLayout from './builders/ContainerLayout';
 import type { LayoutProps, Bounds } from '../types';
 
-type ConstrainFactory = ContainerLayout => number => number;
+type GetConstrain = (ContainerLayout, number) => number;
 type NormalizedLayoutProps = {
   insetBounds: Bounds,
   outsetBounds: Bounds,
   isInline: boolean,
-  getWidthConstrain: ?ConstrainFactory,
-  getHeightConstrain: ?ConstrainFactory,
+  getWidthConstrain: ?GetConstrain,
+  getHeightConstrain: ?GetConstrain,
 };
 
 export default function normalizeLayoutProps(
@@ -39,7 +39,7 @@ export default function normalizeLayoutProps(
 }
 
 function makeConstrainFactory(value: number | string) {
-  return (currentLayout: ContainerLayout) => (measuredDimension: number) => {
+  return (currentLayout: ContainerLayout, measuredDimension: number) => {
     if (value === 'auto' || (typeof value === 'number' && value < 0)) {
       return measuredDimension;
     }

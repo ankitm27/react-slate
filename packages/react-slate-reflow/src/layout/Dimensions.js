@@ -2,74 +2,40 @@
 
 import type { Dimensions as DimensionsValue } from '../types';
 
-const NoConstrain = value => value;
-const INTERNAL = Symbol('INTERNAL');
-
 export default class Dimensions {
-  // $FlowFixMe
-  [INTERNAL] = {
-    width: {
-      measured: 0,
-      final: 0,
-      constrain: NoConstrain,
-    },
-    height: {
-      measured: 0,
-      final: 0,
-      constrain: NoConstrain,
-    },
+  width = 0;
+  height = 0;
+  fixedHeight = 0;
+  fixedWidth = 0;
+  constrains = {
+    forWidth: false,
+    forHeight: false,
   };
 
-  get width(): number {
-    // $FlowFixMe
-    return this[INTERNAL].width.final;
+  get finalWidth() {
+    return this.constrains.forWidth ? this.fixedWidth : this.width;
   }
 
-  set width(value: number) {
-    // $FlowFixMe
-    const internal = this[INTERNAL];
-    internal.width.measured = value;
-    internal.width.final = internal.width.constrain(value);
+  get finalHeight() {
+    return this.constrains.forHeight ? this.fixedHeight : this.height;
   }
 
-  get height(): number {
-    // $FlowFixMe
-    return this[INTERNAL].height.final;
-  }
-
-  set height(value: number) {
-    // $FlowFixMe
-    const internal = this[INTERNAL];
-    internal.height.measured = value;
-    internal.height.final = internal.height.constrain(value);
-  }
-
-  hasWidthConstrain() {
-    // $FlowFixMe
-    return this[INTERNAL].width.constrain !== NoConstrain;
-  }
-
-  hasHeightConstrain() {
-    // $FlowFixMe
-    return this[INTERNAL].height.constrain !== NoConstrain;
-  }
-
-  setWidthConstrain(constrain: number => number) {
-    // $FlowFixMe
-    this[INTERNAL].width.constrain = constrain;
-  }
-
-  setHeightConstrain(constrain: number => number) {
-    // $FlowFixMe
-    this[INTERNAL].height.constrain = constrain;
+  setConstrain(dimension: 'width' | 'height', fixedValue: number) {
+    if (dimension === 'width') {
+      this.constrains.forWidth = true;
+      this.fixedWidth = fixedValue;
+    } else if (dimension === 'height') {
+      this.constrains.forHeight = true;
+      this.fixedHeight = fixedValue;
+    } else {
+      throw new Error(`Invalid dimension ${dimension}`);
+    }
   }
 
   valueOf(): DimensionsValue {
-    // $FlowFixMe
-    const { width, height } = this[INTERNAL];
     return {
-      width: width.final,
-      height: height.final,
+      width: this.constrains.forWidth ? this.fixedWidth : this.width,
+      height: this.constrains.forHeight ? this.fixedHeight : this.height,
     };
   }
 }

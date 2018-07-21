@@ -42,8 +42,8 @@ export default class UnitLayout implements LayoutBuilder {
 
   makeRenderElement() {
     let value = this.node.body;
-    if (this.parentLayout.dimensions.hasWidthConstrain()) {
-      value = this.node.body.slice(0, this.parentLayout.dimensions.width);
+    if (this.parentLayout.dimensions.constrains.forWidth) {
+      value = this.node.body.slice(0, this.parentLayout.dimensions.fixedWidth);
     }
     return {
       body: {

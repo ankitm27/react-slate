@@ -89,6 +89,23 @@ describe('calculateLayout integration suite', () => {
         expect(layoutTree.getJsonTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
+
+      it('with width top-level constrain', () => {
+        const root = getTree();
+        root.children[0].setLayoutProps({ width: 5 });
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
+
+      it('with width constrains', () => {
+        const root = getTree();
+        root.children[0].setLayoutProps({ width: 5 });
+        root.children[0].children[0].setLayoutProps({ width: 4 });
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
     });
 
     describe('for node -> [text, text]', () => {

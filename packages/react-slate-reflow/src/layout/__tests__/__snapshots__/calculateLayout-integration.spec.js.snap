@@ -1510,6 +1510,140 @@ Array [
 ]
 `;
 
+exports[`calculateLayout integration suite should calculate layout for node -> node -> text with width constrains 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "body": "Hello World",
+              "dimensions": Object {
+                "height": 1,
+                "width": 11,
+              },
+              "placement": Object {
+                "x": 0,
+                "y": 0,
+              },
+              "type": "UnitLayout",
+            },
+          ],
+          "dimensions": Object {
+            "height": 1,
+            "width": 4,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 0,
+          },
+          "type": "ContainerLayout",
+        },
+      ],
+      "dimensions": Object {
+        "height": 1,
+        "width": 5,
+      },
+      "placement": Object {
+        "x": 0,
+        "y": 0,
+      },
+      "type": "ContainerLayout",
+    },
+  ],
+  "dimensions": Object {
+    "height": 1,
+    "width": 5,
+  },
+  "placement": Object {
+    "x": 0,
+    "y": 0,
+  },
+  "type": "RootLayout",
+}
+`;
+
+exports[`calculateLayout integration suite should calculate layout for node -> node -> text with width constrains 2`] = `
+Array [
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Hell",
+      "x": 0,
+      "y": 0,
+    },
+  },
+]
+`;
+
+exports[`calculateLayout integration suite should calculate layout for node -> node -> text with width top-level constrain 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "body": "Hello World",
+              "dimensions": Object {
+                "height": 1,
+                "width": 11,
+              },
+              "placement": Object {
+                "x": 0,
+                "y": 0,
+              },
+              "type": "UnitLayout",
+            },
+          ],
+          "dimensions": Object {
+            "height": 1,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 0,
+          },
+          "type": "ContainerLayout",
+        },
+      ],
+      "dimensions": Object {
+        "height": 1,
+        "width": 5,
+      },
+      "placement": Object {
+        "x": 0,
+        "y": 0,
+      },
+      "type": "ContainerLayout",
+    },
+  ],
+  "dimensions": Object {
+    "height": 1,
+    "width": 5,
+  },
+  "placement": Object {
+    "x": 0,
+    "y": 0,
+  },
+  "type": "RootLayout",
+}
+`;
+
+exports[`calculateLayout integration suite should calculate layout for node -> node -> text with width top-level constrain 2`] = `
+Array [
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Hello",
+      "x": 0,
+      "y": 0,
+    },
+  },
+]
+`;
+
 exports[`calculateLayout integration suite should calculate layout for node -> node -> text without style/layout props 1`] = `
 Object {
   "children": Array [

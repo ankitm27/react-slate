@@ -49,6 +49,16 @@ export default class ContainerLayout implements LayoutBuilder {
       this.isInline = isInline;
       this.applyOwnConstrains({ getWidthConstrain, getHeightConstrain });
     }
+
+    if (this.isInline && this.parentLayout.dimensions.constrains.forWidth) {
+      // If current container element is inline, usedWidth must be copied from
+      // parent element.
+      this.dimensions.usedWidth = this.parentLayout.dimensions.usedWidth;
+    } else if (this.parentLayout.dimensions.constrains.forWidth) {
+      // Reset usedWidth if current element is not inline, since it will
+      // push content to the next line.
+      this.parentLayout.dimensions.usedWidth = 0;
+    }
   }
 
   /**

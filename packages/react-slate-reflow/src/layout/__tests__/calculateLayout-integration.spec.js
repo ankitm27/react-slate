@@ -106,6 +106,15 @@ describe('calculateLayout integration suite', () => {
         expect(layoutTree.getJsonTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
+
+      it('with width constrains and overflow', () => {
+        const root = getTree();
+        root.children[0].setLayoutProps({ width: 5 });
+        root.children[0].children[0].setLayoutProps({ width: 7 });
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
     });
 
     describe('for node -> [text, text]', () => {
@@ -145,6 +154,14 @@ describe('calculateLayout integration suite', () => {
 
         const { layoutTree } = root.calculateLayout();
         expect(layoutTree.getJsonTree()).toMatchSnapshot();
+      });
+
+      it('with width constrain', () => {
+        const root = getTree();
+        root.children[0].setLayoutProps({ width: 8 });
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
       });
     });
 
@@ -195,6 +212,14 @@ describe('calculateLayout integration suite', () => {
         expect(layoutTree.getJsonTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
+
+      it('with width constrain', () => {
+        const root = getTree();
+        root.children[0].setLayoutProps({ width: 8 });
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
     });
 
     describe('for node -> [text, node -> text]', () => {
@@ -241,6 +266,22 @@ describe('calculateLayout integration suite', () => {
         expect(layoutTree.getJsonTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
+
+      it('with non-altering width constrain', () => {
+        const root = getTree();
+        root.children[0].setLayoutProps({ width: 8 });
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
+
+      it('with altering width constrain', () => {
+        const root = getTree();
+        root.children[0].setLayoutProps({ width: 4 });
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
     });
 
     describe('for node -> [node -> text, text]', () => {
@@ -283,6 +324,22 @@ describe('calculateLayout integration suite', () => {
           marginBottom: 1,
         });
 
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
+
+      it('with non-altering width constrain', () => {
+        const root = getTree();
+        root.children[0].setLayoutProps({ width: 8 });
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
+
+      it('with altering width constrain', () => {
+        const root = getTree();
+        root.children[0].setLayoutProps({ width: 4 });
         const { layoutTree, renderElements } = root.calculateLayout();
         expect(layoutTree.getJsonTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
@@ -343,6 +400,14 @@ describe('calculateLayout integration suite', () => {
         expect(layoutTree.getJsonTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
+
+      it('with width constrain', () => {
+        const root = getTree();
+        root.children[0].setLayoutProps({ width: 4 });
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
     });
 
     describe('for node -> [text, node -> text, text]', () => {
@@ -389,6 +454,14 @@ describe('calculateLayout integration suite', () => {
           paddingBottom: 1,
         });
 
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
+
+      it('with width constrain', () => {
+        const root = getTree();
+        root.children[0].setLayoutProps({ width: 4 });
         const { layoutTree, renderElements } = root.calculateLayout();
         expect(layoutTree.getJsonTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
@@ -442,6 +515,14 @@ describe('calculateLayout integration suite', () => {
         expect(layoutTree.getJsonTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
+
+      it('with width constrain', () => {
+        const root = getTree();
+        root.children[0].setLayoutProps({ width: 4 });
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
     });
 
     describe('for node -> [node -> text, text, node -> [text, text]]', () => {
@@ -476,6 +557,14 @@ describe('calculateLayout integration suite', () => {
 
       it('without style/layout props', () => {
         const root = getTree();
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
+
+      it('with width constrain', () => {
+        const root = getTree();
+        root.children[0].setLayoutProps({ width: 4 });
         const { layoutTree, renderElements } = root.calculateLayout();
         expect(layoutTree.getJsonTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();

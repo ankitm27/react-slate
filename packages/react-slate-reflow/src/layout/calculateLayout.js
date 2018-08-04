@@ -65,5 +65,11 @@ export default function calculateLayout(
     rootLayout.calculateDimensions(visit(child));
   });
 
-  return { renderElements, layoutTree: rootLayout };
+  return {
+    renderElements: renderElements.filter(
+      // Remove body elements with empty value.
+      element => (element.body ? element.body.value.length : true)
+    ),
+    layoutTree: rootLayout,
+  };
 }

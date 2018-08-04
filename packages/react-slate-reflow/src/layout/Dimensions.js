@@ -7,6 +7,7 @@ export default class Dimensions {
   height = 0;
   fixedHeight = 0;
   fixedWidth = 0;
+  usedWidth = 0;
   constrains = {
     forWidth: false,
     forHeight: false,
@@ -30,6 +31,15 @@ export default class Dimensions {
     } else {
       throw new Error(`Invalid dimension ${dimension}`);
     }
+  }
+
+  trimHorizontally(value: string) {
+    if (this.constrains.forWidth) {
+      const trimmedValue = value.slice(0, this.fixedWidth - this.usedWidth);
+      this.usedWidth += trimmedValue.length;
+      return trimmedValue;
+    }
+    return value;
   }
 
   valueOf(): DimensionsValue {

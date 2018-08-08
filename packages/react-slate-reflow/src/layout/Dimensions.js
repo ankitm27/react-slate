@@ -1,6 +1,6 @@
 /* @flow */
 
-import type { Dimensions as DimensionsValue } from '../types';
+import type { Dimensions as DimensionsValue, Bounds } from '../types';
 
 export default class Dimensions {
   width = 0;
@@ -22,27 +22,40 @@ export default class Dimensions {
     return this.constrains.forHeight ? this.fixedHeight : this.height;
   }
 
+  get availableWidth() {
+    return this.fixedWidth - this.usedWidth;
+  }
+
+  get availableHeight() {
+    return this.fixedHeight - this.usedHeight;
+  }
+
   /**
-   * TODO: add docs
+   * Set vertical or horizontal constrain using subtracted inset bounds from a fixed value.
    */
-  setConstrain(dimension: 'width' | 'height', fixedValue: number) {
+  setConstrain(
+    dimension: 'width' | 'height',
+    fixedValue: number,
+    insetBounds?: Bounds
+  ) {
+    const { top = 0, left = 0, right = 0, bottom = 0 } = insetBounds || {};
     if (dimension === 'width') {
       this.constrains.forWidth = true;
-      this.fixedWidth = fixedValue;
+      this.fixedWidth = fixedValue - (left + right);
     } else if (dimension === 'height') {
       this.constrains.forHeight = true;
-      this.fixedHeight = fixedValue;
+      this.fixedHeight = fixedValue - (top + bottom);
     } else {
       throw new Error(`Invalid dimension ${dimension}`);
     }
   }
 
   /**
-   * TODO: add docs
+   * Trim value's length and increment used width.
    */
   trimHorizontally(value: string) {
     if (this.constrains.forWidth) {
-      const trimmedValue = value.slice(0, this.fixedWidth - this.usedWidth);
+      const trimmedValue = value.slice(0, this.availableWidth);
       this.usedWidth += trimmedValue.length;
       return trimmedValue;
     }
@@ -50,15 +63,14 @@ export default class Dimensions {
   }
 
   /**
-   * TODO: add docs
+   * Check if the element will fit, based on height constrain.
    */
   shouldSkip() {
     if (!this.constrains.forHeight) {
       return false;
     }
 
-    const { usedHeight, fixedHeight } = this;
-    if (fixedHeight - usedHeight > 0) {
+    if (this.availableHeight > 0) {
       this.usedHeight++;
       return false;
     }

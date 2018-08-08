@@ -68,14 +68,15 @@ export default class ContainerLayout implements LayoutBuilder {
     if (this.parentLayout.dimensions.constrains.forWidth) {
       this.dimensions.setConstrain(
         'width',
-        this.parentLayout.dimensions.fixedWidth
+        this.parentLayout.dimensions.fixedWidth,
+        this.insetBounds
       );
     }
     if (this.parentLayout.dimensions.constrains.forHeight) {
       this.dimensions.setConstrain(
         'height',
-        this.parentLayout.dimensions.fixedHeight -
-          this.parentLayout.dimensions.usedHeight // NOTE: add comment
+        this.parentLayout.dimensions.availableHeight,
+        this.insetBounds
       );
     }
   }
@@ -102,7 +103,7 @@ export default class ContainerLayout implements LayoutBuilder {
         !this.parentLayout.dimensions.constrains.forWidth ||
         this.parentLayout.dimensions.fixedWidth >= ownFixedWidth
       ) {
-        this.dimensions.setConstrain('width', ownFixedWidth);
+        this.dimensions.setConstrain('width', ownFixedWidth, this.insetBounds);
       }
     }
     if (getHeightConstrain) {
@@ -120,7 +121,11 @@ export default class ContainerLayout implements LayoutBuilder {
         !this.parentLayout.dimensions.constrains.forHeight ||
         this.parentLayout.dimensions.fixedHeight >= ownFixedHeight
       ) {
-        this.dimensions.setConstrain('height', ownFixedHeight);
+        this.dimensions.setConstrain(
+          'height',
+          ownFixedHeight,
+          this.insetBounds
+        );
       }
     }
   }

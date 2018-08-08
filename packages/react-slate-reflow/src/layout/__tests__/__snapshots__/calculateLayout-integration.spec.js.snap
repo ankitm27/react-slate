@@ -3235,6 +3235,71 @@ Array [
 ]
 `;
 
+exports[`calculateLayout integration suite should calculate layout for node -> text with height constrain and vertical paddings 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "body": "Hello World",
+          "dimensions": Object {
+            "height": 1,
+            "width": 11,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 1,
+          },
+          "type": "UnitLayout",
+        },
+      ],
+      "dimensions": Object {
+        "height": 3,
+        "width": 11,
+      },
+      "placement": Object {
+        "x": 0,
+        "y": 0,
+      },
+      "type": "ContainerLayout",
+    },
+  ],
+  "dimensions": Object {
+    "height": 3,
+    "width": 11,
+  },
+  "placement": Object {
+    "x": 0,
+    "y": 0,
+  },
+  "type": "RootLayout",
+}
+`;
+
+exports[`calculateLayout integration suite should calculate layout for node -> text with height constrain and vertical paddings 2`] = `
+Array [
+  Object {
+    "box": Object {
+      "height": 3,
+      "style": Object {
+        "backgroundColor": "red",
+      },
+      "width": 11,
+      "x": 0,
+      "y": 0,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Hello World",
+      "x": 0,
+      "y": 1,
+    },
+  },
+]
+`;
+
 exports[`calculateLayout integration suite should calculate layout for node -> text with layout props 1`] = `
 Object {
   "children": Array [

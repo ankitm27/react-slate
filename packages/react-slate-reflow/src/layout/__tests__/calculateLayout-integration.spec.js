@@ -47,6 +47,21 @@ describe('calculateLayout integration suite', () => {
         expect(layoutTree.getJsonTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
+
+      it('with height constrain and vertical paddings', () => {
+        const root = getTree();
+        root.children[0].setLayoutProps({
+          height: 3,
+          paddingTop: 1,
+          paddingBottom: 1,
+        });
+        root.children[0].setStyleProps({
+          backgroundColor: 'red',
+        });
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
     });
 
     describe('for node -> node -> text', () => {

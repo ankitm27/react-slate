@@ -1,6 +1,7 @@
 /* @flow */
 
 import { Stack } from 'buckets-js';
+import assert from 'assert';
 import Root from '../nodes/Root';
 import Node from '../nodes/Node';
 import Text from '../nodes/Text';
@@ -19,6 +20,8 @@ export default function calculateLayout(
 
   const visit = node => {
     const parentLayout = layoutState.peek();
+
+    assert(node !== parentLayout.node, 'Cannot use the same node as a child');
 
     if (node instanceof Node) {
       const currentLayout = new ContainerLayout(node, parentLayout);
@@ -68,7 +71,8 @@ export default function calculateLayout(
   return {
     renderElements: renderElements.filter(
       // Remove body elements with empty value.
-      element => (element.body ? element.body.value.length : true)
+      element =>
+        element && element.body ? element.body.value.length : Boolean(element)
     ),
     layoutTree: rootLayout,
   };

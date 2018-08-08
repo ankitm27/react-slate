@@ -41,6 +41,10 @@ export default class UnitLayout implements LayoutBuilder {
   }
 
   makeRenderElement() {
+    if (this.parentLayout.dimensions.shouldSkip()) {
+      return null;
+    }
+
     const value = this.parentLayout.dimensions.trimHorizontally(this.node.body);
     return {
       body: {

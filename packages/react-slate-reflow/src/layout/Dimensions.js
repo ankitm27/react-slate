@@ -8,6 +8,7 @@ export default class Dimensions {
   fixedHeight = 0;
   fixedWidth = 0;
   usedWidth = 0;
+  usedHeight = 0;
   constrains = {
     forWidth: false,
     forHeight: false,
@@ -21,6 +22,9 @@ export default class Dimensions {
     return this.constrains.forHeight ? this.fixedHeight : this.height;
   }
 
+  /**
+   * TODO: add docs
+   */
   setConstrain(dimension: 'width' | 'height', fixedValue: number) {
     if (dimension === 'width') {
       this.constrains.forWidth = true;
@@ -33,6 +37,9 @@ export default class Dimensions {
     }
   }
 
+  /**
+   * TODO: add docs
+   */
   trimHorizontally(value: string) {
     if (this.constrains.forWidth) {
       const trimmedValue = value.slice(0, this.fixedWidth - this.usedWidth);
@@ -42,10 +49,27 @@ export default class Dimensions {
     return value;
   }
 
+  /**
+   * TODO: add docs
+   */
+  shouldSkip() {
+    if (!this.constrains.forHeight) {
+      return false;
+    }
+
+    const { usedHeight, fixedHeight } = this;
+    if (fixedHeight - usedHeight > 0) {
+      this.usedHeight++;
+      return false;
+    }
+
+    return true;
+  }
+
   valueOf(): DimensionsValue {
     return {
-      width: this.constrains.forWidth ? this.fixedWidth : this.width,
-      height: this.constrains.forHeight ? this.fixedHeight : this.height,
+      width: this.finalWidth,
+      height: this.finalHeight,
     };
   }
 }

@@ -344,6 +344,14 @@ describe('calculateLayout integration suite', () => {
         expect(layoutTree.getJsonTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
+
+      it('with height constrain', () => {
+        const root = getTree();
+        root.children[0].setLayoutProps({ height: 1 });
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
     });
 
     describe('for node -> [node -> text, node -> text]', () => {
@@ -408,6 +416,14 @@ describe('calculateLayout integration suite', () => {
         expect(layoutTree.getJsonTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
+
+      it('with height constrain', () => {
+        const root = getTree();
+        root.children[0].setLayoutProps({ height: 1 });
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
     });
 
     describe('for node -> [text, node -> text, text]', () => {
@@ -466,6 +482,22 @@ describe('calculateLayout integration suite', () => {
         expect(layoutTree.getJsonTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
+
+      it('with outer height constrain', () => {
+        const root = getTree();
+        root.children[0].setLayoutProps({ height: 2 });
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
+
+      it('with inner height constrain', () => {
+        const root = getTree();
+        root.children[0].children[1].setLayoutProps({ height: 2 });
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
     });
 
     describe('for node -> [node -> text, text, node -> text]', () => {
@@ -519,6 +551,15 @@ describe('calculateLayout integration suite', () => {
       it('with width constrain', () => {
         const root = getTree();
         root.children[0].setLayoutProps({ width: 4 });
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
+
+      it('with height constrains', () => {
+        const root = getTree();
+        root.children[0].setLayoutProps({ height: 3 });
+        root.children[0].children[0].setLayoutProps({ height: 2 });
         const { layoutTree, renderElements } = root.calculateLayout();
         expect(layoutTree.getJsonTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();

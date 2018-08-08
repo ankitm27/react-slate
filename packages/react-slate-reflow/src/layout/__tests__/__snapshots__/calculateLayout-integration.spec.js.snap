@@ -1,5 +1,97 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`calculateLayout integration suite should calculate layout for node -> [node -> text, node -> text] with height constrain 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "body": "Hello",
+              "dimensions": Object {
+                "height": 1,
+                "width": 5,
+              },
+              "placement": Object {
+                "x": 0,
+                "y": 0,
+              },
+              "type": "UnitLayout",
+            },
+          ],
+          "dimensions": Object {
+            "height": 1,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 0,
+          },
+          "type": "ContainerLayout",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "body": "World",
+              "dimensions": Object {
+                "height": 1,
+                "width": 5,
+              },
+              "placement": Object {
+                "x": 0,
+                "y": 1,
+              },
+              "type": "UnitLayout",
+            },
+          ],
+          "dimensions": Object {
+            "height": 0,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 1,
+          },
+          "type": "ContainerLayout",
+        },
+      ],
+      "dimensions": Object {
+        "height": 1,
+        "width": 5,
+      },
+      "placement": Object {
+        "x": 0,
+        "y": 0,
+      },
+      "type": "ContainerLayout",
+    },
+  ],
+  "dimensions": Object {
+    "height": 1,
+    "width": 5,
+  },
+  "placement": Object {
+    "x": 0,
+    "y": 0,
+  },
+  "type": "RootLayout",
+}
+`;
+
+exports[`calculateLayout integration suite should calculate layout for node -> [node -> text, node -> text] with height constrain 2`] = `
+Array [
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Hello",
+      "x": 0,
+      "y": 0,
+    },
+  },
+]
+`;
+
 exports[`calculateLayout integration suite should calculate layout for node -> [node -> text, node -> text] with layout props 1`] = `
 Object {
   "children": Array [
@@ -572,6 +664,118 @@ Array [
 ]
 `;
 
+exports[`calculateLayout integration suite should calculate layout for node -> [node -> text, text, node -> text] with height constrains 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "body": "Brave",
+              "dimensions": Object {
+                "height": 1,
+                "width": 5,
+              },
+              "placement": Object {
+                "x": 0,
+                "y": 0,
+              },
+              "type": "UnitLayout",
+            },
+          ],
+          "dimensions": Object {
+            "height": 2,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 0,
+          },
+          "type": "ContainerLayout",
+        },
+        Object {
+          "body": "New",
+          "dimensions": Object {
+            "height": 1,
+            "width": 3,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 2,
+          },
+          "type": "UnitLayout",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "body": "World",
+              "dimensions": Object {
+                "height": 1,
+                "width": 5,
+              },
+              "placement": Object {
+                "x": 0,
+                "y": 3,
+              },
+              "type": "UnitLayout",
+            },
+          ],
+          "dimensions": Object {
+            "height": 0,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 3,
+          },
+          "type": "ContainerLayout",
+        },
+      ],
+      "dimensions": Object {
+        "height": 3,
+        "width": 5,
+      },
+      "placement": Object {
+        "x": 0,
+        "y": 0,
+      },
+      "type": "ContainerLayout",
+    },
+  ],
+  "dimensions": Object {
+    "height": 3,
+    "width": 5,
+  },
+  "placement": Object {
+    "x": 0,
+    "y": 0,
+  },
+  "type": "RootLayout",
+}
+`;
+
+exports[`calculateLayout integration suite should calculate layout for node -> [node -> text, text, node -> text] with height constrains 2`] = `
+Array [
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Brave",
+      "x": 0,
+      "y": 0,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "New",
+      "x": 0,
+      "y": 2,
+    },
+  },
+]
+`;
+
 exports[`calculateLayout integration suite should calculate layout for node -> [node -> text, text, node -> text] with layout props 1`] = `
 Object {
   "children": Array [
@@ -1019,6 +1223,85 @@ Array [
 ]
 `;
 
+exports[`calculateLayout integration suite should calculate layout for node -> [node -> text, text] with height constrain 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "body": "Hello",
+              "dimensions": Object {
+                "height": 1,
+                "width": 5,
+              },
+              "placement": Object {
+                "x": 0,
+                "y": 0,
+              },
+              "type": "UnitLayout",
+            },
+          ],
+          "dimensions": Object {
+            "height": 1,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 0,
+          },
+          "type": "ContainerLayout",
+        },
+        Object {
+          "body": "World",
+          "dimensions": Object {
+            "height": 1,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 1,
+          },
+          "type": "UnitLayout",
+        },
+      ],
+      "dimensions": Object {
+        "height": 1,
+        "width": 5,
+      },
+      "placement": Object {
+        "x": 0,
+        "y": 0,
+      },
+      "type": "ContainerLayout",
+    },
+  ],
+  "dimensions": Object {
+    "height": 1,
+    "width": 5,
+  },
+  "placement": Object {
+    "x": 0,
+    "y": 0,
+  },
+  "type": "RootLayout",
+}
+`;
+
+exports[`calculateLayout integration suite should calculate layout for node -> [node -> text, text] with height constrain 2`] = `
+Array [
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Hello",
+      "x": 0,
+      "y": 0,
+    },
+  },
+]
+`;
+
 exports[`calculateLayout integration suite should calculate layout for node -> [node -> text, text] with layout props 1`] = `
 Object {
   "children": Array [
@@ -1280,6 +1563,113 @@ Array [
 ]
 `;
 
+exports[`calculateLayout integration suite should calculate layout for node -> [text, node -> text, text] with inner height constrain 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "body": "Brave",
+          "dimensions": Object {
+            "height": 1,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 0,
+          },
+          "type": "UnitLayout",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "body": "New",
+              "dimensions": Object {
+                "height": 1,
+                "width": 3,
+              },
+              "placement": Object {
+                "x": 0,
+                "y": 1,
+              },
+              "type": "UnitLayout",
+            },
+          ],
+          "dimensions": Object {
+            "height": 2,
+            "width": 3,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 1,
+          },
+          "type": "ContainerLayout",
+        },
+        Object {
+          "body": "World",
+          "dimensions": Object {
+            "height": 1,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 3,
+          },
+          "type": "UnitLayout",
+        },
+      ],
+      "dimensions": Object {
+        "height": 4,
+        "width": 5,
+      },
+      "placement": Object {
+        "x": 0,
+        "y": 0,
+      },
+      "type": "ContainerLayout",
+    },
+  ],
+  "dimensions": Object {
+    "height": 4,
+    "width": 5,
+  },
+  "placement": Object {
+    "x": 0,
+    "y": 0,
+  },
+  "type": "RootLayout",
+}
+`;
+
+exports[`calculateLayout integration suite should calculate layout for node -> [text, node -> text, text] with inner height constrain 2`] = `
+Array [
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Brave",
+      "x": 0,
+      "y": 0,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "New",
+      "x": 0,
+      "y": 1,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "World",
+      "x": 0,
+      "y": 3,
+    },
+  },
+]
+`;
+
 exports[`calculateLayout integration suite should calculate layout for node -> [text, node -> text, text] with layout props 1`] = `
 Object {
   "children": Array [
@@ -1382,6 +1772,105 @@ Array [
       "value": "World",
       "x": 1,
       "y": 5,
+    },
+  },
+]
+`;
+
+exports[`calculateLayout integration suite should calculate layout for node -> [text, node -> text, text] with outer height constrain 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "body": "Brave",
+          "dimensions": Object {
+            "height": 1,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 0,
+          },
+          "type": "UnitLayout",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "body": "New",
+              "dimensions": Object {
+                "height": 1,
+                "width": 3,
+              },
+              "placement": Object {
+                "x": 0,
+                "y": 1,
+              },
+              "type": "UnitLayout",
+            },
+          ],
+          "dimensions": Object {
+            "height": 1,
+            "width": 3,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 1,
+          },
+          "type": "ContainerLayout",
+        },
+        Object {
+          "body": "World",
+          "dimensions": Object {
+            "height": 1,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 2,
+          },
+          "type": "UnitLayout",
+        },
+      ],
+      "dimensions": Object {
+        "height": 2,
+        "width": 5,
+      },
+      "placement": Object {
+        "x": 0,
+        "y": 0,
+      },
+      "type": "ContainerLayout",
+    },
+  ],
+  "dimensions": Object {
+    "height": 2,
+    "width": 5,
+  },
+  "placement": Object {
+    "x": 0,
+    "y": 0,
+  },
+  "type": "RootLayout",
+}
+`;
+
+exports[`calculateLayout integration suite should calculate layout for node -> [text, node -> text, text] with outer height constrain 2`] = `
+Array [
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Brave",
+      "x": 0,
+      "y": 0,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "New",
+      "x": 0,
+      "y": 1,
     },
   },
 ]

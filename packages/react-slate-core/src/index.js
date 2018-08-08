@@ -22,7 +22,7 @@ export type {
   LayoutProps,
   AbsoluteProps,
   Style,
-  CustomRender,
+  // CustomRender,
   NodeStream,
   Target,
 } from './types';

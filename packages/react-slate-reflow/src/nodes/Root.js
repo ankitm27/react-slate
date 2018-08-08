@@ -17,6 +17,19 @@ export default class Root implements Traversable<Child> {
     this.size = size;
   }
 
+  prependChild(child: Child, childBefore: Child) {
+    // eslint-disable-next-line no-param-reassign
+    child.parent = this;
+    const index = this.children.indexOf(childBefore);
+    this.children.splice(index, 0, child);
+  }
+
+  appendChild(child: Child) {
+    // eslint-disable-next-line no-param-reassign
+    child.parent = this;
+    this.children.push(child);
+  }
+
   insertChild(child: Child, position?: number) {
     const index =
       typeof position !== 'undefined' ? position : this.children.length;

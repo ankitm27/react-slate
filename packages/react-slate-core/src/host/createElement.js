@@ -1,21 +1,26 @@
 /* @flow */
 
-import ChunkNode from '../nodes/ChunkNode';
-import TextNode from '../nodes/TextNode';
-import ContainerNode from '../nodes/ContainerNode';
+import { Node, Text } from '@react-slate/reflow';
+import splitProps from './splitProps';
 
-export default function createElement(
-  type: string | Function,
-  props: any,
-  root: ContainerNode
-) {
+export default function createElement(type: string | Function, props: *) {
   if (typeof type === 'function') {
     return type;
   }
 
   const COMPONENTS = {
-    [ChunkNode.componentName]: () => new ChunkNode(root, props),
-    [TextNode.componentName]: () => new TextNode(root, props),
+    VIEW_NODE: () => {
+      const instance = new Node();
+      const { layoutProps, styleProps } = splitProps(props);
+      instance.setLayoutProps(layoutProps);
+      instance.setStyleProps(styleProps);
+      return instance;
+    },
+    TEXT_NODE: () => {
+      const instance = new Text();
+      instance.setBody(props.children);
+      return instance;
+    },
     default: () => undefined,
   };
 

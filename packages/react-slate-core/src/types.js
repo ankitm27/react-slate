@@ -1,9 +1,5 @@
 /* @flow */
 
-import ChunkNode from './nodes/ChunkNode';
-import AbsoluteCanvas from './host/AbsoluteCanvas';
-import RelativeCanvas from './host/RelativeCanvas';
-
 export type Props = { [key: string]: any };
 
 export type LayoutProps = {
@@ -60,12 +56,6 @@ type StyleObject =
     |};
 
 export type Style = StyleObject | Array<StyleObject>;
-
-export type CustomRender = (
-  instance: ChunkNode,
-  relativeCanvas: RelativeCanvas,
-  absoluteCanvas: AbsoluteCanvas
-) => RelativeCanvas;
 
 export type NodeStream = {
   write(data: string): void,

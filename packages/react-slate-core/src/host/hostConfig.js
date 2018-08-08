@@ -2,115 +2,103 @@
 
 /* eslint-disable no-param-reassign */
 
+import { typeof Root, typeof Text, Node, render } from '@react-slate/reflow';
 // $FlowFixMe
 import emptyObject from 'fbjs/lib/emptyObject';
 // $FlowFixMe
 import shallowEqual from 'fbjs/lib/shallowEqual';
 import createElement from './createElement';
-import ContainerNode from '../nodes/ContainerNode';
-import TextNode from '../nodes/TextNode';
-
-type GenericParentInstance = {
-  appendChild(child: any): void,
-  appendInitialChild(child: any): void,
-  prependChild(child: any, childBefore: any): void,
-  removeChild(child: any): void,
-};
+import splitProps from './splitProps';
+import type { Target } from '../types';
 
 const NOOP = () => {};
 const RETURN_EMPTY_OBJ = () => emptyObject;
 const NO = () => false;
 
-export default (containerInstance: ContainerNode) => ({
+export default (containerInstance: Root, target: Target) => ({
   // Create instance of host environment specific node or instance of a component.
-  createInstance(
-    type: string | Function,
-    props: any,
-    rootContainerInstance: ContainerNode
-  ) {
-    return createElement(type, props, rootContainerInstance);
+  createInstance(type: string | Function, props: *) {
+    return createElement(type, props);
   },
 
-  appendInitialChild(parentInstance: GenericParentInstance, child: any) {
-    parentInstance.appendInitialChild(child);
+  createTextInstance(text: string) {
+    return createElement('TEXT_NODE', { children: text });
   },
 
-  insertInContainerBefore(
-    container: ContainerNode,
-    child: any,
-    childBefore: any
-  ) {
+  // Container handlers
+
+  insertInContainerBefore(container: Root, child: *, childBefore: *) {
     container.prependChild(child, childBefore);
   },
 
-  prepareUpdate(/* testElement, type, oldProps, newProps, hostContext */) {
-    // @TODO: change it later
+  appendChildToContainer(container: Root, child: *) {
+    container.appendChild(child);
+  },
+
+  removeChildFromContainer(container: Root, child: *) {
+    container.removeChild(child);
+  },
+
+  // Default handlers
+
+  appendInitialChild(parentInstance: Node, child: *) {
+    parentInstance.appendChild(child);
+  },
+
+  appendChild(parentInstance: Node, child: *) {
+    parentInstance.appendChild(child);
+  },
+
+  removeChild(parentInstance: Node, child: *) {
+    parentInstance.removeChild(child);
+  },
+
+  insertBefore(parentInstance: Node, child: *, childBefore: *) {
+    parentInstance.prependChild(child, childBefore);
+  },
+
+  // Update handlers
+
+  prepareUpdate() {
     return true;
+  },
+
+  commitUpdate(
+    instance: Node,
+    updatePayload: *,
+    type: string,
+    oldProps: *,
+    newProps: *
+  ) {
+    debugger // eslint-disable-line
+    if (!shallowEqual(oldProps, newProps) && instance instanceof Node) {
+      const { layoutProps, styleProps } = splitProps(newProps);
+      instance.setLayoutProps(layoutProps);
+      instance.setStyleProps(styleProps);
+    }
+  },
+
+  commitTextUpdate(textInstance: Text, oldText: string, newText: string) {
+    textInstance.setBody(newText);
   },
 
   resetAfterCommit() {
     // This hooks is called once per update, whereas commitUpdate is called multiple times, for
     // each updated node. So here is the best place to flush data to host environment, using
     // container instance.
-    containerInstance.draw();
+    target.clear();
+    const { renderElements } = containerInstance.calculateLayout();
+    const output = render(renderElements, target.getSize());
+    target.print(output);
   },
 
-  getPublicInstance(inst: any) {
+  // Misc
+
+  getPublicInstance(inst: *) {
     return inst;
   },
 
-  createTextInstance(text: string, rootContainerInstance: ContainerNode) {
-    return createElement(
-      'TEXT_NODE',
-      { children: text },
-      rootContainerInstance
-    );
-  },
-
-  mutation: {
-    appendChild(parentInstance: GenericParentInstance, child: any) {
-      parentInstance.appendChild(child);
-    },
-
-    removeChild(parentInstance: GenericParentInstance, child: any) {
-      parentInstance.removeChild(child);
-    },
-
-    appendChildToContainer(container: ContainerNode, child: any) {
-      container.appendChild(child);
-    },
-
-    removeChildFromContainer(container: ContainerNode, child: any) {
-      container.removeChild(child);
-    },
-
-    insertBefore(
-      parentInstance: GenericParentInstance,
-      child: any,
-      childBefore: any
-    ) {
-      parentInstance.prependChild(child, childBefore);
-    },
-
-    commitUpdate(
-      instance: any,
-      updatePayload: any,
-      type: string,
-      oldProps: any,
-      newProps: any
-    ) {
-      if (!shallowEqual(oldProps, newProps)) {
-        instance.props = newProps;
-      }
-    },
-
-    commitTextUpdate(textInstance: TextNode, oldText: string, newText: string) {
-      textInstance.replaceChildren(newText);
-    },
-
-    commitMount: NOOP,
-  },
-
+  commitMount: NOOP,
   getRootHostContext: RETURN_EMPTY_OBJ,
   getChildHostContext: RETURN_EMPTY_OBJ,
   prepareForCommit: NOOP,
@@ -120,4 +108,5 @@ export default (containerInstance: ContainerNode) => ({
   now: NOOP,
 
   useSyncScheduling: true,
+  supportsMutation: true,
 });

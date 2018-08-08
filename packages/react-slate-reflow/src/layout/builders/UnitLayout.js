@@ -45,7 +45,11 @@ export default class UnitLayout implements LayoutBuilder {
       return null;
     }
 
-    const value = this.parentLayout.dimensions.trimHorizontally(this.node.body);
+    const { textAlign } = this.parentLayout.node.styleProps || {};
+    const value = this.parentLayout.dimensions.trimHorizontally(
+      this.node.body,
+      textAlign
+    );
     return {
       body: {
         value,

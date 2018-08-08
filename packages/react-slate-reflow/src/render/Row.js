@@ -42,7 +42,7 @@ export default class Row {
     }
   }
 
-  setStyle({
+  applyStyle({
     start,
     length,
     style,

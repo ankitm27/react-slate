@@ -627,4 +627,42 @@ describe('calculateLayout integration suite', () => {
       });
     });
   });
+
+  describe('should align text', () => {
+    function getTree() {
+      const root = new Root({ width: 20, height: 10 });
+      const node = new Node();
+      const text = new Text();
+
+      text.setBody('Hello');
+      node.insertChild(text);
+      root.insertChild(node);
+
+      return root;
+    }
+
+    it('to the left', () => {
+      const root = getTree();
+      root.children[0].setLayoutProps({ width: 9 });
+      root.children[0].setStyleProps({ textAlign: 'left' });
+      const { renderElements } = root.calculateLayout();
+      expect(renderElements[0].body.value).toEqual('Hello');
+    });
+
+    it('to the right', () => {
+      const root = getTree();
+      root.children[0].setLayoutProps({ width: 9 });
+      root.children[0].setStyleProps({ textAlign: 'right' });
+      const { renderElements } = root.calculateLayout();
+      expect(renderElements[0].body.value).toEqual('    Hello');
+    });
+
+    it('center', () => {
+      const root = getTree();
+      root.children[0].setLayoutProps({ width: 9 });
+      root.children[0].setStyleProps({ textAlign: 'center' });
+      const { renderElements } = root.calculateLayout();
+      expect(renderElements[0].body.value).toEqual('  Hello  ');
+    });
+  });
 });

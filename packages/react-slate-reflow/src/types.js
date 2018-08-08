@@ -42,6 +42,7 @@ export type BodyStyle = {
   fontStyle?: string,
   textDecoration?: string,
   textTransform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase',
+  textAlign?: 'left' | 'center' | 'right',
 };
 
 export type StyleProps = BoxStyle & BodyStyle;

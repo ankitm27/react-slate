@@ -30,7 +30,7 @@ export default function render(
           style: normalizeStyle(element.body.style),
         });
       } else if (element.box) {
-        row.setStyle({
+        row.applyStyle({
           start: element.box.x,
           // $FlowFixMe
           length: element.box.width,

@@ -51,13 +51,34 @@ export default class Dimensions {
   }
 
   /**
-   * Trim value's length and increment used width.
+   * Trim value's length, increment used width and optionally align the value.
    */
-  trimHorizontally(value: string) {
+  trimHorizontally(value: string, align?: 'left' | 'center' | 'right') {
     if (this.constrains.forWidth) {
       const trimmedValue = value.slice(0, this.availableWidth);
-      this.usedWidth += trimmedValue.length;
-      return trimmedValue;
+      switch (align) {
+        case 'left':
+        default: {
+          this.usedWidth += trimmedValue.length;
+          return trimmedValue;
+        }
+        case 'center': {
+          const fillLength = this.availableWidth - trimmedValue.length;
+          const leftFillLength = Math.floor(fillLength / 2);
+          const rightFillLength = fillLength - leftFillLength;
+          const alignedValue = `${' '.repeat(
+            leftFillLength
+          )}${trimmedValue}${' '.repeat(rightFillLength)}`;
+          this.usedWidth = alignedValue.length;
+          return alignedValue;
+        }
+        case 'right': {
+          const fillLength = this.availableWidth - trimmedValue.length;
+          const alignedValue = `${' '.repeat(fillLength)}${trimmedValue}`;
+          this.usedWidth = alignedValue.length;
+          return alignedValue;
+        }
+      }
     }
     return value;
   }

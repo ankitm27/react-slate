@@ -76,7 +76,7 @@ describe('Row', () => {
       color: 'green',
     };
 
-    row.setStyle({
+    row.applyStyle({
       start: 1,
       length: 3,
       style,
@@ -95,7 +95,7 @@ describe('Row', () => {
       backgroundColor: 'blue',
     };
 
-    row.setStyle({
+    row.applyStyle({
       start: 3,
       length: 2,
       style: newStyle,
@@ -130,7 +130,7 @@ describe('Row', () => {
       },
     });
 
-    row.setStyle({
+    row.applyStyle({
       start: 0,
       length: 11,
       style: {
@@ -138,7 +138,7 @@ describe('Row', () => {
       },
     });
 
-    row.setStyle({
+    row.applyStyle({
       start: 4,
       length: 3,
       style: {

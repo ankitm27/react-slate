@@ -2,7 +2,6 @@
 
 import onExit from './utils/onExit';
 
-export { default as colors } from './constants/colors';
 export {
   default as renderToTerminal,
   unmountFromTerminal,

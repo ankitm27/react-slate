@@ -80,29 +80,29 @@ export default class App extends React.Component {
     }
   };
 
-  renderPreview(componentIndex) {
-    switch (components[componentIndex]) {
-      case 'Spinner':
-        return (
-          <View>
-            <Spinner
-              style={[
-                styles.spinner,
-                {
-                  color: 'red',
-                },
-              ]}
-            />
-            <Spinner style={styles.spinner} type="line" />
-            <Spinner type="dots11" />
-          </View>
-        );
-      case 'ProgressBar':
-        return <ProgressBar barWidth={16} value={this.state.progress} />;
-      default:
-        return null;
-    }
-  }
+  // renderPreview(componentIndex) {
+  //   switch (components[componentIndex]) {
+  //     case 'Spinner':
+  //       return (
+  //         <View>
+  //           <Spinner
+  //             style={[
+  //               styles.spinner,
+  //               {
+  //                 color: 'red',
+  //               },
+  //             ]}
+  //           />
+  //           <Spinner style={styles.spinner} type="line" />
+  //           <Spinner type="dots11" />
+  //         </View>
+  //       );
+  //     case 'ProgressBar':
+  //       return <ProgressBar barWidth={16} value={this.state.progress} />;
+  //     default:
+  //       return null;
+  //   }
+  // }
 
   render() {
     return (
@@ -128,12 +128,12 @@ export default class App extends React.Component {
             </View>
           ))}
         </View>
-        <View
+        {/* <View
           style={{
             ...styles.componentPreview,
             left: 30 + this.state.previewLeftOffset,
             top: 5 + this.state.previewTopOffset,
-            borderColor: this.state.isMoving ? 'ansi-magenta' : 'ansi-white',
+            borderColor: this.state.isMoving ? 'magenta' : 'white',
           }}
         >
           <View style={styles.componentPreviewLabel}>Preview:</View>
@@ -149,7 +149,7 @@ export default class App extends React.Component {
           <View>{'... you are ...'}</View>
           <View>{'... scrolling ...'}</View>
           <View>{'... awesome, right?'}</View>
-        </ScrollView>
+        </ScrollView> */}
         <View>{`Press "x" to ${
           this.state.scrollDisabled ? 'enable' : 'disable'
         } scroll`}</View>
@@ -164,7 +164,7 @@ const styles = {
     marginLeft: 2,
   },
   intro: {
-    color: 'ansi-green',
+    color: 'green',
     margin: '0 0 1 0',
   },
   menu: {
@@ -172,14 +172,14 @@ const styles = {
   },
   menuInfo: {
     marginBottom: 1,
-    color: 'ansi-gray',
+    color: 'gray',
   },
   menuItem: {
     width: 13,
     paddingLeft: 1,
   },
   menuItemActive: {
-    backgroundColor: 'ansi-blue',
+    backgroundColor: 'blue',
   },
   componentPreview: {
     borderStyle: 'solid',

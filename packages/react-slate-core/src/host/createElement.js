@@ -1,9 +1,9 @@
 /* @flow */
 
 import { Node, Text } from '@react-slate/reflow';
-import splitProps from './splitProps';
+import splitStyleProps from './splitStyleProps';
 
-export default function createElement(type: string | Function, props: *) {
+export default function createElement(type: string | Function, props: Object) {
   if (typeof type === 'function') {
     return type;
   }
@@ -11,7 +11,7 @@ export default function createElement(type: string | Function, props: *) {
   const COMPONENTS = {
     VIEW_NODE: () => {
       const instance = new Node();
-      const { layoutProps, styleProps } = splitProps(props);
+      const { layoutProps, styleProps } = splitStyleProps(props && props.style);
       instance.setLayoutProps(layoutProps);
       instance.setStyleProps(styleProps);
       return instance;

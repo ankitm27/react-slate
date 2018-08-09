@@ -11,8 +11,8 @@ describe('calculateLayout integration suite', () => {
         const text = new Text();
 
         text.setBody('Hello World');
-        node.insertChild(text);
-        root.insertChild(node);
+        node.appendChild(text);
+        root.appendChild(node);
 
         return root;
       }
@@ -72,9 +72,9 @@ describe('calculateLayout integration suite', () => {
         const text = new Text();
 
         text.setBody('Hello World');
-        innerNode.insertChild(text);
-        outerNode.insertChild(innerNode);
-        root.insertChild(outerNode);
+        innerNode.appendChild(text);
+        outerNode.appendChild(innerNode);
+        root.appendChild(outerNode);
 
         return root;
       }
@@ -141,9 +141,9 @@ describe('calculateLayout integration suite', () => {
 
         text1.setBody('Hello');
         text2.setBody(' World');
-        node.insertChild(text1);
-        node.insertChild(text2);
-        root.insertChild(node);
+        node.appendChild(text1);
+        node.appendChild(text2);
+        root.appendChild(node);
 
         return root;
       }
@@ -194,10 +194,10 @@ describe('calculateLayout integration suite', () => {
 
         text1.setBody('Hello');
         text2.setBody(' World');
-        innerNode.insertChild(text2);
-        node.insertChild(text1);
-        node.insertChild(innerNode);
-        root.insertChild(node);
+        innerNode.appendChild(text2);
+        node.appendChild(text1);
+        node.appendChild(innerNode);
+        root.appendChild(node);
 
         return root;
       }
@@ -247,10 +247,10 @@ describe('calculateLayout integration suite', () => {
 
         text.setBody('Hello');
         innerText.setBody('World');
-        innerNode.insertChild(innerText);
-        outerNode.insertChild(text);
-        outerNode.insertChild(innerNode);
-        root.insertChild(outerNode);
+        innerNode.appendChild(innerText);
+        outerNode.appendChild(text);
+        outerNode.appendChild(innerNode);
+        root.appendChild(outerNode);
 
         return root;
       }
@@ -309,10 +309,10 @@ describe('calculateLayout integration suite', () => {
 
         text.setBody('World');
         innerText.setBody('Hello');
-        innerNode.insertChild(innerText);
-        outerNode.insertChild(innerNode);
-        outerNode.insertChild(text);
-        root.insertChild(outerNode);
+        innerNode.appendChild(innerText);
+        outerNode.appendChild(innerNode);
+        outerNode.appendChild(text);
+        root.appendChild(outerNode);
 
         return root;
       }
@@ -380,11 +380,11 @@ describe('calculateLayout integration suite', () => {
 
         text1.setBody('Hello');
         text2.setBody('World');
-        innerNode1.insertChild(text1);
-        innerNode2.insertChild(text2);
-        outerNode.insertChild(innerNode1);
-        outerNode.insertChild(innerNode2);
-        root.insertChild(outerNode);
+        innerNode1.appendChild(text1);
+        innerNode2.appendChild(text2);
+        outerNode.appendChild(innerNode1);
+        outerNode.appendChild(innerNode2);
+        root.appendChild(outerNode);
 
         return root;
       }
@@ -453,11 +453,11 @@ describe('calculateLayout integration suite', () => {
         text1.setBody('Brave');
         text2.setBody('New');
         text3.setBody('World');
-        innerNode.insertChild(text2);
-        outerNode.insertChild(text1);
-        outerNode.insertChild(innerNode);
-        outerNode.insertChild(text3);
-        root.insertChild(outerNode);
+        innerNode.appendChild(text2);
+        outerNode.appendChild(text1);
+        outerNode.appendChild(innerNode);
+        outerNode.appendChild(text3);
+        root.appendChild(outerNode);
 
         return root;
       }
@@ -528,12 +528,12 @@ describe('calculateLayout integration suite', () => {
         text1.setBody('Brave');
         text2.setBody('New');
         text3.setBody('World');
-        innerNode1.insertChild(text1);
-        innerNode2.insertChild(text3);
-        outerNode.insertChild(innerNode1);
-        outerNode.insertChild(text2);
-        outerNode.insertChild(innerNode2);
-        root.insertChild(outerNode);
+        innerNode1.appendChild(text1);
+        innerNode2.appendChild(text3);
+        outerNode.appendChild(innerNode1);
+        outerNode.appendChild(text2);
+        outerNode.appendChild(innerNode2);
+        root.appendChild(outerNode);
 
         return root;
       }
@@ -588,7 +588,7 @@ describe('calculateLayout integration suite', () => {
 
         const node1 = new Node();
         const text1 = new Text();
-        node1.insertChild(text1);
+        node1.appendChild(text1);
         text1.setBody('Text1');
 
         const text2 = new Text();
@@ -599,14 +599,14 @@ describe('calculateLayout integration suite', () => {
         const text4 = new Text();
         text3.setBody('Text3');
         text4.setBody('Text4');
-        node2.insertChild(text3);
-        node2.insertChild(text4);
+        node2.appendChild(text3);
+        node2.appendChild(text4);
 
-        outerNode.insertChild(node1);
-        outerNode.insertChild(text2);
-        outerNode.insertChild(node2);
+        outerNode.appendChild(node1);
+        outerNode.appendChild(text2);
+        outerNode.appendChild(node2);
 
-        root.insertChild(outerNode);
+        root.appendChild(outerNode);
 
         return root;
       }
@@ -635,8 +635,8 @@ describe('calculateLayout integration suite', () => {
       const text = new Text();
 
       text.setBody('Hello');
-      node.insertChild(text);
-      root.insertChild(node);
+      node.appendChild(text);
+      root.appendChild(node);
 
       return root;
     }

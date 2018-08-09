@@ -53,6 +53,9 @@ export default function renderToTerminal(
         width,
       };
     },
+    raiseError(error: Error) {
+      throw error;
+    },
   };
 
   streamMap.set(stream, target);

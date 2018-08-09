@@ -8,7 +8,7 @@ import emptyObject from 'fbjs/lib/emptyObject';
 // $FlowFixMe
 import shallowEqual from 'fbjs/lib/shallowEqual';
 import createElement from './createElement';
-import splitProps from './splitProps';
+import splitStyleProps from './splitStyleProps';
 import type { Target } from '../types';
 
 const NOOP = () => {};
@@ -70,9 +70,10 @@ export default (containerInstance: Root, target: Target) => ({
     oldProps: *,
     newProps: *
   ) {
-    debugger // eslint-disable-line
+    // TODO: handle style props separately to avoid unnecessary rendering
+    // since style prop will always trigger new render.
     if (!shallowEqual(oldProps, newProps) && instance instanceof Node) {
-      const { layoutProps, styleProps } = splitProps(newProps);
+      const { layoutProps, styleProps } = splitStyleProps(newProps.style);
       instance.setLayoutProps(layoutProps);
       instance.setStyleProps(styleProps);
     }
@@ -86,10 +87,15 @@ export default (containerInstance: Root, target: Target) => ({
     // This hooks is called once per update, whereas commitUpdate is called multiple times, for
     // each updated node. So here is the best place to flush data to host environment, using
     // container instance.
-    target.clear();
-    const { renderElements } = containerInstance.calculateLayout();
-    const output = render(renderElements, target.getSize());
-    target.print(output);
+    try {
+      const { renderElements } = containerInstance.calculateLayout();
+      const output = render(renderElements, target.getSize());
+      target.setCursorPosition(0, 0);
+      target.clear();
+      target.print(output);
+    } catch (error) {
+      target.raiseError(error);
+    }
   },
 
   // Misc

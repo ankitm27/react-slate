@@ -15,19 +15,27 @@ export default function renderToString(
   callback: ?Function = null
 ) {
   let snapshot = '';
+  let hasScheduledNullRender = false;
+
   const target = {
     forceFullPrint: true,
     setCursorPosition: NOOP,
     clear: NOOP,
     print(data: string) {
-      snapshot += data;
-      render(null, target, callback);
+      if (!hasScheduledNullRender) {
+        snapshot += data;
+        hasScheduledNullRender = true;
+        render(null, target, callback);
+      }
     },
     getSize() {
       return {
         height,
         width,
       };
+    },
+    raiseError(error: Error) {
+      throw error;
     },
   };
 

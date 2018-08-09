@@ -3,7 +3,7 @@
 import React from 'react';
 import { View, renderToTerminal } from '../../';
 
-xdescribe('renderToTerminal', () => {
+describe('renderToTerminal', () => {
   it('should render hello world to mocked TTY stream', done => {
     let buffer = '';
     const ttyStream = (({

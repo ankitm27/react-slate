@@ -1,6 +1,6 @@
 /* @flow */
 
-import assert from 'assert';
+import Node from './Node';
 import type { Child, Traversable } from '../types';
 import calculateLayout from '../layout/calculateLayout';
 
@@ -17,42 +17,20 @@ export default class Root implements Traversable<Child> {
     this.size = size;
   }
 
-  prependChild(child: Child, childBefore: Child) {
-    // eslint-disable-next-line no-param-reassign
-    child.parent = this;
-    const index = this.children.indexOf(childBefore);
-    this.children.splice(index, 0, child);
+  findChild(child: Child) {
+    return Node.prototype.findChild.call(this, child);
   }
 
-  appendChild(child: Child) {
-    // eslint-disable-next-line no-param-reassign
-    child.parent = this;
-    this.children.push(child);
+  prependChild(child: Child, position?: number) {
+    return Node.prototype.prependChild.call(this, child, position);
   }
 
-  insertChild(child: Child, position?: number) {
-    const index =
-      typeof position !== 'undefined' ? position : this.children.length;
-
-    assert(index <= this.children.length + 1, 'child position out of bounds');
-
-    // eslint-disable-next-line no-param-reassign
-    child.parent = this;
-    this.children[index] = child;
+  appendChild(child: Child, position?: number) {
+    return Node.prototype.appendChild.call(this, child, position);
   }
 
   removeChild(child: Child) {
-    const index = this.children.indexOf(child);
-
-    assert(
-      index >= 0 && index < this.children.length,
-      `child position out of bounds: ${index}`
-    );
-
-    // eslint-disable-next-line no-param-reassign
-    child.parent = null;
-
-    this.children.splice(index, 1);
+    return Node.prototype.removeChild.call(this, child);
   }
 
   calculateLayout() {

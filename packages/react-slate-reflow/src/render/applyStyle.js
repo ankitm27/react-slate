@@ -2,6 +2,9 @@
 
 import chalk from 'chalk';
 
+chalk.enabled = process.env.CI ? true : chalk.enabled;
+chalk.level = process.env.CI ? 1 : chalk.level;
+
 function capitalize(text: string) {
   return `${text[0].toUpperCase()}${text.slice(1)}`;
 }

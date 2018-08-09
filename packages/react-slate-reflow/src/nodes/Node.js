@@ -39,31 +39,38 @@ export default class Node implements Traversable<Child> {
     // TODO: transform children tree to account for border
   }
 
-  prependChild(child: Child, childBefore: Child) {
-    // eslint-disable-next-line no-param-reassign
-    child.parent = this;
-    const index = this.children.indexOf(childBefore);
-    this.children.splice(index, 0, child);
+  findChild(child: Child) {
+    return this.children.indexOf(child);
   }
 
-  appendChild(child: Child) {
+  prependChild(child: Child, position?: number) {
     // eslint-disable-next-line no-param-reassign
     child.parent = this;
-    this.children.push(child);
+    if (position) {
+      assert(
+        position >= 0 && position <= this.children.length - 1,
+        `child position out of bounds: ${position}`
+      );
+
+      this.children.splice(position, 0, child);
+    } else {
+      this.children.unshift(child);
+    }
   }
 
-  insertChild(child: Child, position?: number) {
-    const index =
-      typeof position !== 'undefined' ? position : this.children.length;
-
-    assert(
-      index <= this.children.length + 1,
-      `child position out of bounds: ${index}`
-    );
-
+  appendChild(child: Child, position?: number) {
     // eslint-disable-next-line no-param-reassign
     child.parent = this;
-    this.children[index] = child;
+    if (position) {
+      assert(
+        position >= 0 && position <= this.children.length,
+        `child position out of bounds: ${position}`
+      );
+
+      this.children.splice(position + 1, 0, child);
+    } else {
+      this.children.push(child);
+    }
   }
 
   removeChild(child: Child) {

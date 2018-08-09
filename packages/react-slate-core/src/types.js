@@ -67,4 +67,5 @@ export type Target = {
   print(data: string): void,
   clear(): void,
   getSize(): { width: number, height: number },
+  raiseError(error: Error): void,
 };

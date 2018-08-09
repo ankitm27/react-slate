@@ -4,9 +4,9 @@ import { makeInlineStyle } from '../makeStyle';
 import Dimensions from '../Dimensions';
 import type ContainerLayout from './ContainerLayout';
 import type Text from '../../nodes/Text';
-import type { LayoutBuilder, Placement } from '../../types';
+import type { UnitLayoutBuilder, Placement } from '../../types';
 
-export default class UnitLayout implements LayoutBuilder {
+export default class UnitLayout implements UnitLayoutBuilder {
   parentLayout: ContainerLayout;
   node: Text;
   placement: Placement = { x: 0, y: 0 };

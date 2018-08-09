@@ -6,9 +6,14 @@ import Dimensions from '../Dimensions';
 import normalizeLayoutProps from '../normalizeLayoutProps';
 import { makeBlockStyle } from '../makeStyle';
 import type Node from '../../nodes/Node';
-import type { Bounds, LayoutBuilder, Placement } from '../../types';
+import type {
+  Bounds,
+  Placement,
+  ContainerLayoutBuilder,
+  UnitLayoutBuilder,
+} from '../../types';
 
-export default class ContainerLayout implements LayoutBuilder {
+export default class ContainerLayout implements ContainerLayoutBuilder {
   node: Node;
   parentLayout: ContainerLayout | RootLayout;
   children: Array<ContainerLayout | UnitLayout> = [];
@@ -26,7 +31,7 @@ export default class ContainerLayout implements LayoutBuilder {
     bottom: 0,
     left: 0,
   };
-  lastChildLayout: ?(ContainerLayout | UnitLayout) = null;
+  lastChildLayout: ?(ContainerLayoutBuilder | UnitLayoutBuilder) = null;
   isInline: boolean = false;
 
   constructor(node: Node, parentLayout: ContainerLayout | RootLayout) {
@@ -197,7 +202,7 @@ export default class ContainerLayout implements LayoutBuilder {
     };
   }
 
-  calculateDimensions(childLayout: ContainerLayout | UnitLayout) {
+  calculateDimensions(childLayout: ContainerLayoutBuilder | UnitLayoutBuilder) {
     const childDimensions = childLayout.getDimensionsWithBounds();
     const isChildLayoutInline =
       childLayout instanceof UnitLayout ||

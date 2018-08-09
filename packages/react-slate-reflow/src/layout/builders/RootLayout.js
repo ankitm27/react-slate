@@ -3,9 +3,14 @@
 import ContainerLayout from './ContainerLayout';
 import UnitLayout from './UnitLayout';
 import Dimensions from '../Dimensions';
-import type { Bounds, LayoutBuilder, Placement } from '../../types';
+import type {
+  Bounds,
+  Placement,
+  ContainerLayoutBuilder,
+  UnitLayoutBuilder,
+} from '../../types';
 
-export default class RootLayout implements LayoutBuilder {
+export default class RootLayout {
   children: Array<ContainerLayout | UnitLayout> = [];
   lastChildLayout: ?(ContainerLayout | UnitLayout) = null;
   placement: Placement = { x: 0, y: 0 };
@@ -17,15 +22,11 @@ export default class RootLayout implements LayoutBuilder {
     left: 0,
   };
 
-  calculatePlacement() {
-    // NOOP: placement will always be (0,0) for root.
-  }
-
   getDimensionsWithBounds() {
     return this.dimensions;
   }
 
-  calculateDimensions(childLayout: ContainerLayout | UnitLayout) {
+  calculateDimensions(childLayout: ContainerLayoutBuilder | UnitLayoutBuilder) {
     return ContainerLayout.prototype.calculateDimensions.call(
       this,
       childLayout

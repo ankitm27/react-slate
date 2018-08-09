@@ -72,12 +72,6 @@ export type RenderElement = {
   body?: Body,
 };
 
-export interface LayoutBuilder {
-  calculatePlacement(): void;
-  getDimensionsWithBounds(): Dimensions;
-  getJsonTree(): Object;
-}
-
 export type Placement = {
   x: number,
   y: number,
@@ -87,3 +81,26 @@ export type Dimensions = {
   width: number,
   height: number,
 };
+
+type JsonLayoutTree = {
+  type: string,
+  dimensions: Dimensions,
+  placement: Placement,
+  body?: string,
+  children?: JsonLayoutTree[],
+};
+
+export interface ContainerLayoutBuilder {
+  calculatePlacement(): void;
+  getDimensionsWithBounds(): Dimensions;
+  calculateDimensions(ContainerLayoutBuilder | UnitLayoutBuilder): void;
+  getJsonTree(): JsonLayoutTree;
+  shouldMakeRenderElement(): boolean;
+  makeRenderElement(): RenderElement;
+}
+export interface UnitLayoutBuilder {
+  calculatePlacement(): void;
+  getDimensionsWithBounds(): Dimensions;
+  getJsonTree(): JsonLayoutTree;
+  makeRenderElement(): RenderElement;
+}

@@ -1,10 +1,10 @@
 import React from 'react';
 import { View } from '@react-slate/core';
 import {
-  Spinner,
-  ProgressBar,
+  // Spinner,
+  // ProgressBar,
   KeyPress,
-  ScrollView,
+  // ScrollView,
 } from '@react-slate/components';
 
 const components = ['Spinner', 'ProgressBar'];

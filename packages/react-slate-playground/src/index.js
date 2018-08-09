@@ -9,12 +9,12 @@ import {
 import throttle from 'lodash.throttle';
 import App from './App';
 
-// overwriteConsole({
-//   outStream: path.join(__dirname, '../node_modules/.artifacts/stdout.log'),
-//   errStream: path.join(__dirname, '../node_modules/.artifacts/stderr.log'),
-// });
+overwriteConsole({
+  outStream: path.join(__dirname, '../node_modules/.artifacts/stdout.log'),
+  errStream: path.join(__dirname, '../node_modules/.artifacts/stderr.log'),
+});
 hideCursor(process.stdout);
-// clearScrollbackOnExit(process.stdout);
+clearScrollbackOnExit(process.stdout);
 
 renderToTerminal(<App />, process.stdout);
 

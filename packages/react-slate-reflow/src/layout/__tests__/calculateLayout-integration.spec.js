@@ -665,4 +665,28 @@ describe('calculateLayout integration suite', () => {
       expect(renderElements[0].body.value).toEqual('  Hello  ');
     });
   });
+
+  describe('with border', () => {
+    describe('for node(border) -> text', () => {
+      function getTree() {
+        const root = new Root({ width: 20, height: 10 });
+        const node = new Node();
+        const text = new Text();
+
+        text.setBody('Hello World');
+        node.appendChild(text);
+        node.setBorder({ thickness: 'single-line' });
+        root.appendChild(node);
+
+        return root;
+      }
+
+      it('without layout/style props', () => {
+        const root = getTree();
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
+    });
+  });
 });

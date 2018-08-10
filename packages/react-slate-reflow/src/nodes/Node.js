@@ -34,9 +34,6 @@ export default class Node implements Traversable<Child> {
 
   setBorder(borderProps: ?BorderProps) {
     this.borderProps = borderProps;
-    // $FlowFixMe
-    assert.fail('missing implementation');
-    // TODO: transform children tree to account for border
   }
 
   findChild(child: Child) {

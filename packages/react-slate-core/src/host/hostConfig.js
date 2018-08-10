@@ -73,9 +73,12 @@ export default (containerInstance: Root, target: Target) => ({
     // TODO: handle style props separately to avoid unnecessary rendering
     // since style prop will always trigger new render.
     if (!shallowEqual(oldProps, newProps) && instance instanceof Node) {
-      const { layoutProps, styleProps } = splitStyleProps(newProps.style);
+      const { layoutProps, styleProps, borderProps } = splitStyleProps(
+        newProps.style
+      );
       instance.setLayoutProps(layoutProps);
       instance.setStyleProps(styleProps);
+      instance.setBorder(borderProps);
     }
   },
 

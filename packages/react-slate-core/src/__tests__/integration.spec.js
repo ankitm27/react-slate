@@ -18,7 +18,7 @@ describe('in integration tests renderToString', () => {
     ).toMatchSnapshot();
   });
 
-  it('should apply backgroundColor whole content with fixed height', () => {
+  it('should apply backgroundColor to whole content with fixed height', () => {
     expect(
       renderToString(
         <View style={{ height: 4, backgroundColor: 'red' }}>Hello World</View>,

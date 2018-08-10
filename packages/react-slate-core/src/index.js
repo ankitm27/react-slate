@@ -18,8 +18,6 @@ export const Internal = {
 
 export type {
   Props,
-  LayoutProps,
-  AbsoluteProps,
   Style,
   // CustomRender,
   NodeStream,

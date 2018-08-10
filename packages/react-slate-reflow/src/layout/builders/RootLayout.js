@@ -3,6 +3,7 @@
 import ContainerLayout from './ContainerLayout';
 import UnitLayout from './UnitLayout';
 import Dimensions from '../Dimensions';
+import type BorderLayout from './BorderLayout';
 import type {
   Bounds,
   Placement,
@@ -11,7 +12,7 @@ import type {
 } from '../../types';
 
 export default class RootLayout {
-  children: Array<ContainerLayout | UnitLayout> = [];
+  children: Array<ContainerLayout | BorderLayout | UnitLayout> = [];
   lastChildLayout: ?(ContainerLayout | UnitLayout) = null;
   placement: Placement = { x: 0, y: 0 };
   dimensions = new Dimensions();

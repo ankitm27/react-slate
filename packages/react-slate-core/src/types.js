@@ -2,27 +2,6 @@
 
 export type Props = { [key: string]: any };
 
-export type LayoutProps = {
-  marginTop: number,
-  marginRight: number,
-  marginBottom: number,
-  marginLeft: number,
-  paddingTop: number,
-  paddingRight: number,
-  paddingBottom: number,
-  paddingLeft: number,
-  height: number,
-  width: number,
-  inline: boolean,
-};
-
-export type AbsoluteProps = {
-  fixed: boolean,
-  x: number,
-  y: number,
-  z: number,
-};
-
 type StyleObject =
   | boolean
   | ?{|
@@ -32,7 +11,7 @@ type StyleObject =
       fontStyle?: 'italic' | 'normal',
       textDecoration?: 'underline' | 'line-through' | 'normal',
       textTransform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase',
-      visibility?: 'visible' | 'hidden',
+      // visibility?: 'visible' | 'hidden',
       margin?: string,
       marginTop?: number,
       marginBottom?: number,
@@ -49,13 +28,14 @@ type StyleObject =
       border?: string,
       borderStyle?: 'none' | 'solid' | 'double',
       borderColor?: string,
+      borderBackgroundColor?: string,
       textAlign?: 'left' | 'center' | 'right',
       top?: number,
       left?: number,
       position?: 'relative' | 'fixed',
     |};
 
-export type Style = StyleObject | Array<StyleObject>;
+export type Style = StyleObject | Array<Style>;
 
 export type NodeStream = {
   write(data: string): void,

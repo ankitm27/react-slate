@@ -11,9 +11,12 @@ export default function createElement(type: string | Function, props: Object) {
   const COMPONENTS = {
     VIEW_NODE: () => {
       const instance = new Node();
-      const { layoutProps, styleProps } = splitStyleProps(props && props.style);
+      const { layoutProps, styleProps, borderProps } = splitStyleProps(
+        props && props.style
+      );
       instance.setLayoutProps(layoutProps);
       instance.setStyleProps(styleProps);
+      instance.setBorder(borderProps);
       return instance;
     },
     TEXT_NODE: () => {

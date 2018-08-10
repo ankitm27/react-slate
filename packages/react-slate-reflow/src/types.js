@@ -50,6 +50,7 @@ export type StyleProps = BoxStyle & BodyStyle;
 export type BorderProps = {
   thickness: 'single-line' | 'double-line',
   color?: string,
+  backgroundColor?: string,
 };
 
 export type Box = {
@@ -95,8 +96,8 @@ export interface ContainerLayoutBuilder {
   getDimensionsWithBounds(): Dimensions;
   calculateDimensions(ContainerLayoutBuilder | UnitLayoutBuilder): void;
   getJsonTree(): JsonLayoutTree;
-  shouldMakeRenderElement(): boolean;
-  makeRenderElement(): RenderElement;
+  shouldMakeRenderElements(): boolean;
+  makeRenderElements(): RenderElement[];
 }
 export interface UnitLayoutBuilder {
   calculatePlacement(): void;

@@ -6,6 +6,7 @@ import Dimensions from '../Dimensions';
 import normalizeLayoutProps from '../normalizeLayoutProps';
 import { makeBlockStyle } from '../makeStyle';
 import type Node from '../../nodes/Node';
+import type BorderLayout from './BorderLayout';
 import type {
   Bounds,
   Placement,
@@ -16,7 +17,7 @@ import type {
 export default class ContainerLayout implements ContainerLayoutBuilder {
   node: Node;
   parentLayout: ContainerLayout | RootLayout;
-  children: Array<ContainerLayout | UnitLayout> = [];
+  children: Array<ContainerLayout | BorderLayout | UnitLayout> = [];
   placement: Placement = { x: 0, y: 0 };
   dimensions = new Dimensions();
   insetBounds: Bounds = {
@@ -242,18 +243,20 @@ export default class ContainerLayout implements ContainerLayoutBuilder {
     }
   }
 
-  shouldMakeRenderElement() {
+  shouldMakeRenderElements() {
     return this.node.styleProps && this.node.styleProps.backgroundColor;
   }
 
-  makeRenderElement() {
-    return {
-      box: {
-        style: makeBlockStyle(this.node.styleProps),
-        ...this.placement,
-        ...this.getOwnDimensions(),
+  makeRenderElements() {
+    return [
+      {
+        box: {
+          style: makeBlockStyle(this.node.styleProps),
+          ...this.placement,
+          ...this.getOwnDimensions(),
+        },
       },
-    };
+    ];
   }
 
   getJsonTree() {
@@ -261,8 +264,9 @@ export default class ContainerLayout implements ContainerLayoutBuilder {
       type: `${ContainerLayout.name}${this.isInline ? '(inline)' : ''}`,
       dimensions: this.getOwnDimensions(),
       placement: this.placement,
-      children: this.children.map((child: ContainerLayout | UnitLayout) =>
-        child.getJsonTree()
+      children: this.children.map(
+        (child: ContainerLayout | BorderLayout | UnitLayout) =>
+          child.getJsonTree()
       ),
     };
   }

@@ -1,6 +1,7 @@
 /* @flow */
 
-import type { StyleProps, BodyStyle } from '../types';
+import normalize from './normalize';
+import type { StyleProps, BodyStyle, BorderProps } from '../types';
 
 export function makeBlockStyle(styleProps: ?StyleProps) {
   return styleProps
@@ -8,6 +9,17 @@ export function makeBlockStyle(styleProps: ?StyleProps) {
         backgroundColor: styleProps.backgroundColor,
       }
     : null;
+}
+
+export function makeBorderStyle(
+  borderProps: ?BorderProps,
+  styleProps: ?StyleProps
+) {
+  return normalize({
+    backgroundColor:
+      (borderProps || {}).backgroundColor || (styleProps || {}).backgroundColor,
+    color: (borderProps || {}).color || (styleProps || {}).color,
+  });
 }
 
 export function makeInlineStyle(collectedStyleProps: BodyStyle[]) {

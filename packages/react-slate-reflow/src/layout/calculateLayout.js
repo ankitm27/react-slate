@@ -7,6 +7,7 @@ import Node from '../nodes/Node';
 import Text from '../nodes/Text';
 import RootLayout from './builders/RootLayout';
 import ContainerLayout from './builders/ContainerLayout';
+import BorderLayout from './builders/BorderLayout';
 import UnitLayout from './builders/UnitLayout';
 
 import type { RenderElement } from '../types';
@@ -24,11 +25,13 @@ export default function calculateLayout(
     assert(node !== parentLayout.node, 'Cannot use the same node as a child');
 
     if (node instanceof Node) {
-      const currentLayout = new ContainerLayout(node, parentLayout);
+      const currentLayout = node.borderProps
+        ? new BorderLayout(node, parentLayout)
+        : new ContainerLayout(node, parentLayout);
       currentLayout.calculatePlacement();
 
       let boxRenderElementIndex = -1;
-      if (currentLayout.shouldMakeRenderElement()) {
+      if (currentLayout.shouldMakeRenderElements()) {
         // $FlowFixMe
         renderElements.push(null);
         boxRenderElementIndex = renderElements.length - 1;
@@ -44,9 +47,11 @@ export default function calculateLayout(
       layoutState.pop();
 
       if (boxRenderElementIndex > -1) {
-        renderElements[
-          boxRenderElementIndex
-        ] = currentLayout.makeRenderElement();
+        renderElements.splice(
+          boxRenderElementIndex,
+          1,
+          ...currentLayout.makeRenderElements()
+        );
       }
 
       return currentLayout;

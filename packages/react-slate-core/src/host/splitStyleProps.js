@@ -28,6 +28,15 @@ function splitOffsets(name: string, value: string) {
   return output;
 }
 
+function splitBorder(value: string) {
+  const [thickness, color, backgroundColor] = value.split(' ');
+  return {
+    thickness,
+    color,
+    backgroundColor,
+  };
+}
+
 function normalize(value: { [key: string]: * }, alternativeValue = null) {
   const keys = Object.keys(value);
   return keys.length
@@ -104,7 +113,12 @@ export default function splitStyleProps(
     textDecoration,
     textTransform,
     textAlign,
+    border,
+    borderStyle,
+    borderColor,
+    borderBackgroundColor,
   } = props;
+  const borderProps = splitBorder(border || '');
 
   return {
     layoutProps: normalize({
@@ -133,6 +147,14 @@ export default function splitStyleProps(
       textTransform,
       textAlign,
     }),
-    borderProps: null,
+    borderProps:
+      borderStyle && borderProps.thickness
+        ? normalize({
+            thickness: borderStyle || borderProps.thickness,
+            color: borderColor || borderProps.color,
+            backgroundColor:
+              borderBackgroundColor || borderProps.backgroundColor,
+          })
+        : null,
   };
 }

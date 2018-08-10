@@ -6,13 +6,18 @@ import Dimensions from '../Dimensions';
 import normalizeLayoutProps from '../normalizeLayoutProps';
 import { makeBlockStyle } from '../makeStyle';
 import type Node from '../../nodes/Node';
-import type BorderLayout from './BorderLayout';
+import BorderLayout from './BorderLayout';
 import type {
   Bounds,
   Placement,
   ContainerLayoutBuilder,
   UnitLayoutBuilder,
 } from '../../types';
+
+function isLayoutInline(layout) {
+  // $FlowFixMe
+  return layout instanceof UnitLayout || (layout && layout.isInline);
+}
 
 export default class ContainerLayout implements ContainerLayoutBuilder {
   node: Node;
@@ -137,10 +142,9 @@ export default class ContainerLayout implements ContainerLayoutBuilder {
   }
 
   calculatePlacement() {
-    const isPreviousLayoutInline =
-      this.parentLayout.lastChildLayout instanceof UnitLayout ||
-      (this.parentLayout.lastChildLayout instanceof ContainerLayout &&
-        this.parentLayout.lastChildLayout.isInline);
+    const isPreviousLayoutInline = isLayoutInline(
+      this.parentLayout.lastChildLayout
+    );
 
     if (!this.isInline || !isPreviousLayoutInline) {
       // Block placement
@@ -205,13 +209,8 @@ export default class ContainerLayout implements ContainerLayoutBuilder {
 
   calculateDimensions(childLayout: ContainerLayoutBuilder | UnitLayoutBuilder) {
     const childDimensions = childLayout.getDimensionsWithBounds();
-    const isChildLayoutInline =
-      childLayout instanceof UnitLayout ||
-      (childLayout instanceof ContainerLayout && childLayout.isInline);
-    const isLastChildElementInline =
-      this.lastChildLayout instanceof UnitLayout ||
-      (this.lastChildLayout instanceof ContainerLayout &&
-        this.lastChildLayout.isInline);
+    const isChildLayoutInline = isLayoutInline(childLayout);
+    const isLastChildElementInline = isLayoutInline(this.lastChildLayout);
 
     if (!this.lastChildLayout) {
       // First child in this parent layout.
@@ -236,7 +235,8 @@ export default class ContainerLayout implements ContainerLayoutBuilder {
 
     // NOTE: add comment
     if (
-      childLayout instanceof ContainerLayout &&
+      (childLayout instanceof ContainerLayout ||
+        childLayout instanceof BorderLayout) &&
       this.dimensions.constrains.forHeight
     ) {
       this.dimensions.usedHeight += childLayout.dimensions.finalHeight;

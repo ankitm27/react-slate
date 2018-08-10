@@ -3449,6 +3449,125 @@ Array [
 ]
 `;
 
+exports[`calculateLayout integration suite with border for node -> [text, node(border,inline) -> text without layout/style props 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "body": "Hmm",
+          "dimensions": Object {
+            "height": 1,
+            "width": 3,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 0,
+          },
+          "type": "UnitLayout",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "body": "Hello World",
+              "dimensions": Object {
+                "height": 1,
+                "width": 11,
+              },
+              "placement": Object {
+                "x": 4,
+                "y": 1,
+              },
+              "type": "UnitLayout",
+            },
+          ],
+          "dimensions": Object {
+            "height": 3,
+            "width": 13,
+          },
+          "placement": Object {
+            "x": 3,
+            "y": 0,
+          },
+          "type": "BorderLayout(inline)",
+        },
+      ],
+      "dimensions": Object {
+        "height": 3,
+        "width": 16,
+      },
+      "placement": Object {
+        "x": 0,
+        "y": 0,
+      },
+      "type": "ContainerLayout",
+    },
+  ],
+  "dimensions": Object {
+    "height": 3,
+    "width": 16,
+  },
+  "placement": Object {
+    "x": 0,
+    "y": 0,
+  },
+  "type": "RootLayout",
+}
+`;
+
+exports[`calculateLayout integration suite with border for node -> [text, node(border,inline) -> text without layout/style props 2`] = `
+Array [
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Hmm",
+      "x": 0,
+      "y": 0,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "┌───────────┐",
+      "x": 3,
+      "y": 0,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "│",
+      "x": 3,
+      "y": 1,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "│",
+      "x": 15,
+      "y": 1,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "└───────────┘",
+      "x": 3,
+      "y": 2,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Hello World",
+      "x": 4,
+      "y": 1,
+    },
+  },
+]
+`;
+
 exports[`calculateLayout integration suite with border for node(border) -> text without layout/style props 1`] = `
 Object {
   "children": Array [

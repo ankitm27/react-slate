@@ -688,5 +688,33 @@ describe('calculateLayout integration suite', () => {
         expect(renderElements).toMatchSnapshot();
       });
     });
+
+    describe('for node -> [text, node(border,inline) -> text', () => {
+      function getTree() {
+        const root = new Root({ width: 20, height: 10 });
+        const node1 = new Node();
+        const node2 = new Node();
+        const text1 = new Text();
+        const text2 = new Text();
+
+        text1.setBody('Hmm');
+        text2.setBody('Hello World');
+        node2.appendChild(text2);
+        node2.setLayoutProps({ display: 'inline' });
+        node2.setBorder({ thickness: 'single-line' });
+        node1.appendChild(text1);
+        node1.appendChild(node2);
+        root.appendChild(node1);
+
+        return root;
+      }
+
+      it('without layout/style props', () => {
+        const root = getTree();
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
+    });
   });
 });

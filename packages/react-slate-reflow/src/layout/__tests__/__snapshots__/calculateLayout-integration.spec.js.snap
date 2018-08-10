@@ -3495,7 +3495,7 @@ Array [
   Object {
     "body": Object {
       "style": null,
-      "value": "+-----------+",
+      "value": "┌───────────┐",
       "x": 0,
       "y": 0,
     },
@@ -3503,7 +3503,7 @@ Array [
   Object {
     "body": Object {
       "style": null,
-      "value": "|",
+      "value": "│",
       "x": 0,
       "y": 1,
     },
@@ -3511,7 +3511,7 @@ Array [
   Object {
     "body": Object {
       "style": null,
-      "value": "|",
+      "value": "│",
       "x": 12,
       "y": 1,
     },
@@ -3519,7 +3519,7 @@ Array [
   Object {
     "body": Object {
       "style": null,
-      "value": "+-----------+",
+      "value": "└───────────┘",
       "x": 0,
       "y": 2,
     },

@@ -7,7 +7,7 @@ import type Node from '../../nodes/Node';
 import type { ContainerLayoutBuilder, UnitLayoutBuilder } from '../../types';
 
 const BORDER_CHARS = {
-  solid: {
+  'single-line': {
     top: '─',
     bottom: '─',
     left: '│',
@@ -17,7 +17,7 @@ const BORDER_CHARS = {
     bottomLeft: '└',
     bottomRight: '┘',
   },
-  double: {
+  'double-line': {
     top: '═',
     bottom: '═',
     left: '║',
@@ -107,11 +107,16 @@ export default class BorderLayout implements ContainerLayoutBuilder {
       this.backingLayout.node.borderProps,
       this.backingLayout.node.styleProps
     );
+    const borderChars =
+      // $FlowFixMe
+      BORDER_CHARS[this.backingLayout.node.borderProps.thickness];
     return [
       ...elementsFromBackingLayout,
       {
         body: {
-          value: `+${'-'.repeat(width)}+`,
+          value: `${borderChars.topLeft}${borderChars.top.repeat(width)}${
+            borderChars.topRight
+          }`,
           x,
           y,
           style,
@@ -119,7 +124,7 @@ export default class BorderLayout implements ContainerLayoutBuilder {
       },
       ...new Array(height).fill(null).map((e, index) => ({
         body: {
-          value: '|',
+          value: borderChars.left,
           x,
           y: y + index + 1,
           style,
@@ -127,7 +132,7 @@ export default class BorderLayout implements ContainerLayoutBuilder {
       })),
       ...new Array(height).fill(null).map((e, index) => ({
         body: {
-          value: '|',
+          value: borderChars.right,
           x: x + width + 1,
           y: y + index + 1,
           style,
@@ -135,7 +140,9 @@ export default class BorderLayout implements ContainerLayoutBuilder {
       })),
       {
         body: {
-          value: `+${'-'.repeat(width)}+`,
+          value: `${borderChars.bottomLeft}${borderChars.bottom.repeat(width)}${
+            borderChars.bottomRight
+          }`,
           x,
           y: y + height + 1,
           style,

@@ -22,19 +22,50 @@ function splitOffsets(name: string, value: string) {
     // eslint-disable-next-line no-multi-assign
     output[`${name}Left`] = output[`${name}Right`] = output[`${name}Bottom`] =
       output[`${name}Top`];
-  } else if (offsets.length === 0) {
-    return null;
   }
+
   return output;
 }
 
-function splitBorder(value: string) {
-  const [thickness, color, backgroundColor] = value.split(' ');
-  return {
-    thickness,
-    color,
-    backgroundColor,
+function getBorderProps({
+  border,
+  borderStyle,
+  borderColor,
+  borderBackgroundColor,
+}) {
+  const [, style, color, backgroundColor] =
+    /(solid|double) (rgb\(\d+,\s?\d+,\s?\d+\)|\w+|#[0-9abcdef]+) ?(rgb\(\d+,\s?\d+,\s?\d+\)|\w+|#[0-9abcdef]+)?/.exec(
+      border
+    ) || [];
+  const finalProps = {
+    style: borderStyle || style,
+    color: borderColor || color,
+    backgroundColor: borderBackgroundColor || backgroundColor,
   };
+
+  if (finalProps.style !== 'solid' && finalProps.style !== 'double') {
+    return null;
+  }
+
+  let thickness;
+  switch (finalProps.style) {
+    case 'solid': {
+      thickness = 'single-line';
+      break;
+    }
+    case 'double': {
+      thickness = 'double-line';
+      break;
+    }
+    default:
+      break;
+  }
+
+  return normalize({
+    thickness,
+    color: finalProps.color,
+    backgroundColor: finalProps.backgroundColor,
+  });
 }
 
 function normalize(value: { [key: string]: * }, alternativeValue = null) {
@@ -118,7 +149,6 @@ export default function splitStyleProps(
     borderColor,
     borderBackgroundColor,
   } = props;
-  const borderProps = splitBorder(border || '');
 
   return {
     layoutProps: normalize({
@@ -147,14 +177,11 @@ export default function splitStyleProps(
       textTransform,
       textAlign,
     }),
-    borderProps:
-      borderStyle && borderProps.thickness
-        ? normalize({
-            thickness: borderStyle || borderProps.thickness,
-            color: borderColor || borderProps.color,
-            backgroundColor:
-              borderBackgroundColor || borderProps.backgroundColor,
-          })
-        : null,
+    borderProps: getBorderProps({
+      border,
+      borderStyle,
+      borderColor,
+      borderBackgroundColor,
+    }),
   };
 }

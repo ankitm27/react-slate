@@ -6,6 +6,29 @@ import { makeBorderStyle } from '../makeStyle';
 import type Node from '../../nodes/Node';
 import type { ContainerLayoutBuilder, UnitLayoutBuilder } from '../../types';
 
+const BORDER_CHARS = {
+  solid: {
+    top: '─',
+    bottom: '─',
+    left: '│',
+    right: '│',
+    topLeft: '┌',
+    topRight: '┐',
+    bottomLeft: '└',
+    bottomRight: '┘',
+  },
+  double: {
+    top: '═',
+    bottom: '═',
+    left: '║',
+    right: '║',
+    topLeft: '╔',
+    topRight: '╗',
+    bottomLeft: '╚',
+    bottomRight: '╝',
+  },
+};
+
 export default class BorderLayout implements ContainerLayoutBuilder {
   backingLayout: ContainerLayout;
 

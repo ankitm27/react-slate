@@ -7,6 +7,7 @@ import type Text from '../../nodes/Text';
 import type { UnitLayoutBuilder, Placement } from '../../types';
 
 export default class UnitLayout implements UnitLayoutBuilder {
+  isInline: boolean = true;
   parentLayout: ContainerLayout;
   node: Text;
   placement: Placement = { x: 0, y: 0 };

@@ -15,8 +15,7 @@ import type {
 } from '../../types';
 
 function isLayoutInline(layout) {
-  // $FlowFixMe
-  return layout instanceof UnitLayout || (layout && layout.isInline);
+  return layout && layout.isInline;
 }
 
 export default class ContainerLayout implements ContainerLayoutBuilder {

@@ -92,6 +92,7 @@ type JsonLayoutTree = {
 };
 
 export interface ContainerLayoutBuilder {
+  +isInline: boolean;
   calculatePlacement(): void;
   getDimensionsWithBounds(): Dimensions;
   calculateDimensions(ContainerLayoutBuilder | UnitLayoutBuilder): void;
@@ -100,6 +101,7 @@ export interface ContainerLayoutBuilder {
   makeRenderElements(): RenderElement[];
 }
 export interface UnitLayoutBuilder {
+  +isInline: boolean;
   calculatePlacement(): void;
   getDimensionsWithBounds(): Dimensions;
   getJsonTree(): JsonLayoutTree;

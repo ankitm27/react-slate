@@ -687,6 +687,14 @@ describe('calculateLayout integration suite', () => {
         expect(layoutTree.getJsonTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
+
+      it('with width and heigh constrains', () => {
+        const root = getTree();
+        root.children[0].setLayoutProps({ width: 15, height: 3 });
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
     });
 
     describe('for node -> [text, node(border,inline) -> text', () => {

@@ -2,7 +2,7 @@
 
 /* eslint-disable no-param-reassign */
 
-import { typeof Root, typeof Text, Node, render } from '@react-slate/reflow';
+import { typeof Root, typeof Text, View, render } from '@react-slate/reflow';
 // $FlowFixMe
 import emptyObject from 'fbjs/lib/emptyObject';
 // $FlowFixMe
@@ -41,19 +41,19 @@ export default (containerInstance: Root, target: Target) => ({
 
   // Default handlers
 
-  appendInitialChild(parentInstance: Node, child: *) {
+  appendInitialChild(parentInstance: View, child: *) {
     parentInstance.appendChild(child);
   },
 
-  appendChild(parentInstance: Node, child: *) {
+  appendChild(parentInstance: View, child: *) {
     parentInstance.appendChild(child);
   },
 
-  removeChild(parentInstance: Node, child: *) {
+  removeChild(parentInstance: View, child: *) {
     parentInstance.removeChild(child);
   },
 
-  insertBefore(parentInstance: Node, child: *, childBefore: *) {
+  insertBefore(parentInstance: View, child: *, childBefore: *) {
     parentInstance.prependChild(child, childBefore);
   },
 
@@ -64,7 +64,7 @@ export default (containerInstance: Root, target: Target) => ({
   },
 
   commitUpdate(
-    instance: Node,
+    instance: View,
     updatePayload: *,
     type: string,
     oldProps: *,
@@ -72,7 +72,7 @@ export default (containerInstance: Root, target: Target) => ({
   ) {
     // TODO: handle style props separately to avoid unnecessary rendering
     // since style prop will always trigger new render.
-    if (!shallowEqual(oldProps, newProps) && instance instanceof Node) {
+    if (!shallowEqual(oldProps, newProps) && instance instanceof View) {
       const { layoutProps, styleProps, borderProps } = splitStyleProps(
         newProps.style
       );

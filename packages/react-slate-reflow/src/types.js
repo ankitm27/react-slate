@@ -1,15 +1,15 @@
 /* @flow */
 
 import type Text from './nodes/Text';
-import type Node from './nodes/Node';
+import type View from './nodes/View';
 import type Root from './nodes/Root';
 
 export interface Traversable<T> {
   children: Array<Traversable<T>>;
 }
 
-export type Child = Node | Text;
-export type Parent = Root | Node;
+export type Child = View | Text;
+export type Parent = Root | View;
 
 export type LayoutProps = {
   marginLeft?: number,

@@ -1,18 +1,18 @@
 import Root from '../../nodes/Root';
-import Node from '../../nodes/Node';
+import View from '../../nodes/View';
 import Text from '../../nodes/Text';
 
 describe('calculateLayout integration suite', () => {
   describe('should calculate layout', () => {
-    describe('for node -> text', () => {
+    describe('for view -> text', () => {
       function getTree() {
         const root = new Root({ width: 20, height: 10 });
-        const node = new Node();
+        const view = new View();
         const text = new Text();
 
         text.setBody('Hello World');
-        node.appendChild(text);
-        root.appendChild(node);
+        view.appendChild(text);
+        root.appendChild(view);
 
         return root;
       }
@@ -64,17 +64,17 @@ describe('calculateLayout integration suite', () => {
       });
     });
 
-    describe('for node -> node -> text', () => {
+    describe('for view -> view -> text', () => {
       function getTree() {
         const root = new Root({ width: 20, height: 10 });
-        const outerNode = new Node();
-        const innerNode = new Node();
+        const outerView = new View();
+        const innerView = new View();
         const text = new Text();
 
         text.setBody('Hello World');
-        innerNode.appendChild(text);
-        outerNode.appendChild(innerNode);
-        root.appendChild(outerNode);
+        innerView.appendChild(text);
+        outerView.appendChild(innerView);
+        root.appendChild(outerView);
 
         return root;
       }
@@ -132,18 +132,18 @@ describe('calculateLayout integration suite', () => {
       });
     });
 
-    describe('for node -> [text, text]', () => {
+    describe('for view -> [text, text]', () => {
       function getTree() {
         const root = new Root({ width: 20, height: 10 });
-        const node = new Node();
+        const view = new View();
         const text1 = new Text();
         const text2 = new Text();
 
         text1.setBody('Hello');
         text2.setBody(' World');
-        node.appendChild(text1);
-        node.appendChild(text2);
-        root.appendChild(node);
+        view.appendChild(text1);
+        view.appendChild(text2);
+        root.appendChild(view);
 
         return root;
       }
@@ -180,24 +180,24 @@ describe('calculateLayout integration suite', () => {
       });
     });
 
-    describe('for node -> [text, node(inline) -> text]', () => {
+    describe('for view -> [text, view(inline) -> text]', () => {
       function getTree() {
         const root = new Root({ width: 20, height: 10 });
-        const node = new Node();
+        const view = new View();
         const text1 = new Text();
-        const innerNode = new Node();
+        const innerView = new View();
         const text2 = new Text();
 
-        innerNode.setLayoutProps({
+        innerView.setLayoutProps({
           display: 'inline',
         });
 
         text1.setBody('Hello');
         text2.setBody(' World');
-        innerNode.appendChild(text2);
-        node.appendChild(text1);
-        node.appendChild(innerNode);
-        root.appendChild(node);
+        innerView.appendChild(text2);
+        view.appendChild(text1);
+        view.appendChild(innerView);
+        root.appendChild(view);
 
         return root;
       }
@@ -237,20 +237,20 @@ describe('calculateLayout integration suite', () => {
       });
     });
 
-    describe('for node -> [text, node -> text]', () => {
+    describe('for view -> [text, view -> text]', () => {
       function getTree() {
         const root = new Root({ width: 20, height: 10 });
-        const outerNode = new Node();
+        const outerView = new View();
         const text = new Text();
-        const innerNode = new Node();
+        const innerView = new View();
         const innerText = new Text();
 
         text.setBody('Hello');
         innerText.setBody('World');
-        innerNode.appendChild(innerText);
-        outerNode.appendChild(text);
-        outerNode.appendChild(innerNode);
-        root.appendChild(outerNode);
+        innerView.appendChild(innerText);
+        outerView.appendChild(text);
+        outerView.appendChild(innerView);
+        root.appendChild(outerView);
 
         return root;
       }
@@ -299,20 +299,20 @@ describe('calculateLayout integration suite', () => {
       });
     });
 
-    describe('for node -> [node -> text, text]', () => {
+    describe('for view -> [view -> text, text]', () => {
       function getTree() {
         const root = new Root({ width: 20, height: 10 });
-        const outerNode = new Node();
+        const outerView = new View();
         const text = new Text();
-        const innerNode = new Node();
+        const innerView = new View();
         const innerText = new Text();
 
         text.setBody('World');
         innerText.setBody('Hello');
-        innerNode.appendChild(innerText);
-        outerNode.appendChild(innerNode);
-        outerNode.appendChild(text);
-        root.appendChild(outerNode);
+        innerView.appendChild(innerText);
+        outerView.appendChild(innerView);
+        outerView.appendChild(text);
+        root.appendChild(outerView);
 
         return root;
       }
@@ -369,22 +369,22 @@ describe('calculateLayout integration suite', () => {
       });
     });
 
-    describe('for node -> [node -> text, node -> text]', () => {
+    describe('for view -> [view -> text, view -> text]', () => {
       function getTree() {
         const root = new Root({ width: 20, height: 10 });
-        const outerNode = new Node();
-        const innerNode1 = new Node();
+        const outerView = new View();
+        const innerView1 = new View();
         const text1 = new Text();
-        const innerNode2 = new Node();
+        const innerView2 = new View();
         const text2 = new Text();
 
         text1.setBody('Hello');
         text2.setBody('World');
-        innerNode1.appendChild(text1);
-        innerNode2.appendChild(text2);
-        outerNode.appendChild(innerNode1);
-        outerNode.appendChild(innerNode2);
-        root.appendChild(outerNode);
+        innerView1.appendChild(text1);
+        innerView2.appendChild(text2);
+        outerView.appendChild(innerView1);
+        outerView.appendChild(innerView2);
+        root.appendChild(outerView);
 
         return root;
       }
@@ -441,11 +441,11 @@ describe('calculateLayout integration suite', () => {
       });
     });
 
-    describe('for node -> [text, node -> text, text]', () => {
+    describe('for view -> [text, view -> text, text]', () => {
       function getTree() {
         const root = new Root({ width: 20, height: 10 });
-        const outerNode = new Node();
-        const innerNode = new Node();
+        const outerView = new View();
+        const innerView = new View();
         const text1 = new Text();
         const text2 = new Text();
         const text3 = new Text();
@@ -453,11 +453,11 @@ describe('calculateLayout integration suite', () => {
         text1.setBody('Brave');
         text2.setBody('New');
         text3.setBody('World');
-        innerNode.appendChild(text2);
-        outerNode.appendChild(text1);
-        outerNode.appendChild(innerNode);
-        outerNode.appendChild(text3);
-        root.appendChild(outerNode);
+        innerView.appendChild(text2);
+        outerView.appendChild(text1);
+        outerView.appendChild(innerView);
+        outerView.appendChild(text3);
+        root.appendChild(outerView);
 
         return root;
       }
@@ -515,12 +515,12 @@ describe('calculateLayout integration suite', () => {
       });
     });
 
-    describe('for node -> [node -> text, text, node -> text]', () => {
+    describe('for view -> [view -> text, text, view -> text]', () => {
       function getTree() {
         const root = new Root({ width: 20, height: 10 });
-        const outerNode = new Node();
-        const innerNode1 = new Node();
-        const innerNode2 = new Node();
+        const outerView = new View();
+        const innerView1 = new View();
+        const innerView2 = new View();
         const text1 = new Text();
         const text2 = new Text();
         const text3 = new Text();
@@ -528,12 +528,12 @@ describe('calculateLayout integration suite', () => {
         text1.setBody('Brave');
         text2.setBody('New');
         text3.setBody('World');
-        innerNode1.appendChild(text1);
-        innerNode2.appendChild(text3);
-        outerNode.appendChild(innerNode1);
-        outerNode.appendChild(text2);
-        outerNode.appendChild(innerNode2);
-        root.appendChild(outerNode);
+        innerView1.appendChild(text1);
+        innerView2.appendChild(text3);
+        outerView.appendChild(innerView1);
+        outerView.appendChild(text2);
+        outerView.appendChild(innerView2);
+        root.appendChild(outerView);
 
         return root;
       }
@@ -581,32 +581,32 @@ describe('calculateLayout integration suite', () => {
       });
     });
 
-    describe('for node -> [node -> text, text, node -> [text, text]]', () => {
+    describe('for view -> [view -> text, text, view -> [text, text]]', () => {
       function getTree() {
         const root = new Root({ width: 20, height: 10 });
-        const outerNode = new Node();
+        const outerView = new View();
 
-        const node1 = new Node();
+        const view1 = new View();
         const text1 = new Text();
-        node1.appendChild(text1);
+        view1.appendChild(text1);
         text1.setBody('Text1');
 
         const text2 = new Text();
         text2.setBody('Text2');
 
-        const node2 = new Node();
+        const view2 = new View();
         const text3 = new Text();
         const text4 = new Text();
         text3.setBody('Text3');
         text4.setBody('Text4');
-        node2.appendChild(text3);
-        node2.appendChild(text4);
+        view2.appendChild(text3);
+        view2.appendChild(text4);
 
-        outerNode.appendChild(node1);
-        outerNode.appendChild(text2);
-        outerNode.appendChild(node2);
+        outerView.appendChild(view1);
+        outerView.appendChild(text2);
+        outerView.appendChild(view2);
 
-        root.appendChild(outerNode);
+        root.appendChild(outerView);
 
         return root;
       }
@@ -631,12 +631,12 @@ describe('calculateLayout integration suite', () => {
   describe('should align text', () => {
     function getTree() {
       const root = new Root({ width: 20, height: 10 });
-      const node = new Node();
+      const view = new View();
       const text = new Text();
 
       text.setBody('Hello');
-      node.appendChild(text);
-      root.appendChild(node);
+      view.appendChild(text);
+      root.appendChild(view);
 
       return root;
     }
@@ -667,16 +667,16 @@ describe('calculateLayout integration suite', () => {
   });
 
   describe('with border', () => {
-    describe('for node(border) -> text', () => {
+    describe('for view(border) -> text', () => {
       function getTree() {
         const root = new Root({ width: 20, height: 10 });
-        const node = new Node();
+        const view = new View();
         const text = new Text();
 
         text.setBody('Hello World');
-        node.appendChild(text);
-        node.setBorder({ thickness: 'single-line' });
-        root.appendChild(node);
+        view.appendChild(text);
+        view.setBorder({ thickness: 'single-line' });
+        root.appendChild(view);
 
         return root;
       }
@@ -697,22 +697,22 @@ describe('calculateLayout integration suite', () => {
       });
     });
 
-    describe('for node -> [text, node(border,inline) -> text', () => {
+    describe('for view -> [text, view(border,inline) -> text', () => {
       function getTree() {
         const root = new Root({ width: 20, height: 10 });
-        const node1 = new Node();
-        const node2 = new Node();
+        const view1 = new View();
+        const view2 = new View();
         const text1 = new Text();
         const text2 = new Text();
 
         text1.setBody('Hmm');
         text2.setBody('Hello World');
-        node2.appendChild(text2);
-        node2.setLayoutProps({ display: 'inline' });
-        node2.setBorder({ thickness: 'single-line' });
-        node1.appendChild(text1);
-        node1.appendChild(node2);
-        root.appendChild(node1);
+        view2.appendChild(text2);
+        view2.setLayoutProps({ display: 'inline' });
+        view2.setBorder({ thickness: 'single-line' });
+        view1.appendChild(text1);
+        view1.appendChild(view2);
+        root.appendChild(view1);
 
         return root;
       }

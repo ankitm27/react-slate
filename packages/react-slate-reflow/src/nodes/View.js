@@ -10,7 +10,7 @@ import type {
   Traversable,
 } from '../types';
 
-export default class Node implements Traversable<Child> {
+export default class View implements Traversable<Child> {
   parent: ?Parent = null;
   children: Array<Traversable<Child>> = [];
 
@@ -18,7 +18,7 @@ export default class Node implements Traversable<Child> {
   styleProps: ?StyleProps = null;
   borderProps: ?BorderProps = null;
 
-  constructor({ parent }: { parent: Node } = {}) {
+  constructor({ parent }: { parent: Parent } = {}) {
     if (parent) {
       this.parent = parent;
     }

@@ -1,6 +1,6 @@
 /* @flow */
 
-import Node from './Node';
+import View from './View';
 import type { Child, Traversable } from '../types';
 import calculateLayout from '../layout/calculateLayout';
 
@@ -18,19 +18,19 @@ export default class Root implements Traversable<Child> {
   }
 
   findChild(child: Child) {
-    return Node.prototype.findChild.call(this, child);
+    return View.prototype.findChild.call(this, child);
   }
 
   prependChild(child: Child, position?: number) {
-    return Node.prototype.prependChild.call(this, child, position);
+    return View.prototype.prependChild.call(this, child, position);
   }
 
   appendChild(child: Child, position?: number) {
-    return Node.prototype.appendChild.call(this, child, position);
+    return View.prototype.appendChild.call(this, child, position);
   }
 
   removeChild(child: Child) {
-    return Node.prototype.removeChild.call(this, child);
+    return View.prototype.removeChild.call(this, child);
   }
 
   calculateLayout() {

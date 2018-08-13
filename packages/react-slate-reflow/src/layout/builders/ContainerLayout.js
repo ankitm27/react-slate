@@ -5,7 +5,7 @@ import RootLayout from './RootLayout';
 import Dimensions from '../Dimensions';
 import normalizeLayoutProps from '../normalizeLayoutProps';
 import { makeBlockStyle } from '../makeStyle';
-import type Node from '../../nodes/Node';
+import type View from '../../nodes/View';
 import BorderLayout from './BorderLayout';
 import type {
   Bounds,
@@ -19,7 +19,7 @@ function isLayoutInline(layout) {
 }
 
 export default class ContainerLayout implements ContainerLayoutBuilder {
-  node: Node;
+  node: View;
   parentLayout: ContainerLayout | RootLayout;
   children: Array<ContainerLayout | BorderLayout | UnitLayout> = [];
   placement: Placement = { x: 0, y: 0 };
@@ -39,7 +39,7 @@ export default class ContainerLayout implements ContainerLayoutBuilder {
   lastChildLayout: ?(ContainerLayoutBuilder | UnitLayoutBuilder) = null;
   isInline: boolean = false;
 
-  constructor(node: Node, parentLayout: ContainerLayout | RootLayout) {
+  constructor(node: View, parentLayout: ContainerLayout | RootLayout) {
     this.node = node;
     this.parentLayout = parentLayout;
     parentLayout && parentLayout.children.push(this);

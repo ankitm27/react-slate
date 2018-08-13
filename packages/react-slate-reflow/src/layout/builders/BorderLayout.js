@@ -3,7 +3,7 @@
 import RootLayout from './RootLayout';
 import ContainerLayout from './ContainerLayout';
 import { makeBorderStyle } from '../makeStyle';
-import type Node from '../../nodes/Node';
+import type View from '../../nodes/View';
 import type { ContainerLayoutBuilder, UnitLayoutBuilder } from '../../types';
 
 const BORDER_CHARS = {
@@ -60,7 +60,7 @@ export default class BorderLayout implements ContainerLayoutBuilder {
     return this.backingLayout.isInline;
   }
 
-  constructor(node: Node, parentLayout: ContainerLayout | RootLayout) {
+  constructor(node: View, parentLayout: ContainerLayout | RootLayout) {
     this.backingLayout = new ContainerLayout(node, parentLayout);
     this.parentLayout.children[this.parentLayout.children.length - 1] = this;
   }

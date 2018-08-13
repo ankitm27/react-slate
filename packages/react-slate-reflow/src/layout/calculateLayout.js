@@ -3,7 +3,7 @@
 import { Stack } from 'buckets-js';
 import assert from 'assert';
 import Root from '../nodes/Root';
-import Node from '../nodes/Node';
+import View from '../nodes/View';
 import Text from '../nodes/Text';
 import RootLayout from './builders/RootLayout';
 import ContainerLayout from './builders/ContainerLayout';
@@ -24,7 +24,7 @@ export default function calculateLayout(
 
     assert(node !== parentLayout.node, 'Cannot use the same node as a child');
 
-    if (node instanceof Node) {
+    if (node instanceof View) {
       const currentLayout = node.borderProps
         ? new BorderLayout(node, parentLayout)
         : new ContainerLayout(node, parentLayout);

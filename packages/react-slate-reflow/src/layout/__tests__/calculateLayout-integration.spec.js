@@ -20,7 +20,7 @@ describe('calculateLayout integration suite', () => {
       it('without style/layout props', () => {
         const root = getTree();
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -37,14 +37,14 @@ describe('calculateLayout integration suite', () => {
         });
 
         const { layoutTree } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
       });
 
       it('with width constrain', () => {
         const root = getTree();
         root.children[0].setLayoutProps({ width: 5 });
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -59,7 +59,7 @@ describe('calculateLayout integration suite', () => {
           backgroundColor: 'red',
         });
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
     });
@@ -82,7 +82,7 @@ describe('calculateLayout integration suite', () => {
       it('without style/layout props', () => {
         const root = getTree();
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -101,7 +101,7 @@ describe('calculateLayout integration suite', () => {
         });
 
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -109,7 +109,7 @@ describe('calculateLayout integration suite', () => {
         const root = getTree();
         root.children[0].setLayoutProps({ width: 5 });
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -118,7 +118,7 @@ describe('calculateLayout integration suite', () => {
         root.children[0].setLayoutProps({ width: 5 });
         root.children[0].children[0].setLayoutProps({ width: 4 });
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -127,7 +127,7 @@ describe('calculateLayout integration suite', () => {
         root.children[0].setLayoutProps({ width: 5 });
         root.children[0].children[0].setLayoutProps({ width: 7 });
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
     });
@@ -151,7 +151,7 @@ describe('calculateLayout integration suite', () => {
       it('without style/layout props', () => {
         const root = getTree();
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -168,14 +168,14 @@ describe('calculateLayout integration suite', () => {
         });
 
         const { layoutTree } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
       });
 
       it('with width constrain', () => {
         const root = getTree();
         root.children[0].setLayoutProps({ width: 8 });
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
     });
@@ -205,7 +205,7 @@ describe('calculateLayout integration suite', () => {
       it('without style/layout props', () => {
         const root = getTree();
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -224,7 +224,7 @@ describe('calculateLayout integration suite', () => {
         });
 
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -232,7 +232,7 @@ describe('calculateLayout integration suite', () => {
         const root = getTree();
         root.children[0].setLayoutProps({ width: 8 });
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
     });
@@ -258,7 +258,7 @@ describe('calculateLayout integration suite', () => {
       it('without style/layout props', () => {
         const root = getTree();
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -278,7 +278,7 @@ describe('calculateLayout integration suite', () => {
         });
 
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -286,7 +286,7 @@ describe('calculateLayout integration suite', () => {
         const root = getTree();
         root.children[0].setLayoutProps({ width: 8 });
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -294,7 +294,7 @@ describe('calculateLayout integration suite', () => {
         const root = getTree();
         root.children[0].setLayoutProps({ width: 4 });
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
     });
@@ -320,7 +320,7 @@ describe('calculateLayout integration suite', () => {
       it('without style/layout props', () => {
         const root = getTree();
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -340,7 +340,7 @@ describe('calculateLayout integration suite', () => {
         });
 
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -348,7 +348,7 @@ describe('calculateLayout integration suite', () => {
         const root = getTree();
         root.children[0].setLayoutProps({ width: 8 });
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -356,7 +356,7 @@ describe('calculateLayout integration suite', () => {
         const root = getTree();
         root.children[0].setLayoutProps({ width: 4 });
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -364,7 +364,7 @@ describe('calculateLayout integration suite', () => {
         const root = getTree();
         root.children[0].setLayoutProps({ height: 1 });
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
     });
@@ -392,7 +392,7 @@ describe('calculateLayout integration suite', () => {
       it('without style/layout props', () => {
         const root = getTree();
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -420,7 +420,7 @@ describe('calculateLayout integration suite', () => {
         });
 
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -428,7 +428,7 @@ describe('calculateLayout integration suite', () => {
         const root = getTree();
         root.children[0].setLayoutProps({ width: 4 });
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -436,7 +436,7 @@ describe('calculateLayout integration suite', () => {
         const root = getTree();
         root.children[0].setLayoutProps({ height: 1 });
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
     });
@@ -465,7 +465,7 @@ describe('calculateLayout integration suite', () => {
       it('without style/layout props', () => {
         const root = getTree();
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -486,7 +486,7 @@ describe('calculateLayout integration suite', () => {
         });
 
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -494,7 +494,7 @@ describe('calculateLayout integration suite', () => {
         const root = getTree();
         root.children[0].setLayoutProps({ width: 4 });
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -502,7 +502,7 @@ describe('calculateLayout integration suite', () => {
         const root = getTree();
         root.children[0].setLayoutProps({ height: 2 });
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -510,7 +510,7 @@ describe('calculateLayout integration suite', () => {
         const root = getTree();
         root.children[0].children[1].setLayoutProps({ height: 2 });
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
     });
@@ -541,7 +541,7 @@ describe('calculateLayout integration suite', () => {
       it('without style/layout props', () => {
         const root = getTree();
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -559,7 +559,7 @@ describe('calculateLayout integration suite', () => {
         });
 
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -567,7 +567,7 @@ describe('calculateLayout integration suite', () => {
         const root = getTree();
         root.children[0].setLayoutProps({ width: 4 });
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -576,7 +576,7 @@ describe('calculateLayout integration suite', () => {
         root.children[0].setLayoutProps({ height: 3 });
         root.children[0].children[0].setLayoutProps({ height: 2 });
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
     });
@@ -614,7 +614,7 @@ describe('calculateLayout integration suite', () => {
       it('without style/layout props', () => {
         const root = getTree();
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -622,7 +622,7 @@ describe('calculateLayout integration suite', () => {
         const root = getTree();
         root.children[0].setLayoutProps({ width: 4 });
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
     });
@@ -684,7 +684,7 @@ describe('calculateLayout integration suite', () => {
       it('without layout/style props', () => {
         const root = getTree();
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
 
@@ -692,7 +692,7 @@ describe('calculateLayout integration suite', () => {
         const root = getTree();
         root.children[0].setLayoutProps({ width: 15, height: 3 });
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
     });
@@ -720,7 +720,7 @@ describe('calculateLayout integration suite', () => {
       it('without layout/style props', () => {
         const root = getTree();
         const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getJsonTree()).toMatchSnapshot();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
     });

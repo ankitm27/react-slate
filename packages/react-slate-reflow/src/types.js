@@ -79,31 +79,58 @@ export type Placement = {
 };
 
 export type Dimensions = {
+  measuredWidth: number,
+  measuredHeight: number,
+  fixedWidth: number,
+  fixedHeight: number,
+  usedWidth: number,
+  usedHeight: number,
+  finalWidth: number,
+  finalHeight: number,
+  availableWidth: number,
+  availableHeight: number,
+};
+
+export type Size = {
   width: number,
   height: number,
 };
 
 type JsonLayoutTree = {
   type: string,
-  dimensions: Dimensions,
+  dimensions: Size,
   placement: Placement,
   body?: string,
   children?: JsonLayoutTree[],
 };
 
-export interface ContainerLayoutBuilder {
-  +isInline: boolean;
-  calculatePlacement(): void;
-  getDimensionsWithBounds(): Dimensions;
-  calculateDimensions(ContainerLayoutBuilder | UnitLayoutBuilder): void;
-  getJsonTree(): JsonLayoutTree;
-  shouldMakeRenderElements(): boolean;
-  makeRenderElements(): RenderElement[];
+export interface LayoutElement<N> {
+  backingInstance: LayoutElement<N>;
+
+  node: N;
+  parent: LayoutElement<*> | LayoutElementDelegate<*>;
+  children: Array<LayoutElement<*> | LayoutElementDelegate<*>>;
+  lastChild: ?(LayoutElement<*> | LayoutElementDelegate<*>);
+
+  dimensions: *;
+  placement: Placement;
+  insetBounds: Bounds;
+  outsetBounds: Bounds;
+  isInline: boolean;
+
+  getDimensions(): Dimensions;
+  updateDimensions(LayoutElement<*> | LayoutElementDelegate<*>): void;
+  hasRenderElements(): boolean;
+  getRenderElements(): RenderElement[];
+  getLayoutTree(): JsonLayoutTree;
 }
-export interface UnitLayoutBuilder {
-  +isInline: boolean;
-  calculatePlacement(): void;
-  getDimensionsWithBounds(): Dimensions;
-  getJsonTree(): JsonLayoutTree;
-  makeRenderElement(): RenderElement;
+
+export interface LayoutElementDelegate<B> {
+  backingInstance: LayoutElement<B>;
+
+  getDimensions(): Dimensions;
+  updateDimensions(LayoutElement<*> | LayoutElementDelegate<*>): void;
+  hasRenderElements(): boolean;
+  getRenderElements(): RenderElement[];
+  getLayoutTree(): JsonLayoutTree;
 }

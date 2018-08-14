@@ -5,11 +5,10 @@ import assert from 'assert';
 import Root from '../nodes/Root';
 import View from '../nodes/View';
 import Text from '../nodes/Text';
-import RootLayout from './builders/RootLayout';
-import ContainerLayout from './builders/ContainerLayout';
-import BorderLayout from './builders/BorderLayout';
-import UnitLayout from './builders/UnitLayout';
-
+import RootLayout from './elements/RootLayout';
+import ContainerLayout from './elements/ContainerLayout';
+import BorderLayout from './elements/BorderLayout';
+import UnitLayout from './elements/UnitLayout';
 import type { RenderElement } from '../types';
 
 export default function calculateLayout(
@@ -28,10 +27,9 @@ export default function calculateLayout(
       const currentLayout = node.borderProps
         ? new BorderLayout(node, parentLayout)
         : new ContainerLayout(node, parentLayout);
-      currentLayout.calculatePlacement();
 
       let boxRenderElementIndex = -1;
-      if (currentLayout.shouldMakeRenderElements()) {
+      if (currentLayout.hasRenderElements()) {
         // $FlowFixMe
         renderElements.push(null);
         boxRenderElementIndex = renderElements.length - 1;
@@ -41,7 +39,7 @@ export default function calculateLayout(
 
       node.children.forEach(child => {
         const childLayout = visit(child);
-        currentLayout.calculateDimensions(childLayout);
+        currentLayout.updateDimensions(childLayout);
       });
 
       layoutState.pop();
@@ -50,15 +48,14 @@ export default function calculateLayout(
         renderElements.splice(
           boxRenderElementIndex,
           1,
-          ...currentLayout.makeRenderElements()
+          ...currentLayout.getRenderElements()
         );
       }
 
       return currentLayout;
     } else if (node instanceof Text) {
       const currentLayout = new UnitLayout(node, parentLayout);
-      currentLayout.calculatePlacement();
-      renderElements.push(currentLayout.makeRenderElement());
+      renderElements.push(...currentLayout.getRenderElements());
       return currentLayout;
     }
 
@@ -70,7 +67,7 @@ export default function calculateLayout(
   layoutState.push(rootLayout);
 
   root.children.forEach(child => {
-    rootLayout.calculateDimensions(visit(child));
+    rootLayout.updateDimensions(visit(child));
   });
 
   return {

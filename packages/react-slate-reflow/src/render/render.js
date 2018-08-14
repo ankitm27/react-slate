@@ -1,12 +1,9 @@
 /* @flow */
 
 import Row from './Row';
-import type { RenderElement, StyleProps, Dimensions } from '../types';
+import type { RenderElement, StyleProps, Size } from '../types';
 
-export default function render(
-  elements: RenderElement[],
-  canvasSize: Dimensions
-) {
+export default function render(elements: RenderElement[], canvasSize: Size) {
   const rows = [];
   for (let i = 0; i < canvasSize.height; i++) {
     rows[i] = new Row(canvasSize.width);

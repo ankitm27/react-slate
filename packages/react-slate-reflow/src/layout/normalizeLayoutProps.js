@@ -1,9 +1,8 @@
 /* @flow */
 
-import type ContainerLayout from './builders/ContainerLayout';
-import type { LayoutProps, Bounds } from '../types';
+import type { LayoutProps, Bounds, LayoutElement } from '../types';
 
-type GetConstrain = (ContainerLayout, number) => number;
+type GetConstrain = (LayoutElement<*>, number) => number;
 type NormalizedLayoutProps = {
   insetBounds: Bounds,
   outsetBounds: Bounds,
@@ -39,7 +38,7 @@ export default function normalizeLayoutProps(
 }
 
 function makeConstrainFactory(value: number | string) {
-  return (currentLayout: ContainerLayout, measuredDimension: number) => {
+  return (currentLayout: LayoutElement<*>, measuredDimension: number) => {
     if (value === 'auto' || (typeof value === 'number' && value < 0)) {
       return measuredDimension;
     }
@@ -54,16 +53,17 @@ function makeConstrainFactory(value: number | string) {
 
     if (/^\d+%$/.test(value)) {
       if (
-        currentLayout.parentLayout.node &&
-        currentLayout.parentLayout.node.layoutProps &&
-        currentLayout.parentLayout.node.layoutProps.width === 'auto'
+        currentLayout.parent.node &&
+        currentLayout.parent.node.layoutProps &&
+        currentLayout.parent.node.layoutProps.width === 'auto'
       ) {
         throw new Error(
           'Cannot use percentage for width/height, if parent element has width/height set to `auto`'
         );
       }
 
-      const parentWidth = currentLayout.parentLayout.dimensions.width;
+      const parentWidth =
+        currentLayout.parent.backingInstance.dimensions.measuredWidth;
       const percentage = parseInt(/^(\d+)%$/.exec(value)[1], 10);
 
       return Math.floor(percentage / 100 * parentWidth);

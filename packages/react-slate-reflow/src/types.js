@@ -76,6 +76,7 @@ export type RenderElement = {
 export type Placement = {
   x: number,
   y: number,
+  z: number,
 };
 
 export type Dimensions = {

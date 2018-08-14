@@ -13,7 +13,7 @@ export default class RootLayout implements LayoutElement<null> {
   lastChild = null;
 
   dimensions = makeEmptyDimensions();
-  placement = { x: 0, y: 0 };
+  placement = { x: 0, y: 0, z: 0 };
   insetBounds = {
     top: 0,
     right: 0,

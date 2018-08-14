@@ -11,6 +11,7 @@
     "flow": "flow",
     "lint": "lerna exec ../../node_modules/.bin/eslint .",
     "test": "jest",
+    "test:debug": "node --inspect ./node_modules/.bin/jest",
     "format": "prettier --single-quote --trailing-comma es5 --write \"packages/*/src/**/*.js\"",
     "add-contributor": "all-contributors add",
     "start": "node ./packages/react-slate-playground/bin",

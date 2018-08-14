@@ -18,7 +18,7 @@ export default class UnitLayout implements LayoutElement<Text> {
   lastChild = null;
 
   dimensions = makeEmptyDimensions();
-  placement = { x: 0, y: 0 };
+  placement = { x: 0, y: 0, z: 0 };
   insetBounds = {
     top: 0,
     right: 0,
@@ -43,19 +43,15 @@ export default class UnitLayout implements LayoutElement<Text> {
 
     // Calculate placement
     if (this.parent.lastChild instanceof UnitLayout) {
-      this.placement = {
-        x:
-          this.parent.backingInstance.placement.x +
-          this.parent.backingInstance.dimensions.measuredWidth,
-        y: this.parent.backingInstance.placement.y,
-      };
+      this.placement.x =
+        this.parent.backingInstance.placement.x +
+        this.parent.backingInstance.dimensions.measuredWidth;
+      this.placement.y = this.parent.backingInstance.placement.y;
     } else {
-      this.placement = {
-        x: this.parent.backingInstance.placement.x,
-        y:
-          this.parent.backingInstance.placement.y +
-          this.parent.backingInstance.dimensions.measuredHeight,
-      };
+      this.placement.x = this.parent.backingInstance.placement.x;
+      this.placement.y =
+        this.parent.backingInstance.placement.y +
+        this.parent.backingInstance.dimensions.measuredHeight;
     }
     this.placement.x += this.parent.backingInstance.insetBounds.left;
     this.placement.y += this.parent.backingInstance.insetBounds.top;
@@ -65,7 +61,8 @@ export default class UnitLayout implements LayoutElement<Text> {
     return this.dimensions;
   }
 
-  updateDimensions() {
+  // eslint-disable-next-line no-unused-vars
+  updateDimensions(childLayout: *) {
     // NOOP
   }
 
@@ -93,7 +90,8 @@ export default class UnitLayout implements LayoutElement<Text> {
         body: {
           value,
           style: makeInlineStyle(collectStyleProps(this)),
-          ...this.placement,
+          x: this.placement.x,
+          y: this.placement.y,
         },
       },
     ];

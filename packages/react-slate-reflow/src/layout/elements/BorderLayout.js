@@ -145,6 +145,7 @@ export default class BorderLayout implements LayoutElementDelegate<View> {
       placement: {
         x: this.backingInstance.placement.x - 1,
         y: this.backingInstance.placement.y - 1,
+        z: this.backingInstance.placement.z,
       },
       dimensions: {
         width,

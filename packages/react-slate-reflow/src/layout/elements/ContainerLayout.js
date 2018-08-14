@@ -25,7 +25,7 @@ export default class ContainerLayout implements LayoutElement<View> {
   lastChild = null;
 
   dimensions = makeEmptyDimensions();
-  placement = { x: 0, y: 0 };
+  placement = { x: 0, y: 0, z: 0 };
   insetBounds = {
     top: 0,
     right: 0,
@@ -144,30 +144,26 @@ export default class ContainerLayout implements LayoutElement<View> {
 
     if (!this.isInline || !isPreviousLayoutInline) {
       // Block placement
-      this.placement = {
-        x:
-          this.parent.backingInstance.placement.x +
-          this.parent.backingInstance.insetBounds.left +
-          this.outsetBounds.left,
-        y:
-          this.parent.backingInstance.placement.y +
-          this.parent.backingInstance.insetBounds.top +
-          this.parent.backingInstance.dimensions.measuredHeight +
-          this.outsetBounds.top,
-      };
+      this.placement.x =
+        this.parent.backingInstance.placement.x +
+        this.parent.backingInstance.insetBounds.left +
+        this.outsetBounds.left;
+      this.placement.y =
+        this.parent.backingInstance.placement.y +
+        this.parent.backingInstance.insetBounds.top +
+        this.parent.backingInstance.dimensions.measuredHeight +
+        this.outsetBounds.top;
     } else {
       // Inline placement
-      this.placement = {
-        x:
-          this.parent.backingInstance.placement.x +
-          this.parent.backingInstance.insetBounds.left +
-          this.parent.backingInstance.dimensions.measuredWidth +
-          this.outsetBounds.left,
-        y:
-          this.parent.backingInstance.placement.y +
-          this.parent.backingInstance.insetBounds.top +
-          this.outsetBounds.top,
-      };
+      this.placement.x =
+        this.parent.backingInstance.placement.x +
+        this.parent.backingInstance.insetBounds.left +
+        this.parent.backingInstance.dimensions.measuredWidth +
+        this.outsetBounds.left;
+      this.placement.y =
+        this.parent.backingInstance.placement.y +
+        this.parent.backingInstance.insetBounds.top +
+        this.outsetBounds.top;
     }
   }
 
@@ -235,7 +231,8 @@ export default class ContainerLayout implements LayoutElement<View> {
       {
         box: {
           style: makeBlockStyle(this.node.styleProps),
-          ...this.placement,
+          x: this.placement.x,
+          y: this.placement.y,
           width,
           height,
         },

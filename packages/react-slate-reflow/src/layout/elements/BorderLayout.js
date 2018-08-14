@@ -2,7 +2,7 @@
 
 import ContainerLayout from './ContainerLayout';
 import { withBounds } from '../lib/dimensions';
-import { makeBorderStyle } from '../makeStyle';
+import { makeBorderStyle } from '../lib/makeStyle';
 import type View from '../../nodes/View';
 import type { LayoutElement, LayoutElementDelegate } from '../../types';
 

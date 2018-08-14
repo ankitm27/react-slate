@@ -1,6 +1,6 @@
 /* @flow */
 
-import { makeInlineStyle } from '../makeStyle';
+import { makeInlineStyle } from '../lib/makeStyle';
 import {
   makeEmptyDimensions,
   shouldSkip,

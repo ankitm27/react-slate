@@ -5,8 +5,8 @@ import {
   withConstrain,
   withBounds,
 } from '../lib/dimensions';
-import normalizeLayoutProps from '../normalizeLayoutProps';
-import { makeBlockStyle } from '../makeStyle';
+import normalizeLayoutProps from '../lib/normalizeLayoutProps';
+import { makeBlockStyle } from '../lib/makeStyle';
 import type View from '../../nodes/View';
 import type { LayoutElement, LayoutElementDelegate } from '../../types';
 

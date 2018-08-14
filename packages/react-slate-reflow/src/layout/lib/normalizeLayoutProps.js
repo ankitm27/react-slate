@@ -1,6 +1,6 @@
 /* @flow */
 
-import type { LayoutProps, Bounds, LayoutElement } from '../types';
+import type { LayoutProps, Bounds, LayoutElement } from '../../types';
 
 type GetConstrain = (LayoutElement<*>, number) => number;
 type NormalizedLayoutProps = {

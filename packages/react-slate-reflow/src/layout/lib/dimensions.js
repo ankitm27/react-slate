@@ -1,5 +1,6 @@
 /* @flow */
 
+import assign from './assign';
 import type { Bounds, Dimensions, Size } from '../../types';
 
 export function makeEmptyDimensions(): Dimensions {
@@ -84,7 +85,6 @@ export function trimHorizontally(
 /**
  * Set vertical or horizontal constrain using subtracted inset bounds from a fixed value.
  */
-// TODO: make it pure
 export function withConstrain(
   dimensions: Dimensions,
   dimension: 'width' | 'height',
@@ -93,15 +93,9 @@ export function withConstrain(
 ) {
   const { top = 0, left = 0, right = 0, bottom = 0 } = insetBounds || {};
   if (dimension === 'width') {
-    dimensions.fixedWidth = fixedValue - (left + right);
-    return dimensions;
+    return assign({}, dimensions, { fixedWidth: fixedValue - (left + right) });
   } else if (dimension === 'height') {
-    dimensions.fixedHeight = fixedValue - (top + bottom);
-    // return {
-    //   ...dimensions,
-    //   fixedHeight: fixedValue - (top + bottom),
-    // };
-    return dimensions;
+    return assign({}, dimensions, { fixedHeight: fixedValue - (top + bottom) });
   }
   throw new Error(`Invalid dimension ${dimension}`);
 }

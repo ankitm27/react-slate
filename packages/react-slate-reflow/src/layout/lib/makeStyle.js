@@ -1,7 +1,7 @@
 /* @flow */
 
 import normalize from './normalize';
-import type { StyleProps, BodyStyle, BorderProps } from '../types';
+import type { StyleProps, BodyStyle, BorderProps } from '../../types';
 
 export function makeBlockStyle(styleProps: ?StyleProps) {
   return styleProps

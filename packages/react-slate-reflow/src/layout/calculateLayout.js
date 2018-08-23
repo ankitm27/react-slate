@@ -10,7 +10,11 @@ import ContainerLayout from './elements/ContainerLayout';
 import BorderLayout from './elements/BorderLayout';
 import UnitLayout from './elements/UnitLayout';
 import Hierarchy from './lib/Hierarchy';
-import type { RenderElement } from '../types';
+import type {
+  RenderElement,
+  LayoutElement,
+  LayoutElementDelegate,
+} from '../types';
 
 function createLayoutElement(node, parent) {
   if (node instanceof Text) {
@@ -29,7 +33,7 @@ export default function calculateLayout(
   const hierarchy = new Hierarchy();
   const layoutState = new Stack();
 
-  const visit = node => {
+  const visit = (node): LayoutElement<*> | LayoutElementDelegate<*> => {
     const parentLayout = layoutState.peek();
     assert(
       node !== parentLayout.backingInstance.node,
@@ -56,7 +60,7 @@ export default function calculateLayout(
       hierarchy.insertElements(index, currentLayout.getRenderElements());
     }
 
-    return currentLayout;
+    return (currentLayout: LayoutElement<any> | LayoutElementDelegate<any>);
   };
 
   // Initial block layout element for Root.

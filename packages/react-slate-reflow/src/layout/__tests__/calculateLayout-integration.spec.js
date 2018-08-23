@@ -725,4 +725,120 @@ describe('calculateLayout integration suite', () => {
       });
     });
   });
+
+  describe('with absolute positioning', () => {
+    describe('for view(absolute) -> text', () => {
+      function getTree() {
+        const root = new Root({ width: 20, height: 10 });
+        const view = new View();
+        const text = new Text();
+
+        text.setBody('Hello World');
+        view.appendChild(text);
+        root.appendChild(view);
+
+        return root;
+      }
+
+      it('without style props', () => {
+        const root = getTree();
+        root.children[0].setLayoutProps({
+          position: 'absolute',
+        });
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
+
+      it('with layout props', () => {
+        const root = getTree();
+
+        root.children[0].setLayoutProps({
+          paddingTop: 1,
+          paddingLeft: 2,
+          paddingRight: 2,
+          paddingBottom: 1,
+          left: 4,
+          top: 4,
+          position: 'absolute',
+        });
+
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
+
+      it('with style props', () => {
+        const root = getTree();
+
+        root.children[0].setLayoutProps({
+          left: 4,
+          top: 4,
+          position: 'absolute',
+        });
+        root.children[0].setStyleProps({
+          backgroundColor: 'red',
+          color: 'white',
+        });
+
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
+
+      it('with width constrain', () => {
+        const root = getTree();
+
+        root.children[0].setLayoutProps({
+          position: 'absolute',
+        });
+        root.children[0].setLayoutProps({ width: 5 });
+
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
+
+      it('with height constrain', () => {
+        const root = getTree();
+
+        root.children[0].setLayoutProps({
+          height: 3,
+          left: 2,
+          top: 2,
+          position: 'absolute',
+        });
+        root.children[0].setStyleProps({
+          backgroundColor: 'red',
+        });
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
+
+      it('with border', () => {
+        const root = getTree();
+
+        root.children[0].setLayoutProps({
+          left: 2,
+          top: 2,
+          position: 'absolute',
+          paddingTop: 1,
+          paddingBottom: 1,
+          paddingLeft: 1,
+          paddingRight: 1,
+        });
+        root.children[0].setStyleProps({
+          backgroundColor: 'red',
+        });
+        root.children[0].setBorder({
+          thickness: 'single-line',
+        });
+
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
+    });
+  });
 });

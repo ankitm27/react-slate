@@ -1,7 +1,7 @@
 /* @flow */
 
 import ContainerLayout from './ContainerLayout';
-import { makeEmptyDimensions } from '../lib/dimensions';
+import { makeEmptyDimensions, withBounds } from '../lib/dimensions';
 import type { LayoutElement, LayoutElementDelegate } from '../../types';
 
 export default class RootLayout implements LayoutElement<null> {
@@ -27,6 +27,7 @@ export default class RootLayout implements LayoutElement<null> {
     left: 0,
   };
   isInline = false;
+  isAbsolute = false;
 
   constructor() {
     this.backingInstance = this;
@@ -36,8 +37,31 @@ export default class RootLayout implements LayoutElement<null> {
     return this.dimensions;
   }
 
-  updateDimensions(childLayout: *) {
-    ContainerLayout.prototype.updateDimensions.call(this, childLayout);
+  updateDimensions(childLayout: LayoutElement<*> | LayoutElementDelegate<*>) {
+    // If child layout is absolute the update logic can be simplified to
+    // simply take the grater value. Additionally, placement x and y must
+    // be taken into account also since they correspond to `left` and `top` values.
+    if (childLayout.backingInstance.isAbsolute) {
+      const childDimensions = childLayout.getDimensions();
+      const { width: childWidth, height: childHeight } = withBounds(
+        {
+          width: childDimensions.finalWidth,
+          height: childDimensions.finalHeight,
+        },
+        childLayout.backingInstance.insetBounds,
+        childLayout.backingInstance.outsetBounds
+      );
+      this.dimensions.measuredWidth = Math.max(
+        this.dimensions.measuredWidth,
+        childWidth + childLayout.backingInstance.placement.x
+      );
+      this.dimensions.measuredHeight = Math.max(
+        this.dimensions.measuredHeight,
+        childHeight + childLayout.backingInstance.placement.y
+      );
+    } else {
+      ContainerLayout.prototype.updateDimensions.call(this, childLayout);
+    }
   }
 
   hasRenderElements() {

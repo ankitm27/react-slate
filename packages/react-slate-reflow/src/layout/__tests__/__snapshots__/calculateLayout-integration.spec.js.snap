@@ -1,26 +1,69 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`calculateLayout integration suite should calculate layout for view -> [view -> text, view -> text] with height constrain 1`] = `
+exports[`calculateLayout integration suite should calculate layout for view -> [text, text] with layout props 1`] = `
 Object {
   "children": Array [
     Object {
       "children": Array [
         Object {
-          "children": Array [
-            Object {
-              "body": "Hello",
-              "dimensions": Object {
-                "height": 1,
-                "width": 5,
-              },
-              "placement": Object {
-                "x": 0,
-                "y": 0,
-                "z": 0,
-              },
-              "type": "UnitLayout",
-            },
-          ],
+          "body": "Hello",
+          "dimensions": Object {
+            "height": 1,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 3,
+            "y": 3,
+            "z": 0,
+          },
+          "type": "UnitLayout",
+        },
+        Object {
+          "body": " World",
+          "dimensions": Object {
+            "height": 1,
+            "width": 6,
+          },
+          "placement": Object {
+            "x": 8,
+            "y": 3,
+            "z": 0,
+          },
+          "type": "UnitLayout",
+        },
+      ],
+      "dimensions": Object {
+        "height": 3,
+        "width": 13,
+      },
+      "placement": Object {
+        "x": 2,
+        "y": 2,
+        "z": 0,
+      },
+      "type": "ContainerLayout",
+    },
+  ],
+  "dimensions": Object {
+    "height": 5,
+    "width": 15,
+  },
+  "placement": Object {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+  },
+  "type": "RootLayout",
+}
+`;
+
+exports[`calculateLayout integration suite should calculate layout for view -> [text, text] with width constrain 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "body": "Hello",
           "dimensions": Object {
             "height": 1,
             "width": 5,
@@ -30,39 +73,25 @@ Object {
             "y": 0,
             "z": 0,
           },
-          "type": "ContainerLayout",
+          "type": "UnitLayout",
         },
         Object {
-          "children": Array [
-            Object {
-              "body": "World",
-              "dimensions": Object {
-                "height": 1,
-                "width": 5,
-              },
-              "placement": Object {
-                "x": 0,
-                "y": 1,
-                "z": 0,
-              },
-              "type": "UnitLayout",
-            },
-          ],
+          "body": " World",
           "dimensions": Object {
-            "height": 0,
-            "width": 5,
+            "height": 1,
+            "width": 6,
           },
           "placement": Object {
-            "x": 0,
-            "y": 1,
+            "x": 5,
+            "y": 0,
             "z": 0,
           },
-          "type": "ContainerLayout",
+          "type": "UnitLayout",
         },
       ],
       "dimensions": Object {
         "height": 1,
-        "width": 5,
+        "width": 8,
       },
       "placement": Object {
         "x": 0,
@@ -74,6 +103,189 @@ Object {
   ],
   "dimensions": Object {
     "height": 1,
+    "width": 8,
+  },
+  "placement": Object {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+  },
+  "type": "RootLayout",
+}
+`;
+
+exports[`calculateLayout integration suite should calculate layout for view -> [text, text] with width constrain 2`] = `
+Array [
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Hello",
+      "x": 0,
+      "y": 0,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": " Wo",
+      "x": 5,
+      "y": 0,
+    },
+  },
+]
+`;
+
+exports[`calculateLayout integration suite should calculate layout for view -> [text, text] without style/layout props 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "body": "Hello",
+          "dimensions": Object {
+            "height": 1,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+          },
+          "type": "UnitLayout",
+        },
+        Object {
+          "body": " World",
+          "dimensions": Object {
+            "height": 1,
+            "width": 6,
+          },
+          "placement": Object {
+            "x": 5,
+            "y": 0,
+            "z": 0,
+          },
+          "type": "UnitLayout",
+        },
+      ],
+      "dimensions": Object {
+        "height": 1,
+        "width": 11,
+      },
+      "placement": Object {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+      },
+      "type": "ContainerLayout",
+    },
+  ],
+  "dimensions": Object {
+    "height": 1,
+    "width": 11,
+  },
+  "placement": Object {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+  },
+  "type": "RootLayout",
+}
+`;
+
+exports[`calculateLayout integration suite should calculate layout for view -> [text, text] without style/layout props 2`] = `
+Array [
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Hello",
+      "x": 0,
+      "y": 0,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": " World",
+      "x": 5,
+      "y": 0,
+    },
+  },
+]
+`;
+
+exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text, text] with inner height constrain 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "body": "Brave",
+          "dimensions": Object {
+            "height": 1,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+          },
+          "type": "UnitLayout",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "body": "New",
+              "dimensions": Object {
+                "height": 1,
+                "width": 3,
+              },
+              "placement": Object {
+                "x": 0,
+                "y": 1,
+                "z": 0,
+              },
+              "type": "UnitLayout",
+            },
+          ],
+          "dimensions": Object {
+            "height": 2,
+            "width": 3,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 1,
+            "z": 0,
+          },
+          "type": "ContainerLayout",
+        },
+        Object {
+          "body": "World",
+          "dimensions": Object {
+            "height": 1,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 3,
+            "z": 0,
+          },
+          "type": "UnitLayout",
+        },
+      ],
+      "dimensions": Object {
+        "height": 4,
+        "width": 5,
+      },
+      "placement": Object {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+      },
+      "type": "ContainerLayout",
+    },
+  ],
+  "dimensions": Object {
+    "height": 4,
     "width": 5,
   },
   "placement": Object {
@@ -85,62 +297,64 @@ Object {
 }
 `;
 
-exports[`calculateLayout integration suite should calculate layout for view -> [view -> text, view -> text] with height constrain 2`] = `
+exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text, text] with inner height constrain 2`] = `
 Array [
   Object {
     "body": Object {
       "style": null,
-      "value": "Hello",
+      "value": "Brave",
       "x": 0,
       "y": 0,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "New",
+      "x": 0,
+      "y": 1,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "World",
+      "x": 0,
+      "y": 3,
     },
   },
 ]
 `;
 
-exports[`calculateLayout integration suite should calculate layout for view -> [view -> text, view -> text] with layout props 1`] = `
+exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text, text] with layout props 1`] = `
 Object {
   "children": Array [
     Object {
       "children": Array [
         Object {
-          "children": Array [
-            Object {
-              "body": "Hello",
-              "dimensions": Object {
-                "height": 1,
-                "width": 5,
-              },
-              "placement": Object {
-                "x": 2,
-                "y": 2,
-                "z": 0,
-              },
-              "type": "UnitLayout",
-            },
-          ],
+          "body": "Brave",
           "dimensions": Object {
             "height": 1,
             "width": 5,
           },
           "placement": Object {
-            "x": 2,
-            "y": 2,
+            "x": 1,
+            "y": 1,
             "z": 0,
           },
-          "type": "ContainerLayout",
+          "type": "UnitLayout",
         },
         Object {
           "children": Array [
             Object {
-              "body": "World",
+              "body": "New",
               "dimensions": Object {
                 "height": 1,
-                "width": 5,
+                "width": 3,
               },
               "placement": Object {
-                "x": 2,
-                "y": 5,
+                "x": 3,
+                "y": 3,
                 "z": 0,
               },
               "type": "UnitLayout",
@@ -152,18 +366,31 @@ Object {
           },
           "placement": Object {
             "x": 1,
-            "y": 4,
+            "y": 2,
             "z": 0,
           },
           "type": "ContainerLayout",
         },
+        Object {
+          "body": "World",
+          "dimensions": Object {
+            "height": 1,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 1,
+            "y": 5,
+            "z": 0,
+          },
+          "type": "UnitLayout",
+        },
       ],
       "dimensions": Object {
-        "height": 6,
-        "width": 9,
+        "height": 5,
+        "width": 7,
       },
       "placement": Object {
-        "x": 0,
+        "x": 1,
         "y": 1,
         "z": 0,
       },
@@ -171,7 +398,7 @@ Object {
     },
   ],
   "dimensions": Object {
-    "height": 7,
+    "height": 6,
     "width": 9,
   },
   "placement": Object {
@@ -183,43 +410,169 @@ Object {
 }
 `;
 
-exports[`calculateLayout integration suite should calculate layout for view -> [view -> text, view -> text] with layout props 2`] = `
+exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text, text] with layout props 2`] = `
 Array [
   Object {
     "body": Object {
       "style": null,
-      "value": "Hello",
-      "x": 2,
-      "y": 2,
+      "value": "Brave",
+      "x": 1,
+      "y": 1,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "New",
+      "x": 3,
+      "y": 3,
     },
   },
   Object {
     "body": Object {
       "style": null,
       "value": "World",
-      "x": 2,
+      "x": 1,
       "y": 5,
     },
   },
 ]
 `;
 
-exports[`calculateLayout integration suite should calculate layout for view -> [view -> text, view -> text] with width constrain 1`] = `
+exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text, text] with outer height constrain 1`] = `
 Object {
   "children": Array [
     Object {
       "children": Array [
         Object {
+          "body": "Brave",
+          "dimensions": Object {
+            "height": 1,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+          },
+          "type": "UnitLayout",
+        },
+        Object {
           "children": Array [
             Object {
-              "body": "Hello",
+              "body": "New",
               "dimensions": Object {
                 "height": 1,
-                "width": 5,
+                "width": 3,
               },
               "placement": Object {
                 "x": 0,
-                "y": 0,
+                "y": 1,
+                "z": 0,
+              },
+              "type": "UnitLayout",
+            },
+          ],
+          "dimensions": Object {
+            "height": 1,
+            "width": 3,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 1,
+            "z": 0,
+          },
+          "type": "ContainerLayout",
+        },
+        Object {
+          "body": "World",
+          "dimensions": Object {
+            "height": 1,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 2,
+            "z": 0,
+          },
+          "type": "UnitLayout",
+        },
+      ],
+      "dimensions": Object {
+        "height": 2,
+        "width": 5,
+      },
+      "placement": Object {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+      },
+      "type": "ContainerLayout",
+    },
+  ],
+  "dimensions": Object {
+    "height": 2,
+    "width": 5,
+  },
+  "placement": Object {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+  },
+  "type": "RootLayout",
+}
+`;
+
+exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text, text] with outer height constrain 2`] = `
+Array [
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Brave",
+      "x": 0,
+      "y": 0,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "New",
+      "x": 0,
+      "y": 1,
+    },
+  },
+]
+`;
+
+exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text, text] with width constrain 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "body": "Brave",
+          "dimensions": Object {
+            "height": 1,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+          },
+          "type": "UnitLayout",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "body": "New",
+              "dimensions": Object {
+                "height": 1,
+                "width": 3,
+              },
+              "placement": Object {
+                "x": 0,
+                "y": 1,
                 "z": 0,
               },
               "type": "UnitLayout",
@@ -231,10 +584,209 @@ Object {
           },
           "placement": Object {
             "x": 0,
-            "y": 0,
+            "y": 1,
             "z": 0,
           },
           "type": "ContainerLayout",
+        },
+        Object {
+          "body": "World",
+          "dimensions": Object {
+            "height": 1,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 2,
+            "z": 0,
+          },
+          "type": "UnitLayout",
+        },
+      ],
+      "dimensions": Object {
+        "height": 3,
+        "width": 4,
+      },
+      "placement": Object {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+      },
+      "type": "ContainerLayout",
+    },
+  ],
+  "dimensions": Object {
+    "height": 3,
+    "width": 4,
+  },
+  "placement": Object {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+  },
+  "type": "RootLayout",
+}
+`;
+
+exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text, text] with width constrain 2`] = `
+Array [
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Brav",
+      "x": 0,
+      "y": 0,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "New",
+      "x": 0,
+      "y": 1,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Worl",
+      "x": 0,
+      "y": 2,
+    },
+  },
+]
+`;
+
+exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text, text] without style/layout props 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "body": "Brave",
+          "dimensions": Object {
+            "height": 1,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+          },
+          "type": "UnitLayout",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "body": "New",
+              "dimensions": Object {
+                "height": 1,
+                "width": 3,
+              },
+              "placement": Object {
+                "x": 0,
+                "y": 1,
+                "z": 0,
+              },
+              "type": "UnitLayout",
+            },
+          ],
+          "dimensions": Object {
+            "height": 1,
+            "width": 3,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 1,
+            "z": 0,
+          },
+          "type": "ContainerLayout",
+        },
+        Object {
+          "body": "World",
+          "dimensions": Object {
+            "height": 1,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 2,
+            "z": 0,
+          },
+          "type": "UnitLayout",
+        },
+      ],
+      "dimensions": Object {
+        "height": 3,
+        "width": 5,
+      },
+      "placement": Object {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+      },
+      "type": "ContainerLayout",
+    },
+  ],
+  "dimensions": Object {
+    "height": 3,
+    "width": 5,
+  },
+  "placement": Object {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+  },
+  "type": "RootLayout",
+}
+`;
+
+exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text, text] without style/layout props 2`] = `
+Array [
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Brave",
+      "x": 0,
+      "y": 0,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "New",
+      "x": 0,
+      "y": 1,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "World",
+      "x": 0,
+      "y": 2,
+    },
+  },
+]
+`;
+
+exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text] with altering width constrain 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "body": "Hello",
+          "dimensions": Object {
+            "height": 1,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+          },
+          "type": "UnitLayout",
         },
         Object {
           "children": Array [
@@ -289,7 +841,7 @@ Object {
 }
 `;
 
-exports[`calculateLayout integration suite should calculate layout for view -> [view -> text, view -> text] with width constrain 2`] = `
+exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text] with altering width constrain 2`] = `
 Array [
   Object {
     "body": Object {
@@ -310,22 +862,35 @@ Array [
 ]
 `;
 
-exports[`calculateLayout integration suite should calculate layout for view -> [view -> text, view -> text] without style/layout props 1`] = `
+exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text] with layout props 1`] = `
 Object {
   "children": Array [
     Object {
       "children": Array [
         Object {
+          "body": "Hello",
+          "dimensions": Object {
+            "height": 1,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 1,
+            "z": 0,
+          },
+          "type": "UnitLayout",
+        },
+        Object {
           "children": Array [
             Object {
-              "body": "Hello",
+              "body": "World",
               "dimensions": Object {
                 "height": 1,
                 "width": 5,
               },
               "placement": Object {
-                "x": 0,
-                "y": 0,
+                "x": 1,
+                "y": 3,
                 "z": 0,
               },
               "type": "UnitLayout",
@@ -336,11 +901,168 @@ Object {
             "width": 5,
           },
           "placement": Object {
+            "x": 1,
+            "y": 3,
+            "z": 0,
+          },
+          "type": "ContainerLayout",
+        },
+      ],
+      "dimensions": Object {
+        "height": 6,
+        "width": 7,
+      },
+      "placement": Object {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+      },
+      "type": "ContainerLayout",
+    },
+  ],
+  "dimensions": Object {
+    "height": 6,
+    "width": 7,
+  },
+  "placement": Object {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+  },
+  "type": "RootLayout",
+}
+`;
+
+exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text] with layout props 2`] = `
+Array [
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Hello",
+      "x": 0,
+      "y": 1,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "World",
+      "x": 1,
+      "y": 3,
+    },
+  },
+]
+`;
+
+exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text] with non-altering width constrain 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "body": "Hello",
+          "dimensions": Object {
+            "height": 1,
+            "width": 5,
+          },
+          "placement": Object {
             "x": 0,
             "y": 0,
             "z": 0,
           },
+          "type": "UnitLayout",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "body": "World",
+              "dimensions": Object {
+                "height": 1,
+                "width": 5,
+              },
+              "placement": Object {
+                "x": 0,
+                "y": 1,
+                "z": 0,
+              },
+              "type": "UnitLayout",
+            },
+          ],
+          "dimensions": Object {
+            "height": 1,
+            "width": 8,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 1,
+            "z": 0,
+          },
           "type": "ContainerLayout",
+        },
+      ],
+      "dimensions": Object {
+        "height": 2,
+        "width": 8,
+      },
+      "placement": Object {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+      },
+      "type": "ContainerLayout",
+    },
+  ],
+  "dimensions": Object {
+    "height": 2,
+    "width": 8,
+  },
+  "placement": Object {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+  },
+  "type": "RootLayout",
+}
+`;
+
+exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text] with non-altering width constrain 2`] = `
+Array [
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Hello",
+      "x": 0,
+      "y": 0,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "World",
+      "x": 0,
+      "y": 1,
+    },
+  },
+]
+`;
+
+exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text] without style/layout props 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "body": "Hello",
+          "dimensions": Object {
+            "height": 1,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+          },
+          "type": "UnitLayout",
         },
         Object {
           "children": Array [
@@ -395,7 +1117,7 @@ Object {
 }
 `;
 
-exports[`calculateLayout integration suite should calculate layout for view -> [view -> text, view -> text] without style/layout props 2`] = `
+exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text] without style/layout props 2`] = `
 Array [
   Object {
     "body": Object {
@@ -411,6 +1133,282 @@ Array [
       "value": "World",
       "x": 0,
       "y": 1,
+    },
+  },
+]
+`;
+
+exports[`calculateLayout integration suite should calculate layout for view -> [text, view(inline) -> text] with layout props 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "body": "Hello",
+          "dimensions": Object {
+            "height": 1,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 1,
+            "y": 1,
+            "z": 0,
+          },
+          "type": "UnitLayout",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "body": " World",
+              "dimensions": Object {
+                "height": 1,
+                "width": 6,
+              },
+              "placement": Object {
+                "x": 7,
+                "y": 2,
+                "z": 0,
+              },
+              "type": "UnitLayout",
+            },
+          ],
+          "dimensions": Object {
+            "height": 2,
+            "width": 6,
+          },
+          "placement": Object {
+            "x": 7,
+            "y": 1,
+            "z": 0,
+          },
+          "type": "ContainerLayout(inline)",
+        },
+      ],
+      "dimensions": Object {
+        "height": 2,
+        "width": 12,
+      },
+      "placement": Object {
+        "x": 1,
+        "y": 1,
+        "z": 0,
+      },
+      "type": "ContainerLayout",
+    },
+  ],
+  "dimensions": Object {
+    "height": 3,
+    "width": 13,
+  },
+  "placement": Object {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+  },
+  "type": "RootLayout",
+}
+`;
+
+exports[`calculateLayout integration suite should calculate layout for view -> [text, view(inline) -> text] with layout props 2`] = `
+Array [
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Hello",
+      "x": 1,
+      "y": 1,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": " World",
+      "x": 7,
+      "y": 2,
+    },
+  },
+]
+`;
+
+exports[`calculateLayout integration suite should calculate layout for view -> [text, view(inline) -> text] with width constrain 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "body": "Hello",
+          "dimensions": Object {
+            "height": 1,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+          },
+          "type": "UnitLayout",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "body": " World",
+              "dimensions": Object {
+                "height": 1,
+                "width": 6,
+              },
+              "placement": Object {
+                "x": 5,
+                "y": 0,
+                "z": 0,
+              },
+              "type": "UnitLayout",
+            },
+          ],
+          "dimensions": Object {
+            "height": 1,
+            "width": 8,
+          },
+          "placement": Object {
+            "x": 5,
+            "y": 0,
+            "z": 0,
+          },
+          "type": "ContainerLayout(inline)",
+        },
+      ],
+      "dimensions": Object {
+        "height": 1,
+        "width": 8,
+      },
+      "placement": Object {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+      },
+      "type": "ContainerLayout",
+    },
+  ],
+  "dimensions": Object {
+    "height": 1,
+    "width": 8,
+  },
+  "placement": Object {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+  },
+  "type": "RootLayout",
+}
+`;
+
+exports[`calculateLayout integration suite should calculate layout for view -> [text, view(inline) -> text] with width constrain 2`] = `
+Array [
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Hello",
+      "x": 0,
+      "y": 0,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": " Wo",
+      "x": 5,
+      "y": 0,
+    },
+  },
+]
+`;
+
+exports[`calculateLayout integration suite should calculate layout for view -> [text, view(inline) -> text] without style/layout props 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "body": "Hello",
+          "dimensions": Object {
+            "height": 1,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+          },
+          "type": "UnitLayout",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "body": " World",
+              "dimensions": Object {
+                "height": 1,
+                "width": 6,
+              },
+              "placement": Object {
+                "x": 5,
+                "y": 0,
+                "z": 0,
+              },
+              "type": "UnitLayout",
+            },
+          ],
+          "dimensions": Object {
+            "height": 1,
+            "width": 6,
+          },
+          "placement": Object {
+            "x": 5,
+            "y": 0,
+            "z": 0,
+          },
+          "type": "ContainerLayout(inline)",
+        },
+      ],
+      "dimensions": Object {
+        "height": 1,
+        "width": 11,
+      },
+      "placement": Object {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+      },
+      "type": "ContainerLayout",
+    },
+  ],
+  "dimensions": Object {
+    "height": 1,
+    "width": 11,
+  },
+  "placement": Object {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+  },
+  "type": "RootLayout",
+}
+`;
+
+exports[`calculateLayout integration suite should calculate layout for view -> [text, view(inline) -> text] without style/layout props 2`] = `
+Array [
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Hello",
+      "x": 0,
+      "y": 0,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": " World",
+      "x": 5,
+      "y": 0,
     },
   },
 ]
@@ -1656,13 +2654,27 @@ Array [
 ]
 `;
 
-exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text, text] with inner height constrain 1`] = `
+exports[`calculateLayout integration suite should calculate layout for view -> [view -> text, view -> text] with height constrain 1`] = `
 Object {
   "children": Array [
     Object {
       "children": Array [
         Object {
-          "body": "Brave",
+          "children": Array [
+            Object {
+              "body": "Hello",
+              "dimensions": Object {
+                "height": 1,
+                "width": 5,
+              },
+              "placement": Object {
+                "x": 0,
+                "y": 0,
+                "z": 0,
+              },
+              "type": "UnitLayout",
+            },
+          ],
           "dimensions": Object {
             "height": 1,
             "width": 5,
@@ -1672,15 +2684,15 @@ Object {
             "y": 0,
             "z": 0,
           },
-          "type": "UnitLayout",
+          "type": "ContainerLayout",
         },
         Object {
           "children": Array [
             Object {
-              "body": "New",
+              "body": "World",
               "dimensions": Object {
                 "height": 1,
-                "width": 3,
+                "width": 5,
               },
               "placement": Object {
                 "x": 0,
@@ -1691,8 +2703,8 @@ Object {
             },
           ],
           "dimensions": Object {
-            "height": 2,
-            "width": 3,
+            "height": 0,
+            "width": 5,
           },
           "placement": Object {
             "x": 0,
@@ -1701,22 +2713,9 @@ Object {
           },
           "type": "ContainerLayout",
         },
-        Object {
-          "body": "World",
-          "dimensions": Object {
-            "height": 1,
-            "width": 5,
-          },
-          "placement": Object {
-            "x": 0,
-            "y": 3,
-            "z": 0,
-          },
-          "type": "UnitLayout",
-        },
       ],
       "dimensions": Object {
-        "height": 4,
+        "height": 1,
         "width": 5,
       },
       "placement": Object {
@@ -1728,7 +2727,7 @@ Object {
     },
   ],
   "dimensions": Object {
-    "height": 4,
+    "height": 1,
     "width": 5,
   },
   "placement": Object {
@@ -1740,64 +2739,62 @@ Object {
 }
 `;
 
-exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text, text] with inner height constrain 2`] = `
+exports[`calculateLayout integration suite should calculate layout for view -> [view -> text, view -> text] with height constrain 2`] = `
 Array [
   Object {
     "body": Object {
       "style": null,
-      "value": "Brave",
+      "value": "Hello",
       "x": 0,
       "y": 0,
-    },
-  },
-  Object {
-    "body": Object {
-      "style": null,
-      "value": "New",
-      "x": 0,
-      "y": 1,
-    },
-  },
-  Object {
-    "body": Object {
-      "style": null,
-      "value": "World",
-      "x": 0,
-      "y": 3,
     },
   },
 ]
 `;
 
-exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text, text] with layout props 1`] = `
+exports[`calculateLayout integration suite should calculate layout for view -> [view -> text, view -> text] with layout props 1`] = `
 Object {
   "children": Array [
     Object {
       "children": Array [
         Object {
-          "body": "Brave",
+          "children": Array [
+            Object {
+              "body": "Hello",
+              "dimensions": Object {
+                "height": 1,
+                "width": 5,
+              },
+              "placement": Object {
+                "x": 2,
+                "y": 2,
+                "z": 0,
+              },
+              "type": "UnitLayout",
+            },
+          ],
           "dimensions": Object {
             "height": 1,
             "width": 5,
           },
           "placement": Object {
-            "x": 1,
-            "y": 1,
+            "x": 2,
+            "y": 2,
             "z": 0,
           },
-          "type": "UnitLayout",
+          "type": "ContainerLayout",
         },
         Object {
           "children": Array [
             Object {
-              "body": "New",
+              "body": "World",
               "dimensions": Object {
                 "height": 1,
-                "width": 3,
+                "width": 5,
               },
               "placement": Object {
-                "x": 3,
-                "y": 3,
+                "x": 2,
+                "y": 5,
                 "z": 0,
               },
               "type": "UnitLayout",
@@ -1809,31 +2806,18 @@ Object {
           },
           "placement": Object {
             "x": 1,
-            "y": 2,
+            "y": 4,
             "z": 0,
           },
           "type": "ContainerLayout",
         },
-        Object {
-          "body": "World",
-          "dimensions": Object {
-            "height": 1,
-            "width": 5,
-          },
-          "placement": Object {
-            "x": 1,
-            "y": 5,
-            "z": 0,
-          },
-          "type": "UnitLayout",
-        },
       ],
       "dimensions": Object {
-        "height": 5,
-        "width": 7,
+        "height": 6,
+        "width": 9,
       },
       "placement": Object {
-        "x": 1,
+        "x": 0,
         "y": 1,
         "z": 0,
       },
@@ -1841,7 +2825,7 @@ Object {
     },
   ],
   "dimensions": Object {
-    "height": 6,
+    "height": 7,
     "width": 9,
   },
   "placement": Object {
@@ -1853,169 +2837,43 @@ Object {
 }
 `;
 
-exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text, text] with layout props 2`] = `
+exports[`calculateLayout integration suite should calculate layout for view -> [view -> text, view -> text] with layout props 2`] = `
 Array [
   Object {
     "body": Object {
       "style": null,
-      "value": "Brave",
-      "x": 1,
-      "y": 1,
-    },
-  },
-  Object {
-    "body": Object {
-      "style": null,
-      "value": "New",
-      "x": 3,
-      "y": 3,
+      "value": "Hello",
+      "x": 2,
+      "y": 2,
     },
   },
   Object {
     "body": Object {
       "style": null,
       "value": "World",
-      "x": 1,
+      "x": 2,
       "y": 5,
     },
   },
 ]
 `;
 
-exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text, text] with outer height constrain 1`] = `
+exports[`calculateLayout integration suite should calculate layout for view -> [view -> text, view -> text] with width constrain 1`] = `
 Object {
   "children": Array [
     Object {
       "children": Array [
         Object {
-          "body": "Brave",
-          "dimensions": Object {
-            "height": 1,
-            "width": 5,
-          },
-          "placement": Object {
-            "x": 0,
-            "y": 0,
-            "z": 0,
-          },
-          "type": "UnitLayout",
-        },
-        Object {
           "children": Array [
             Object {
-              "body": "New",
+              "body": "Hello",
               "dimensions": Object {
                 "height": 1,
-                "width": 3,
+                "width": 5,
               },
               "placement": Object {
                 "x": 0,
-                "y": 1,
-                "z": 0,
-              },
-              "type": "UnitLayout",
-            },
-          ],
-          "dimensions": Object {
-            "height": 1,
-            "width": 3,
-          },
-          "placement": Object {
-            "x": 0,
-            "y": 1,
-            "z": 0,
-          },
-          "type": "ContainerLayout",
-        },
-        Object {
-          "body": "World",
-          "dimensions": Object {
-            "height": 1,
-            "width": 5,
-          },
-          "placement": Object {
-            "x": 0,
-            "y": 2,
-            "z": 0,
-          },
-          "type": "UnitLayout",
-        },
-      ],
-      "dimensions": Object {
-        "height": 2,
-        "width": 5,
-      },
-      "placement": Object {
-        "x": 0,
-        "y": 0,
-        "z": 0,
-      },
-      "type": "ContainerLayout",
-    },
-  ],
-  "dimensions": Object {
-    "height": 2,
-    "width": 5,
-  },
-  "placement": Object {
-    "x": 0,
-    "y": 0,
-    "z": 0,
-  },
-  "type": "RootLayout",
-}
-`;
-
-exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text, text] with outer height constrain 2`] = `
-Array [
-  Object {
-    "body": Object {
-      "style": null,
-      "value": "Brave",
-      "x": 0,
-      "y": 0,
-    },
-  },
-  Object {
-    "body": Object {
-      "style": null,
-      "value": "New",
-      "x": 0,
-      "y": 1,
-    },
-  },
-]
-`;
-
-exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text, text] with width constrain 1`] = `
-Object {
-  "children": Array [
-    Object {
-      "children": Array [
-        Object {
-          "body": "Brave",
-          "dimensions": Object {
-            "height": 1,
-            "width": 5,
-          },
-          "placement": Object {
-            "x": 0,
-            "y": 0,
-            "z": 0,
-          },
-          "type": "UnitLayout",
-        },
-        Object {
-          "children": Array [
-            Object {
-              "body": "New",
-              "dimensions": Object {
-                "height": 1,
-                "width": 3,
-              },
-              "placement": Object {
-                "x": 0,
-                "y": 1,
+                "y": 0,
                 "z": 0,
               },
               "type": "UnitLayout",
@@ -2027,209 +2885,10 @@ Object {
           },
           "placement": Object {
             "x": 0,
-            "y": 1,
-            "z": 0,
-          },
-          "type": "ContainerLayout",
-        },
-        Object {
-          "body": "World",
-          "dimensions": Object {
-            "height": 1,
-            "width": 5,
-          },
-          "placement": Object {
-            "x": 0,
-            "y": 2,
-            "z": 0,
-          },
-          "type": "UnitLayout",
-        },
-      ],
-      "dimensions": Object {
-        "height": 3,
-        "width": 4,
-      },
-      "placement": Object {
-        "x": 0,
-        "y": 0,
-        "z": 0,
-      },
-      "type": "ContainerLayout",
-    },
-  ],
-  "dimensions": Object {
-    "height": 3,
-    "width": 4,
-  },
-  "placement": Object {
-    "x": 0,
-    "y": 0,
-    "z": 0,
-  },
-  "type": "RootLayout",
-}
-`;
-
-exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text, text] with width constrain 2`] = `
-Array [
-  Object {
-    "body": Object {
-      "style": null,
-      "value": "Brav",
-      "x": 0,
-      "y": 0,
-    },
-  },
-  Object {
-    "body": Object {
-      "style": null,
-      "value": "New",
-      "x": 0,
-      "y": 1,
-    },
-  },
-  Object {
-    "body": Object {
-      "style": null,
-      "value": "Worl",
-      "x": 0,
-      "y": 2,
-    },
-  },
-]
-`;
-
-exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text, text] without style/layout props 1`] = `
-Object {
-  "children": Array [
-    Object {
-      "children": Array [
-        Object {
-          "body": "Brave",
-          "dimensions": Object {
-            "height": 1,
-            "width": 5,
-          },
-          "placement": Object {
-            "x": 0,
             "y": 0,
             "z": 0,
           },
-          "type": "UnitLayout",
-        },
-        Object {
-          "children": Array [
-            Object {
-              "body": "New",
-              "dimensions": Object {
-                "height": 1,
-                "width": 3,
-              },
-              "placement": Object {
-                "x": 0,
-                "y": 1,
-                "z": 0,
-              },
-              "type": "UnitLayout",
-            },
-          ],
-          "dimensions": Object {
-            "height": 1,
-            "width": 3,
-          },
-          "placement": Object {
-            "x": 0,
-            "y": 1,
-            "z": 0,
-          },
           "type": "ContainerLayout",
-        },
-        Object {
-          "body": "World",
-          "dimensions": Object {
-            "height": 1,
-            "width": 5,
-          },
-          "placement": Object {
-            "x": 0,
-            "y": 2,
-            "z": 0,
-          },
-          "type": "UnitLayout",
-        },
-      ],
-      "dimensions": Object {
-        "height": 3,
-        "width": 5,
-      },
-      "placement": Object {
-        "x": 0,
-        "y": 0,
-        "z": 0,
-      },
-      "type": "ContainerLayout",
-    },
-  ],
-  "dimensions": Object {
-    "height": 3,
-    "width": 5,
-  },
-  "placement": Object {
-    "x": 0,
-    "y": 0,
-    "z": 0,
-  },
-  "type": "RootLayout",
-}
-`;
-
-exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text, text] without style/layout props 2`] = `
-Array [
-  Object {
-    "body": Object {
-      "style": null,
-      "value": "Brave",
-      "x": 0,
-      "y": 0,
-    },
-  },
-  Object {
-    "body": Object {
-      "style": null,
-      "value": "New",
-      "x": 0,
-      "y": 1,
-    },
-  },
-  Object {
-    "body": Object {
-      "style": null,
-      "value": "World",
-      "x": 0,
-      "y": 2,
-    },
-  },
-]
-`;
-
-exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text] with altering width constrain 1`] = `
-Object {
-  "children": Array [
-    Object {
-      "children": Array [
-        Object {
-          "body": "Hello",
-          "dimensions": Object {
-            "height": 1,
-            "width": 5,
-          },
-          "placement": Object {
-            "x": 0,
-            "y": 0,
-            "z": 0,
-          },
-          "type": "UnitLayout",
         },
         Object {
           "children": Array [
@@ -2284,7 +2943,7 @@ Object {
 }
 `;
 
-exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text] with altering width constrain 2`] = `
+exports[`calculateLayout integration suite should calculate layout for view -> [view -> text, view -> text] with width constrain 2`] = `
 Array [
   Object {
     "body": Object {
@@ -2305,197 +2964,27 @@ Array [
 ]
 `;
 
-exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text] with layout props 1`] = `
+exports[`calculateLayout integration suite should calculate layout for view -> [view -> text, view -> text] without style/layout props 1`] = `
 Object {
   "children": Array [
     Object {
       "children": Array [
         Object {
-          "body": "Hello",
-          "dimensions": Object {
-            "height": 1,
-            "width": 5,
-          },
-          "placement": Object {
-            "x": 0,
-            "y": 1,
-            "z": 0,
-          },
-          "type": "UnitLayout",
-        },
-        Object {
           "children": Array [
             Object {
-              "body": "World",
-              "dimensions": Object {
-                "height": 1,
-                "width": 5,
-              },
-              "placement": Object {
-                "x": 1,
-                "y": 3,
-                "z": 0,
-              },
-              "type": "UnitLayout",
-            },
-          ],
-          "dimensions": Object {
-            "height": 1,
-            "width": 5,
-          },
-          "placement": Object {
-            "x": 1,
-            "y": 3,
-            "z": 0,
-          },
-          "type": "ContainerLayout",
-        },
-      ],
-      "dimensions": Object {
-        "height": 6,
-        "width": 7,
-      },
-      "placement": Object {
-        "x": 0,
-        "y": 0,
-        "z": 0,
-      },
-      "type": "ContainerLayout",
-    },
-  ],
-  "dimensions": Object {
-    "height": 6,
-    "width": 7,
-  },
-  "placement": Object {
-    "x": 0,
-    "y": 0,
-    "z": 0,
-  },
-  "type": "RootLayout",
-}
-`;
-
-exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text] with layout props 2`] = `
-Array [
-  Object {
-    "body": Object {
-      "style": null,
-      "value": "Hello",
-      "x": 0,
-      "y": 1,
-    },
-  },
-  Object {
-    "body": Object {
-      "style": null,
-      "value": "World",
-      "x": 1,
-      "y": 3,
-    },
-  },
-]
-`;
-
-exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text] with non-altering width constrain 1`] = `
-Object {
-  "children": Array [
-    Object {
-      "children": Array [
-        Object {
-          "body": "Hello",
-          "dimensions": Object {
-            "height": 1,
-            "width": 5,
-          },
-          "placement": Object {
-            "x": 0,
-            "y": 0,
-            "z": 0,
-          },
-          "type": "UnitLayout",
-        },
-        Object {
-          "children": Array [
-            Object {
-              "body": "World",
+              "body": "Hello",
               "dimensions": Object {
                 "height": 1,
                 "width": 5,
               },
               "placement": Object {
                 "x": 0,
-                "y": 1,
+                "y": 0,
                 "z": 0,
               },
               "type": "UnitLayout",
             },
           ],
-          "dimensions": Object {
-            "height": 1,
-            "width": 8,
-          },
-          "placement": Object {
-            "x": 0,
-            "y": 1,
-            "z": 0,
-          },
-          "type": "ContainerLayout",
-        },
-      ],
-      "dimensions": Object {
-        "height": 2,
-        "width": 8,
-      },
-      "placement": Object {
-        "x": 0,
-        "y": 0,
-        "z": 0,
-      },
-      "type": "ContainerLayout",
-    },
-  ],
-  "dimensions": Object {
-    "height": 2,
-    "width": 8,
-  },
-  "placement": Object {
-    "x": 0,
-    "y": 0,
-    "z": 0,
-  },
-  "type": "RootLayout",
-}
-`;
-
-exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text] with non-altering width constrain 2`] = `
-Array [
-  Object {
-    "body": Object {
-      "style": null,
-      "value": "Hello",
-      "x": 0,
-      "y": 0,
-    },
-  },
-  Object {
-    "body": Object {
-      "style": null,
-      "value": "World",
-      "x": 0,
-      "y": 1,
-    },
-  },
-]
-`;
-
-exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text] without style/layout props 1`] = `
-Object {
-  "children": Array [
-    Object {
-      "children": Array [
-        Object {
-          "body": "Hello",
           "dimensions": Object {
             "height": 1,
             "width": 5,
@@ -2505,7 +2994,7 @@ Object {
             "y": 0,
             "z": 0,
           },
-          "type": "UnitLayout",
+          "type": "ContainerLayout",
         },
         Object {
           "children": Array [
@@ -2560,7 +3049,7 @@ Object {
 }
 `;
 
-exports[`calculateLayout integration suite should calculate layout for view -> [text, view -> text] without style/layout props 2`] = `
+exports[`calculateLayout integration suite should calculate layout for view -> [view -> text, view -> text] without style/layout props 2`] = `
 Array [
   Object {
     "body": Object {
@@ -2581,309 +3070,20 @@ Array [
 ]
 `;
 
-exports[`calculateLayout integration suite should calculate layout for view -> [text, view(inline) -> text] with layout props 1`] = `
+exports[`calculateLayout integration suite should calculate layout for view -> text with height constrain and vertical paddings 1`] = `
 Object {
   "children": Array [
     Object {
       "children": Array [
         Object {
-          "body": "Hello",
+          "body": "Hello World",
           "dimensions": Object {
             "height": 1,
-            "width": 5,
-          },
-          "placement": Object {
-            "x": 1,
-            "y": 1,
-            "z": 0,
-          },
-          "type": "UnitLayout",
-        },
-        Object {
-          "children": Array [
-            Object {
-              "body": " World",
-              "dimensions": Object {
-                "height": 1,
-                "width": 6,
-              },
-              "placement": Object {
-                "x": 7,
-                "y": 2,
-                "z": 0,
-              },
-              "type": "UnitLayout",
-            },
-          ],
-          "dimensions": Object {
-            "height": 2,
-            "width": 6,
-          },
-          "placement": Object {
-            "x": 7,
-            "y": 1,
-            "z": 0,
-          },
-          "type": "ContainerLayout(inline)",
-        },
-      ],
-      "dimensions": Object {
-        "height": 2,
-        "width": 12,
-      },
-      "placement": Object {
-        "x": 1,
-        "y": 1,
-        "z": 0,
-      },
-      "type": "ContainerLayout",
-    },
-  ],
-  "dimensions": Object {
-    "height": 3,
-    "width": 13,
-  },
-  "placement": Object {
-    "x": 0,
-    "y": 0,
-    "z": 0,
-  },
-  "type": "RootLayout",
-}
-`;
-
-exports[`calculateLayout integration suite should calculate layout for view -> [text, view(inline) -> text] with layout props 2`] = `
-Array [
-  Object {
-    "body": Object {
-      "style": null,
-      "value": "Hello",
-      "x": 1,
-      "y": 1,
-    },
-  },
-  Object {
-    "body": Object {
-      "style": null,
-      "value": " World",
-      "x": 7,
-      "y": 2,
-    },
-  },
-]
-`;
-
-exports[`calculateLayout integration suite should calculate layout for view -> [text, view(inline) -> text] with width constrain 1`] = `
-Object {
-  "children": Array [
-    Object {
-      "children": Array [
-        Object {
-          "body": "Hello",
-          "dimensions": Object {
-            "height": 1,
-            "width": 5,
+            "width": 11,
           },
           "placement": Object {
             "x": 0,
-            "y": 0,
-            "z": 0,
-          },
-          "type": "UnitLayout",
-        },
-        Object {
-          "children": Array [
-            Object {
-              "body": " World",
-              "dimensions": Object {
-                "height": 1,
-                "width": 6,
-              },
-              "placement": Object {
-                "x": 5,
-                "y": 0,
-                "z": 0,
-              },
-              "type": "UnitLayout",
-            },
-          ],
-          "dimensions": Object {
-            "height": 1,
-            "width": 8,
-          },
-          "placement": Object {
-            "x": 5,
-            "y": 0,
-            "z": 0,
-          },
-          "type": "ContainerLayout(inline)",
-        },
-      ],
-      "dimensions": Object {
-        "height": 1,
-        "width": 8,
-      },
-      "placement": Object {
-        "x": 0,
-        "y": 0,
-        "z": 0,
-      },
-      "type": "ContainerLayout",
-    },
-  ],
-  "dimensions": Object {
-    "height": 1,
-    "width": 8,
-  },
-  "placement": Object {
-    "x": 0,
-    "y": 0,
-    "z": 0,
-  },
-  "type": "RootLayout",
-}
-`;
-
-exports[`calculateLayout integration suite should calculate layout for view -> [text, view(inline) -> text] with width constrain 2`] = `
-Array [
-  Object {
-    "body": Object {
-      "style": null,
-      "value": "Hello",
-      "x": 0,
-      "y": 0,
-    },
-  },
-  Object {
-    "body": Object {
-      "style": null,
-      "value": " Wo",
-      "x": 5,
-      "y": 0,
-    },
-  },
-]
-`;
-
-exports[`calculateLayout integration suite should calculate layout for view -> [text, view(inline) -> text] without style/layout props 1`] = `
-Object {
-  "children": Array [
-    Object {
-      "children": Array [
-        Object {
-          "body": "Hello",
-          "dimensions": Object {
-            "height": 1,
-            "width": 5,
-          },
-          "placement": Object {
-            "x": 0,
-            "y": 0,
-            "z": 0,
-          },
-          "type": "UnitLayout",
-        },
-        Object {
-          "children": Array [
-            Object {
-              "body": " World",
-              "dimensions": Object {
-                "height": 1,
-                "width": 6,
-              },
-              "placement": Object {
-                "x": 5,
-                "y": 0,
-                "z": 0,
-              },
-              "type": "UnitLayout",
-            },
-          ],
-          "dimensions": Object {
-            "height": 1,
-            "width": 6,
-          },
-          "placement": Object {
-            "x": 5,
-            "y": 0,
-            "z": 0,
-          },
-          "type": "ContainerLayout(inline)",
-        },
-      ],
-      "dimensions": Object {
-        "height": 1,
-        "width": 11,
-      },
-      "placement": Object {
-        "x": 0,
-        "y": 0,
-        "z": 0,
-      },
-      "type": "ContainerLayout",
-    },
-  ],
-  "dimensions": Object {
-    "height": 1,
-    "width": 11,
-  },
-  "placement": Object {
-    "x": 0,
-    "y": 0,
-    "z": 0,
-  },
-  "type": "RootLayout",
-}
-`;
-
-exports[`calculateLayout integration suite should calculate layout for view -> [text, view(inline) -> text] without style/layout props 2`] = `
-Array [
-  Object {
-    "body": Object {
-      "style": null,
-      "value": "Hello",
-      "x": 0,
-      "y": 0,
-    },
-  },
-  Object {
-    "body": Object {
-      "style": null,
-      "value": " World",
-      "x": 5,
-      "y": 0,
-    },
-  },
-]
-`;
-
-exports[`calculateLayout integration suite should calculate layout for view -> [text, text] with layout props 1`] = `
-Object {
-  "children": Array [
-    Object {
-      "children": Array [
-        Object {
-          "body": "Hello",
-          "dimensions": Object {
-            "height": 1,
-            "width": 5,
-          },
-          "placement": Object {
-            "x": 3,
-            "y": 3,
-            "z": 0,
-          },
-          "type": "UnitLayout",
-        },
-        Object {
-          "body": " World",
-          "dimensions": Object {
-            "height": 1,
-            "width": 6,
-          },
-          "placement": Object {
-            "x": 8,
-            "y": 3,
+            "y": 1,
             "z": 0,
           },
           "type": "UnitLayout",
@@ -2891,19 +3091,19 @@ Object {
       ],
       "dimensions": Object {
         "height": 3,
-        "width": 13,
+        "width": 11,
       },
       "placement": Object {
-        "x": 2,
-        "y": 2,
+        "x": 0,
+        "y": 0,
         "z": 0,
       },
       "type": "ContainerLayout",
     },
   ],
   "dimensions": Object {
-    "height": 5,
-    "width": 15,
+    "height": 3,
+    "width": 11,
   },
   "placement": Object {
     "x": 0,
@@ -2914,16 +3114,84 @@ Object {
 }
 `;
 
-exports[`calculateLayout integration suite should calculate layout for view -> [text, text] with width constrain 1`] = `
+exports[`calculateLayout integration suite should calculate layout for view -> text with height constrain and vertical paddings 2`] = `
+Array [
+  Object {
+    "box": Object {
+      "height": 3,
+      "style": Object {
+        "backgroundColor": "red",
+      },
+      "width": 11,
+      "x": 0,
+      "y": 0,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Hello World",
+      "x": 0,
+      "y": 1,
+    },
+  },
+]
+`;
+
+exports[`calculateLayout integration suite should calculate layout for view -> text with layout props 1`] = `
 Object {
   "children": Array [
     Object {
       "children": Array [
         Object {
-          "body": "Hello",
+          "body": "Hello World",
           "dimensions": Object {
             "height": 1,
-            "width": 5,
+            "width": 11,
+          },
+          "placement": Object {
+            "x": 4,
+            "y": 2,
+            "z": 0,
+          },
+          "type": "UnitLayout",
+        },
+      ],
+      "dimensions": Object {
+        "height": 3,
+        "width": 15,
+      },
+      "placement": Object {
+        "x": 2,
+        "y": 1,
+        "z": 0,
+      },
+      "type": "ContainerLayout",
+    },
+  ],
+  "dimensions": Object {
+    "height": 4,
+    "width": 17,
+  },
+  "placement": Object {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+  },
+  "type": "RootLayout",
+}
+`;
+
+exports[`calculateLayout integration suite should calculate layout for view -> text with width constrain 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "body": "Hello World",
+          "dimensions": Object {
+            "height": 1,
+            "width": 11,
           },
           "placement": Object {
             "x": 0,
@@ -2932,23 +3200,10 @@ Object {
           },
           "type": "UnitLayout",
         },
-        Object {
-          "body": " World",
-          "dimensions": Object {
-            "height": 1,
-            "width": 6,
-          },
-          "placement": Object {
-            "x": 5,
-            "y": 0,
-            "z": 0,
-          },
-          "type": "UnitLayout",
-        },
       ],
       "dimensions": Object {
         "height": 1,
-        "width": 8,
+        "width": 5,
       },
       "placement": Object {
         "x": 0,
@@ -2960,7 +3215,7 @@ Object {
   ],
   "dimensions": Object {
     "height": 1,
-    "width": 8,
+    "width": 5,
   },
   "placement": Object {
     "x": 0,
@@ -2971,7 +3226,7 @@ Object {
 }
 `;
 
-exports[`calculateLayout integration suite should calculate layout for view -> [text, text] with width constrain 2`] = `
+exports[`calculateLayout integration suite should calculate layout for view -> text with width constrain 2`] = `
 Array [
   Object {
     "body": Object {
@@ -2981,43 +3236,22 @@ Array [
       "y": 0,
     },
   },
-  Object {
-    "body": Object {
-      "style": null,
-      "value": " Wo",
-      "x": 5,
-      "y": 0,
-    },
-  },
 ]
 `;
 
-exports[`calculateLayout integration suite should calculate layout for view -> [text, text] without style/layout props 1`] = `
+exports[`calculateLayout integration suite should calculate layout for view -> text without style/layout props 1`] = `
 Object {
   "children": Array [
     Object {
       "children": Array [
         Object {
-          "body": "Hello",
+          "body": "Hello World",
           "dimensions": Object {
             "height": 1,
-            "width": 5,
+            "width": 11,
           },
           "placement": Object {
             "x": 0,
-            "y": 0,
-            "z": 0,
-          },
-          "type": "UnitLayout",
-        },
-        Object {
-          "body": " World",
-          "dimensions": Object {
-            "height": 1,
-            "width": 6,
-          },
-          "placement": Object {
-            "x": 5,
             "y": 0,
             "z": 0,
           },
@@ -3049,21 +3283,13 @@ Object {
 }
 `;
 
-exports[`calculateLayout integration suite should calculate layout for view -> [text, text] without style/layout props 2`] = `
+exports[`calculateLayout integration suite should calculate layout for view -> text without style/layout props 2`] = `
 Array [
   Object {
     "body": Object {
       "style": null,
-      "value": "Hello",
+      "value": "Hello World",
       "x": 0,
-      "y": 0,
-    },
-  },
-  Object {
-    "body": Object {
-      "style": null,
-      "value": " World",
-      "x": 5,
       "y": 0,
     },
   },
@@ -3425,75 +3651,7 @@ Array [
 ]
 `;
 
-exports[`calculateLayout integration suite should calculate layout for view -> text with height constrain and vertical paddings 1`] = `
-Object {
-  "children": Array [
-    Object {
-      "children": Array [
-        Object {
-          "body": "Hello World",
-          "dimensions": Object {
-            "height": 1,
-            "width": 11,
-          },
-          "placement": Object {
-            "x": 0,
-            "y": 1,
-            "z": 0,
-          },
-          "type": "UnitLayout",
-        },
-      ],
-      "dimensions": Object {
-        "height": 3,
-        "width": 11,
-      },
-      "placement": Object {
-        "x": 0,
-        "y": 0,
-        "z": 0,
-      },
-      "type": "ContainerLayout",
-    },
-  ],
-  "dimensions": Object {
-    "height": 3,
-    "width": 11,
-  },
-  "placement": Object {
-    "x": 0,
-    "y": 0,
-    "z": 0,
-  },
-  "type": "RootLayout",
-}
-`;
-
-exports[`calculateLayout integration suite should calculate layout for view -> text with height constrain and vertical paddings 2`] = `
-Array [
-  Object {
-    "box": Object {
-      "height": 3,
-      "style": Object {
-        "backgroundColor": "red",
-      },
-      "width": 11,
-      "x": 0,
-      "y": 0,
-    },
-  },
-  Object {
-    "body": Object {
-      "style": null,
-      "value": "Hello World",
-      "x": 0,
-      "y": 1,
-    },
-  },
-]
-`;
-
-exports[`calculateLayout integration suite should calculate layout for view -> text with layout props 1`] = `
+exports[`calculateLayout integration suite with absolute positioning for view(absolute) -> text with border 1`] = `
 Object {
   "children": Array [
     Object {
@@ -3506,27 +3664,27 @@ Object {
           },
           "placement": Object {
             "x": 4,
-            "y": 2,
+            "y": 4,
             "z": 0,
           },
           "type": "UnitLayout",
         },
       ],
       "dimensions": Object {
-        "height": 3,
+        "height": 5,
         "width": 15,
       },
       "placement": Object {
         "x": 2,
-        "y": 1,
-        "z": 0,
+        "y": 2,
+        "z": 1,
       },
-      "type": "ContainerLayout",
+      "type": "BorderLayout",
     },
   ],
   "dimensions": Object {
-    "height": 4,
-    "width": 17,
+    "height": 8,
+    "width": 18,
   },
   "placement": Object {
     "x": 0,
@@ -3537,7 +3695,306 @@ Object {
 }
 `;
 
-exports[`calculateLayout integration suite should calculate layout for view -> text with width constrain 1`] = `
+exports[`calculateLayout integration suite with absolute positioning for view(absolute) -> text with border 2`] = `
+Array [
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Hello World",
+      "x": 4,
+      "y": 4,
+    },
+  },
+  Object {
+    "box": Object {
+      "height": 3,
+      "style": Object {
+        "backgroundColor": "red",
+      },
+      "width": 13,
+      "x": 3,
+      "y": 3,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": Object {
+        "backgroundColor": "red",
+      },
+      "value": "┌─────────────┐",
+      "x": 2,
+      "y": 2,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": Object {
+        "backgroundColor": "red",
+      },
+      "value": "│",
+      "x": 2,
+      "y": 3,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": Object {
+        "backgroundColor": "red",
+      },
+      "value": "│",
+      "x": 2,
+      "y": 4,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": Object {
+        "backgroundColor": "red",
+      },
+      "value": "│",
+      "x": 2,
+      "y": 5,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": Object {
+        "backgroundColor": "red",
+      },
+      "value": "│",
+      "x": 16,
+      "y": 3,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": Object {
+        "backgroundColor": "red",
+      },
+      "value": "│",
+      "x": 16,
+      "y": 4,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": Object {
+        "backgroundColor": "red",
+      },
+      "value": "│",
+      "x": 16,
+      "y": 5,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": Object {
+        "backgroundColor": "red",
+      },
+      "value": "└─────────────┘",
+      "x": 2,
+      "y": 6,
+    },
+  },
+]
+`;
+
+exports[`calculateLayout integration suite with absolute positioning for view(absolute) -> text with height constrain 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "body": "Hello World",
+          "dimensions": Object {
+            "height": 1,
+            "width": 11,
+          },
+          "placement": Object {
+            "x": 2,
+            "y": 2,
+            "z": 0,
+          },
+          "type": "UnitLayout",
+        },
+      ],
+      "dimensions": Object {
+        "height": 3,
+        "width": 11,
+      },
+      "placement": Object {
+        "x": 2,
+        "y": 2,
+        "z": 1,
+      },
+      "type": "ContainerLayout(absolute)",
+    },
+  ],
+  "dimensions": Object {
+    "height": 5,
+    "width": 13,
+  },
+  "placement": Object {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+  },
+  "type": "RootLayout",
+}
+`;
+
+exports[`calculateLayout integration suite with absolute positioning for view(absolute) -> text with height constrain 2`] = `
+Array [
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Hello World",
+      "x": 2,
+      "y": 2,
+    },
+  },
+  Object {
+    "box": Object {
+      "height": 3,
+      "style": Object {
+        "backgroundColor": "red",
+      },
+      "width": 11,
+      "x": 2,
+      "y": 2,
+    },
+  },
+]
+`;
+
+exports[`calculateLayout integration suite with absolute positioning for view(absolute) -> text with layout props 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "body": "Hello World",
+          "dimensions": Object {
+            "height": 1,
+            "width": 11,
+          },
+          "placement": Object {
+            "x": 6,
+            "y": 5,
+            "z": 0,
+          },
+          "type": "UnitLayout",
+        },
+      ],
+      "dimensions": Object {
+        "height": 3,
+        "width": 15,
+      },
+      "placement": Object {
+        "x": 4,
+        "y": 4,
+        "z": 1,
+      },
+      "type": "ContainerLayout(absolute)",
+    },
+  ],
+  "dimensions": Object {
+    "height": 7,
+    "width": 19,
+  },
+  "placement": Object {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+  },
+  "type": "RootLayout",
+}
+`;
+
+exports[`calculateLayout integration suite with absolute positioning for view(absolute) -> text with layout props 2`] = `
+Array [
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Hello World",
+      "x": 6,
+      "y": 5,
+    },
+  },
+]
+`;
+
+exports[`calculateLayout integration suite with absolute positioning for view(absolute) -> text with style props 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "body": "Hello World",
+          "dimensions": Object {
+            "height": 1,
+            "width": 11,
+          },
+          "placement": Object {
+            "x": 4,
+            "y": 4,
+            "z": 0,
+          },
+          "type": "UnitLayout",
+        },
+      ],
+      "dimensions": Object {
+        "height": 1,
+        "width": 11,
+      },
+      "placement": Object {
+        "x": 4,
+        "y": 4,
+        "z": 1,
+      },
+      "type": "ContainerLayout(absolute)",
+    },
+  ],
+  "dimensions": Object {
+    "height": 5,
+    "width": 15,
+  },
+  "placement": Object {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+  },
+  "type": "RootLayout",
+}
+`;
+
+exports[`calculateLayout integration suite with absolute positioning for view(absolute) -> text with style props 2`] = `
+Array [
+  Object {
+    "body": Object {
+      "style": Object {
+        "color": "white",
+      },
+      "value": "Hello World",
+      "x": 4,
+      "y": 4,
+    },
+  },
+  Object {
+    "box": Object {
+      "height": 1,
+      "style": Object {
+        "backgroundColor": "red",
+      },
+      "width": 11,
+      "x": 4,
+      "y": 4,
+    },
+  },
+]
+`;
+
+exports[`calculateLayout integration suite with absolute positioning for view(absolute) -> text with width constrain 1`] = `
 Object {
   "children": Array [
     Object {
@@ -3581,7 +4038,7 @@ Object {
 }
 `;
 
-exports[`calculateLayout integration suite should calculate layout for view -> text with width constrain 2`] = `
+exports[`calculateLayout integration suite with absolute positioning for view(absolute) -> text with width constrain 2`] = `
 Array [
   Object {
     "body": Object {
@@ -3594,7 +4051,7 @@ Array [
 ]
 `;
 
-exports[`calculateLayout integration suite should calculate layout for view -> text without style/layout props 1`] = `
+exports[`calculateLayout integration suite with absolute positioning for view(absolute) -> text without style props 1`] = `
 Object {
   "children": Array [
     Object {
@@ -3620,9 +4077,9 @@ Object {
       "placement": Object {
         "x": 0,
         "y": 0,
-        "z": 0,
+        "z": 1,
       },
-      "type": "ContainerLayout",
+      "type": "ContainerLayout(absolute)",
     },
   ],
   "dimensions": Object {
@@ -3638,7 +4095,7 @@ Object {
 }
 `;
 
-exports[`calculateLayout integration suite should calculate layout for view -> text without style/layout props 2`] = `
+exports[`calculateLayout integration suite with absolute positioning for view(absolute) -> text without style props 2`] = `
 Array [
   Object {
     "body": Object {

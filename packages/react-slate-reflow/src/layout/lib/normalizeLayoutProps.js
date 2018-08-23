@@ -1,12 +1,19 @@
 /* @flow */
 
-import type { LayoutProps, Bounds, LayoutElement } from '../../types';
+import type {
+  LayoutProps,
+  Bounds,
+  LayoutElement,
+  Placement,
+} from '../../types';
 
 type GetConstrain = (LayoutElement<*>, number) => number;
 type NormalizedLayoutProps = {
   insetBounds: Bounds,
   outsetBounds: Bounds,
   isInline: boolean,
+  isAbsolute: boolean,
+  placement: Placement,
   getWidthConstrain: ?GetConstrain,
   getHeightConstrain: ?GetConstrain,
 };
@@ -28,6 +35,12 @@ export default function normalizeLayoutProps(
       left: Math.max(layoutProps.marginLeft || 0, 0),
     },
     isInline: layoutProps.display === 'inline',
+    isAbsolute: layoutProps.position === 'absolute',
+    placement: {
+      x: layoutProps.left || 0,
+      y: layoutProps.top || 0,
+      z: layoutProps.zIndex || 1,
+    },
     getWidthConstrain: layoutProps.width
       ? makeConstrainFactory(layoutProps.width)
       : null,

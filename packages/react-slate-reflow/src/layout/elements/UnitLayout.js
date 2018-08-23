@@ -32,6 +32,7 @@ export default class UnitLayout implements LayoutElement<Text> {
     left: 0,
   };
   isInline = true;
+  isAbsolute = false;
 
   constructor(node: Text, parent: LayoutElement<*>) {
     this.backingInstance = this;

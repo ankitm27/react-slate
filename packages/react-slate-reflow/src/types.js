@@ -23,6 +23,10 @@ export type LayoutProps = {
   display?: 'block' | 'inline',
   width?: number | string,
   height?: number | string,
+  position?: 'relative' | 'absolute',
+  zIndex?: number,
+  left?: number,
+  top?: number,
 };
 
 export type Bounds = {
@@ -118,6 +122,7 @@ export interface LayoutElement<N> {
   insetBounds: Bounds;
   outsetBounds: Bounds;
   isInline: boolean;
+  isAbsolute: boolean;
 
   getDimensions(): Dimensions;
   updateDimensions(LayoutElement<*> | LayoutElementDelegate<*>): void;

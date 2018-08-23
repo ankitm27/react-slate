@@ -3117,6 +3117,30 @@ Object {
 exports[`calculateLayout integration suite should calculate layout for view -> text with height constrain and vertical paddings 2`] = `
 Array [
   Object {
+    "body": Object {
+      "style": null,
+      "value": "           ",
+      "x": 0,
+      "y": 0,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "           ",
+      "x": 0,
+      "y": 1,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "           ",
+      "x": 0,
+      "y": 2,
+    },
+  },
+  Object {
     "box": Object {
       "height": 3,
       "style": Object {
@@ -3665,7 +3689,7 @@ Object {
           "placement": Object {
             "x": 4,
             "y": 4,
-            "z": 0,
+            "z": 1,
           },
           "type": "UnitLayout",
         },
@@ -3699,10 +3723,56 @@ exports[`calculateLayout integration suite with absolute positioning for view(ab
 Array [
   Object {
     "body": Object {
-      "style": null,
-      "value": "Hello World",
-      "x": 4,
+      "style": Object {
+        "backgroundColor": "red",
+      },
+      "value": "             ",
+      "x": 3,
+      "y": 3,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": Object {
+        "backgroundColor": "red",
+      },
+      "value": "             ",
+      "x": 3,
       "y": 4,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": Object {
+        "backgroundColor": "red",
+      },
+      "value": "             ",
+      "x": 3,
+      "y": 5,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "             ",
+      "x": 3,
+      "y": 3,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "             ",
+      "x": 3,
+      "y": 4,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "             ",
+      "x": 3,
+      "y": 5,
     },
   },
   Object {
@@ -3796,6 +3866,14 @@ Array [
       "y": 6,
     },
   },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Hello World",
+      "x": 4,
+      "y": 4,
+    },
+  },
 ]
 `;
 
@@ -3813,7 +3891,7 @@ Object {
           "placement": Object {
             "x": 2,
             "y": 2,
-            "z": 0,
+            "z": 1,
           },
           "type": "UnitLayout",
         },
@@ -3848,9 +3926,25 @@ Array [
   Object {
     "body": Object {
       "style": null,
-      "value": "Hello World",
+      "value": "           ",
       "x": 2,
       "y": 2,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "           ",
+      "x": 2,
+      "y": 3,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "           ",
+      "x": 2,
+      "y": 4,
     },
   },
   Object {
@@ -3860,6 +3954,14 @@ Array [
         "backgroundColor": "red",
       },
       "width": 11,
+      "x": 2,
+      "y": 2,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Hello World",
       "x": 2,
       "y": 2,
     },
@@ -3881,7 +3983,7 @@ Object {
           "placement": Object {
             "x": 6,
             "y": 5,
-            "z": 0,
+            "z": 1,
           },
           "type": "UnitLayout",
         },
@@ -3938,7 +4040,7 @@ Object {
           "placement": Object {
             "x": 4,
             "y": 4,
-            "z": 0,
+            "z": 1,
           },
           "type": "UnitLayout",
         },
@@ -3972,10 +4074,8 @@ exports[`calculateLayout integration suite with absolute positioning for view(ab
 Array [
   Object {
     "body": Object {
-      "style": Object {
-        "color": "white",
-      },
-      "value": "Hello World",
+      "style": null,
+      "value": "           ",
       "x": 4,
       "y": 4,
     },
@@ -3987,6 +4087,16 @@ Array [
         "backgroundColor": "red",
       },
       "width": 11,
+      "x": 4,
+      "y": 4,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": Object {
+        "color": "white",
+      },
+      "value": "Hello World",
       "x": 4,
       "y": 4,
     },
@@ -4065,7 +4175,7 @@ Object {
           "placement": Object {
             "x": 0,
             "y": 0,
-            "z": 0,
+            "z": 1,
           },
           "type": "UnitLayout",
         },
@@ -4192,6 +4302,14 @@ Array [
   Object {
     "body": Object {
       "style": null,
+      "value": "           ",
+      "x": 4,
+      "y": 1,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
       "value": "┌───────────┐",
       "x": 3,
       "y": 0,
@@ -4278,6 +4396,30 @@ Object {
 
 exports[`calculateLayout integration suite with border for view(border) -> text with width and heigh constrains 2`] = `
 Array [
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "               ",
+      "x": 1,
+      "y": 1,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "               ",
+      "x": 1,
+      "y": 2,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "               ",
+      "x": 1,
+      "y": 3,
+    },
+  },
   Object {
     "body": Object {
       "style": null,
@@ -4399,6 +4541,14 @@ Object {
 
 exports[`calculateLayout integration suite with border for view(border) -> text without layout/style props 2`] = `
 Array [
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "           ",
+      "x": 1,
+      "y": 1,
+    },
+  },
   Object {
     "body": Object {
       "style": null,

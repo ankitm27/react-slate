@@ -173,6 +173,7 @@ export default class ContainerLayout implements LayoutElement<View> {
         this.parent.backingInstance.insetBounds.top +
         this.parent.backingInstance.dimensions.measuredHeight +
         this.outsetBounds.top;
+      this.placement.z = this.parent.backingInstance.placement.z;
     } else if (!this.isAbsolute) {
       // Inline placement
       this.placement.x =
@@ -184,6 +185,7 @@ export default class ContainerLayout implements LayoutElement<View> {
         this.parent.backingInstance.placement.y +
         this.parent.backingInstance.insetBounds.top +
         this.outsetBounds.top;
+      this.placement.z = this.parent.backingInstance.placement.z;
     }
   }
 
@@ -253,6 +255,16 @@ export default class ContainerLayout implements LayoutElement<View> {
       this.insetBounds
     );
     return [
+      // If element has `backgroundColor`, in order to prevent overlapping background
+      // elements to foreground we need to create fake body elements, which will cover the area.
+      ...new Array(height).fill(null).map((e, index) => ({
+        body: {
+          value: ' '.repeat(width),
+          style: null,
+          x: this.placement.x,
+          y: this.placement.y + index,
+        },
+      })),
       {
         box: {
           style: makeBlockStyle(this.node.styleProps),

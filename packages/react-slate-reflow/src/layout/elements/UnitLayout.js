@@ -56,6 +56,7 @@ export default class UnitLayout implements LayoutElement<Text> {
     }
     this.placement.x += this.parent.backingInstance.insetBounds.left;
     this.placement.y += this.parent.backingInstance.insetBounds.top;
+    this.placement.z = this.parent.backingInstance.placement.z;
   }
 
   getDimensions() {

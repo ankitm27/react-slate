@@ -170,9 +170,9 @@ export default function splitStyleProps(
       display,
       width,
       height,
-      position: position || 'relative',
-      left: left || 0,
-      top: top || 0,
+      position,
+      left,
+      top,
     }),
     styleProps: normalize({
       backgroundColor,

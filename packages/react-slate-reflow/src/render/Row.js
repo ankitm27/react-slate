@@ -32,13 +32,15 @@ export default class Row {
   }) {
     for (let i = 0; i < length && start + i < this.cells.length; i++) {
       const cellIndex = start + i;
-      this.cells[cellIndex].style = style
-        ? {
-            ...(this.cells[cellIndex].style || {}),
-            ...style,
-          }
-        : this.cells[cellIndex].style;
-      this.cells[cellIndex].char = value[i];
+      if (cellIndex >= 0) {
+        this.cells[cellIndex].style = style
+          ? {
+              ...(this.cells[cellIndex].style || {}),
+              ...style,
+            }
+          : this.cells[cellIndex].style;
+        this.cells[cellIndex].char = value[i];
+      }
     }
   }
 

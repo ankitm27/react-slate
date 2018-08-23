@@ -16,7 +16,11 @@ export default function render(elements: RenderElement[], canvasSize: Size) {
     const height = element.box ? element.box.height : 1;
     // $FlowFixMe
     const y = (element.box || element.body).y;
-    for (let i = 0; i < height; i++) {
+    for (
+      let i = 0;
+      i < height && y + i >= 0 && y + 1 <= canvasSize.height;
+      i++
+    ) {
       const row = rows[y + i];
       if (element.body) {
         row.setText({

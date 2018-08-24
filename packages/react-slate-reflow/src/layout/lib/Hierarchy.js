@@ -1,6 +1,6 @@
 /* @flow */
 
-import type { RenderElement, Placement } from '../../types';
+import type { RenderElement, PlacementValue } from '../../types';
 
 type Layer = RenderElement[];
 type Index = {
@@ -11,7 +11,7 @@ type Index = {
 export default class Hierarchy {
   layers: { [key: string]: Layer } = {};
 
-  getIndex({ z: zPosition = 0 }: Placement) {
+  getIndex({ z: zPosition = 0 }: PlacementValue) {
     const key = zPosition.toString();
     if (!this.layers[key]) {
       this.layers[key] = [];
@@ -23,11 +23,13 @@ export default class Hierarchy {
   }
 
   insertElements(index: Index, elements: RenderElement[]) {
+    // debugger // eslint-disable-line
     const key = index.layer.toString();
     this.layers[key].splice(index.position, 0, ...elements);
   }
 
   toArray() {
+    // debugger // eslint-disable-line
     return Object.keys(this.layers)
       .sort((a, b) => parseInt(a, 10) - parseInt(b, 10))
       .reduce((acc, layerKey) => [...acc, ...this.layers[layerKey]], [])

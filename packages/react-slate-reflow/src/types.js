@@ -3,6 +3,7 @@
 import type Text from './nodes/Text';
 import type View from './nodes/View';
 import type Root from './nodes/Root';
+import type Placement from './layout/lib/Placement';
 
 export interface Traversable<T> {
   children: Array<Traversable<T>>;
@@ -77,7 +78,7 @@ export type RenderElement = {
   body?: Body,
 };
 
-export type Placement = {
+export type PlacementValue = {
   x: number,
   y: number,
   z: number,
@@ -104,7 +105,7 @@ export type Size = {
 type JsonLayoutTree = {
   type: string,
   dimensions: Size,
-  placement: Placement,
+  placement: PlacementValue,
   body?: string,
   children?: JsonLayoutTree[],
 };

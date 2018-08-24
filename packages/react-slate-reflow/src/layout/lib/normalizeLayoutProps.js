@@ -4,7 +4,7 @@ import type {
   LayoutProps,
   Bounds,
   LayoutElement,
-  Placement,
+  PlacementValue,
 } from '../../types';
 
 type GetConstrain = (LayoutElement<*>, number) => number;
@@ -13,7 +13,7 @@ type NormalizedLayoutProps = {
   outsetBounds: Bounds,
   isInline: boolean,
   isAbsolute: boolean,
-  placement: Placement,
+  placement: PlacementValue,
   getWidthConstrain: ?GetConstrain,
   getHeightConstrain: ?GetConstrain,
 };

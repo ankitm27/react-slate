@@ -2,6 +2,7 @@
 
 import ContainerLayout from './ContainerLayout';
 import { makeEmptyDimensions, withBounds } from '../lib/dimensions';
+import Placement from '../lib/Placement';
 import type { LayoutElement, LayoutElementDelegate } from '../../types';
 
 export default class RootLayout implements LayoutElement<null> {
@@ -13,7 +14,7 @@ export default class RootLayout implements LayoutElement<null> {
   lastChild = null;
 
   dimensions = makeEmptyDimensions();
-  placement = { x: 0, y: 0, z: 0 };
+  placement = new Placement();
   insetBounds = {
     top: 0,
     right: 0,
@@ -80,7 +81,7 @@ export default class RootLayout implements LayoutElement<null> {
         width: finalWidth,
         height: finalHeight,
       },
-      placement: this.placement,
+      placement: this.placement.valueOf(),
       // $FlowFixMe
       children: this.children.map((child: LayoutElement<*>) =>
         child.getLayoutTree()

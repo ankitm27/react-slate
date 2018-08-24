@@ -6,6 +6,7 @@ import {
   shouldSkip,
   trimHorizontally,
 } from '../lib/dimensions';
+import Placement from '../lib/Placement';
 import type Text from '../../nodes/Text';
 import type { LayoutElement, LayoutElementDelegate } from '../../types';
 
@@ -18,7 +19,7 @@ export default class UnitLayout implements LayoutElement<Text> {
   lastChild = null;
 
   dimensions = makeEmptyDimensions();
-  placement = { x: 0, y: 0, z: 0 };
+  placement = new Placement();
   insetBounds = {
     top: 0,
     right: 0,
@@ -42,21 +43,13 @@ export default class UnitLayout implements LayoutElement<Text> {
     this.dimensions.measuredWidth = node.body.length;
     this.dimensions.measuredHeight = 1;
 
-    // Calculate placement
-    if (this.parent.lastChild instanceof UnitLayout) {
-      this.placement.x =
-        this.parent.backingInstance.placement.x +
-        this.parent.backingInstance.dimensions.measuredWidth;
-      this.placement.y = this.parent.backingInstance.placement.y;
-    } else {
-      this.placement.x = this.parent.backingInstance.placement.x;
-      this.placement.y =
-        this.parent.backingInstance.placement.y +
-        this.parent.backingInstance.dimensions.measuredHeight;
-    }
-    this.placement.x += this.parent.backingInstance.insetBounds.left;
-    this.placement.y += this.parent.backingInstance.insetBounds.top;
-    this.placement.z = this.parent.backingInstance.placement.z;
+    this.placement.initForUnitLayout({
+      wasLastChildUnitLayout:
+        this.parent.backingInstance.lastChild instanceof UnitLayout,
+      parentDimensions: this.parent.backingInstance.dimensions,
+      parentPlacement: this.parent.backingInstance.placement,
+      parentInsetBounds: this.parent.backingInstance.insetBounds,
+    });
   }
 
   getDimensions() {
@@ -107,7 +100,7 @@ export default class UnitLayout implements LayoutElement<Text> {
         width: finalWidth,
         height: finalHeight,
       },
-      placement: this.placement,
+      placement: this.placement.valueOf(),
       body: this.node.body,
     };
   }

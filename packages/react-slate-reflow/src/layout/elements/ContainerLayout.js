@@ -5,6 +5,7 @@ import {
   withConstrain,
   withBounds,
 } from '../lib/dimensions';
+import Placement from '../lib/Placement';
 import normalizeLayoutProps from '../lib/normalizeLayoutProps';
 import { makeBlockStyle } from '../lib/makeStyle';
 import type View from '../../nodes/View';
@@ -13,7 +14,7 @@ import type { LayoutElement, LayoutElementDelegate } from '../../types';
 function isLayoutInline(
   layout: ?(LayoutElement<*> | LayoutElementDelegate<*>)
 ) {
-  return layout && layout.backingInstance.isInline;
+  return Boolean(layout && layout.backingInstance.isInline);
 }
 
 export default class ContainerLayout implements LayoutElement<View> {
@@ -25,7 +26,7 @@ export default class ContainerLayout implements LayoutElement<View> {
   lastChild = null;
 
   dimensions = makeEmptyDimensions();
-  placement = { x: 0, y: 0, z: 0 };
+  placement = new Placement();
   insetBounds = {
     top: 0,
     right: 0,
@@ -65,7 +66,9 @@ export default class ContainerLayout implements LayoutElement<View> {
       this.isInline = isInline && !isAbsolute;
       this.isAbsolute = isAbsolute;
       if (this.isAbsolute) {
-        this.placement = placement;
+        this.placement.x = placement.x;
+        this.placement.y = placement.y;
+        this.placement.z = placement.z;
       }
     }
 
@@ -158,35 +161,17 @@ export default class ContainerLayout implements LayoutElement<View> {
     }
 
     // Calculate placement if it's relatively positioned
-    const isPreviousLayoutInline = isLayoutInline(
-      this.parent.backingInstance.lastChild
-    );
-
-    if (!this.isAbsolute && (!this.isInline || !isPreviousLayoutInline)) {
-      // Block placement
-      this.placement.x =
-        this.parent.backingInstance.placement.x +
-        this.parent.backingInstance.insetBounds.left +
-        this.outsetBounds.left;
-      this.placement.y =
-        this.parent.backingInstance.placement.y +
-        this.parent.backingInstance.insetBounds.top +
-        this.parent.backingInstance.dimensions.measuredHeight +
-        this.outsetBounds.top;
-      this.placement.z = this.parent.backingInstance.placement.z;
-    } else if (!this.isAbsolute) {
-      // Inline placement
-      this.placement.x =
-        this.parent.backingInstance.placement.x +
-        this.parent.backingInstance.insetBounds.left +
-        this.parent.backingInstance.dimensions.measuredWidth +
-        this.outsetBounds.left;
-      this.placement.y =
-        this.parent.backingInstance.placement.y +
-        this.parent.backingInstance.insetBounds.top +
-        this.outsetBounds.top;
-      this.placement.z = this.parent.backingInstance.placement.z;
-    }
+    this.placement.initForContainerLayout({
+      isAbsolute: this.isAbsolute,
+      isInline: this.isInline,
+      isPreviousLayoutInline: isLayoutInline(
+        this.parent.backingInstance.lastChild
+      ),
+      outsetBounds: this.outsetBounds,
+      parentPlacement: this.parent.backingInstance.placement,
+      parentDimensions: this.parent.backingInstance.dimensions,
+      parentInsetBounds: this.parent.backingInstance.insetBounds,
+    });
   }
 
   getDimensions() {
@@ -291,7 +276,7 @@ export default class ContainerLayout implements LayoutElement<View> {
         width,
         height,
       },
-      placement: this.placement,
+      placement: this.placement.valueOf(),
       // $FlowFixMe
       children: this.children.map((child: LayoutElement<*>) =>
         child.getLayoutTree()

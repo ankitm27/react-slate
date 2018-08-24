@@ -2,7 +2,7 @@
 
 import ContainerLayout from './ContainerLayout';
 import { withBounds } from '../lib/dimensions';
-import { makeBorderStyle } from '../lib/makeStyle';
+import { makeBorderStyle, makeBlockStyle } from '../lib/makeStyle';
 import type View from '../../nodes/View';
 import type { LayoutElement, LayoutElementDelegate } from '../../types';
 
@@ -94,6 +94,14 @@ export default class BorderLayout implements LayoutElementDelegate<View> {
       // $FlowFixMe
       BORDER_CHARS[this.backingInstance.node.borderProps.thickness];
     return [
+      ...new Array(height).fill(null).map((e, index) => ({
+        body: {
+          value: ' '.repeat(width),
+          x: x + 1,
+          y: y + index + 1,
+          style: makeBlockStyle(this.backingInstance.node.styleProps),
+        },
+      })),
       ...elementsFromBackingLayout,
       {
         body: {

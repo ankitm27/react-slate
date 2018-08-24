@@ -10,6 +10,10 @@ function capitalize(text: string) {
 }
 
 function colorize(color: string, isBackground: boolean, text: string) {
+  if (color === 'initial') {
+    return chalk.reset(text);
+  }
+
   if (color.startsWith('#')) {
     return isBackground ? chalk.bgHex(color)(text) : chalk.hex(color)(text);
   } else if (color.startsWith('rgb')) {
@@ -79,10 +83,33 @@ export default function applyStyle(
   style: { [key: string]: string },
   text: string
 ) {
+  const { color, backgroundColor, ...rest } = style;
+  let output = text;
+
+  // Special cases for color and background color, since `reset` will remove both color
+  // and background color, we need to change ordering depending on which one has `initial` value,
+  // so that we don't remove the other.
+  if (color === 'initial' && backgroundColor && backgroundColor !== 'initial') {
+    output = colorize(color, false, colorize(backgroundColor, true, output));
+  } else if (backgroundColor === 'initial' && color && color !== 'initial') {
+    output = colorize(backgroundColor, true, colorize(color, false, output));
+  } else if (
+    backgroundColor &&
+    backgroundColor !== 'initial' &&
+    color &&
+    color !== 'initial'
+  ) {
+    output = colorize(backgroundColor, true, colorize(color, false, output));
+  } else if (backgroundColor) {
+    output = colorize(backgroundColor, true, output);
+  } else if (color) {
+    output = colorize(color, false, output);
+  }
+
   return chalk.reset(
-    Object.keys(style).reduce(
-      (output, key) => applySingleStyle(key, style[key], output),
-      text
+    Object.keys(rest).reduce(
+      (acc, key) => applySingleStyle(key, style[key], acc),
+      output
     )
   );
 }

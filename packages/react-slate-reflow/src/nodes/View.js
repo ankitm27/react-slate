@@ -13,15 +13,17 @@ import type {
 export default class View implements Traversable<Child> {
   parent: ?Parent = null;
   children: Array<Traversable<Child>> = [];
+  tagId: ?string = null;
 
   layoutProps: ?LayoutProps = null;
   styleProps: ?StyleProps = null;
   borderProps: ?BorderProps = null;
 
-  constructor({ parent }: { parent: Parent } = {}) {
+  constructor({ parent, tagId }: { parent: Parent, tagId: string } = {}) {
     if (parent) {
       this.parent = parent;
     }
+    this.tagId = tagId;
   }
 
   setLayoutProps(layoutProps: ?LayoutProps) {

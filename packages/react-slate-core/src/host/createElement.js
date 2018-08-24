@@ -10,7 +10,9 @@ export default function createElement(type: string | Function, props: Object) {
 
   const COMPONENTS = {
     VIEW_NODE: () => {
-      const instance = new View();
+      const instance = new View(
+        props && props.tagId ? { tagId: props.tagId } : {}
+      );
       const { layoutProps, styleProps, borderProps } = splitStyleProps(
         props && props.style
       );

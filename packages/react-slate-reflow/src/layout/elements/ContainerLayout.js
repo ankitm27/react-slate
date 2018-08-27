@@ -1,6 +1,6 @@
 /* @flow */
 
-import Dimensions from '../lib/Dimensions2';
+import Dimensions from '../lib/Dimensions';
 import Placement from '../lib/Placement';
 import normalizeLayoutProps from '../lib/normalizeLayoutProps';
 import { makeBlockStyle } from '../lib/makeStyle';

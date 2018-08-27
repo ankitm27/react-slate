@@ -3,7 +3,7 @@
 import type Text from './nodes/Text';
 import type View from './nodes/View';
 import type Root from './nodes/Root';
-import type Dimensions from './layout/lib/Dimensions2';
+import type Dimensions from './layout/lib/Dimensions';
 import type Placement from './layout/lib/Placement';
 
 export interface Traversable<T> {

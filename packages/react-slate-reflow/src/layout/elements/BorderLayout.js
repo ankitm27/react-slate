@@ -1,6 +1,6 @@
 /* @flow */
 
-import Dimensions from '../lib/Dimensions2';
+import Dimensions from '../lib/Dimensions';
 import ContainerLayout from './ContainerLayout';
 import { makeBorderStyle, makeBlockStyle } from '../lib/makeStyle';
 import type View from '../../nodes/View';

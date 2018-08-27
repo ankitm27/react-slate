@@ -1,7 +1,7 @@
 /* @flow */
 
 import ContainerLayout from './ContainerLayout';
-import Dimensions from '../lib/Dimensions2';
+import Dimensions from '../lib/Dimensions';
 import Placement from '../lib/Placement';
 import type { LayoutElement, LayoutElementDelegate } from '../../types';
 

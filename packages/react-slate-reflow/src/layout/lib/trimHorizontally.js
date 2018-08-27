@@ -1,6 +1,6 @@
 /* @flow */
 
-import type Dimensions from './Dimensions2';
+import type Dimensions from './Dimensions';
 
 /**
  * Trim value's length and optionally align the value.

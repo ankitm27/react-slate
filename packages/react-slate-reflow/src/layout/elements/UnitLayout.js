@@ -1,6 +1,6 @@
 /* @flow */
 
-import Dimensions from '../lib/Dimensions2';
+import Dimensions from '../lib/Dimensions';
 import Placement from '../lib/Placement';
 import type Text from '../../nodes/Text';
 import trimHorizontally from '../lib/trimHorizontally';

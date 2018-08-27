@@ -1,6 +1,6 @@
 /* @flow */
 
-import type Dimensions from './Dimensions2';
+import type Dimensions from './Dimensions';
 import type { Bounds } from '../../types';
 
 type UnitLayoutInitArgs = {

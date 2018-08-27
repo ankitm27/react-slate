@@ -1,13 +1,10 @@
 /* @flow */
 
-import { makeInlineStyle } from '../lib/makeStyle';
-import {
-  makeEmptyDimensions,
-  shouldSkip,
-  trimHorizontally,
-} from '../lib/dimensions';
+import Dimensions from '../lib/Dimensions2';
 import Placement from '../lib/Placement';
 import type Text from '../../nodes/Text';
+import trimHorizontally from '../lib/trimHorizontally';
+import { makeInlineStyle } from '../lib/makeStyle';
 import type { LayoutElement, LayoutElementDelegate } from '../../types';
 
 export default class UnitLayout implements LayoutElement<Text> {
@@ -18,7 +15,7 @@ export default class UnitLayout implements LayoutElement<Text> {
   children = Object.freeze([]);
   lastChild = null;
 
-  dimensions = makeEmptyDimensions();
+  dimensions = new Dimensions();
   placement = new Placement();
   insetBounds = {
     top: 0,
@@ -40,9 +37,8 @@ export default class UnitLayout implements LayoutElement<Text> {
     this.node = node;
     this.parent = parent;
     parent.backingInstance.children.push(this);
-    this.dimensions.measuredWidth = node.body.length;
-    this.dimensions.measuredHeight = 1;
 
+    this.dimensions.calculateFromText(node.body);
     this.placement.initForUnitLayout({
       wasLastChildUnitLayout:
         this.parent.backingInstance.lastChild instanceof UnitLayout,
@@ -66,19 +62,17 @@ export default class UnitLayout implements LayoutElement<Text> {
   }
 
   getRenderElements() {
-    if (shouldSkip(this.parent.backingInstance.dimensions)) {
+    if (!this.parent.backingInstance.getDimensions().hasAvailableSpace()) {
       return [];
     }
 
     const { textAlign } = this.parent.backingInstance.node.styleProps || {};
     const value = trimHorizontally(
-      this.parent.backingInstance.dimensions,
+      this.parent.backingInstance.getDimensions(),
       this.node.body,
       textAlign
     );
-
-    this.parent.backingInstance.dimensions.usedHeight++;
-    this.parent.backingInstance.dimensions.usedWidth += value.length;
+    this.parent.backingInstance.getDimensions().updateStateFromText(value);
 
     return [
       {

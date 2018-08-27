@@ -1,7 +1,7 @@
 /* @flow */
 
+import Dimensions from '../lib/Dimensions2';
 import ContainerLayout from './ContainerLayout';
-import { withBounds } from '../lib/dimensions';
 import { makeBorderStyle, makeBlockStyle } from '../lib/makeStyle';
 import type View from '../../nodes/View';
 import type { LayoutElement, LayoutElementDelegate } from '../../types';
@@ -53,18 +53,30 @@ export default class BorderLayout implements LayoutElementDelegate<View> {
       availableWidth,
       availableHeight,
     } = this.backingInstance.getDimensions();
-    return {
-      measuredWidth: measuredWidth + 2,
-      measuredHeight: measuredHeight + 2,
-      fixedWidth: fixedWidth + 2,
-      fixedHeight: fixedHeight + 2,
-      usedWidth: usedWidth + 2,
-      usedHeight: usedHeight + 2,
-      finalWidth: finalWidth + 2,
-      finalHeight: finalHeight + 2,
-      availableWidth: availableWidth + 2,
-      availableHeight: availableHeight + 2,
-    };
+    const dimensions = new Dimensions();
+    dimensions.measuredWidth = measuredWidth + 2;
+    dimensions.measuredHeight = measuredHeight + 2;
+    dimensions.fixedWidth = fixedWidth + 2;
+    dimensions.fixedHeight = fixedHeight + 2;
+    dimensions.usedWidth = usedWidth + 2;
+    dimensions.usedHeight = usedHeight + 2;
+    // $FlowFixMe
+    Object.defineProperty(dimensions, 'finalWidth', {
+      get: () => finalWidth + 2,
+    });
+    // $FlowFixMe
+    Object.defineProperty(dimensions, 'finalHeight', {
+      get: () => finalHeight + 2,
+    });
+    // $FlowFixMe
+    Object.defineProperty(dimensions, 'availableWidth', {
+      get: () => availableWidth + 2,
+    });
+    // $FlowFixMe
+    Object.defineProperty(dimensions, 'availableHeight', {
+      get: () => availableHeight + 2,
+    });
+    return dimensions;
   }
 
   updateDimensions(childLayout: *) {
@@ -76,11 +88,9 @@ export default class BorderLayout implements LayoutElementDelegate<View> {
   }
 
   getRenderElements() {
-    const { finalHeight, finalWidth } = this.backingInstance.getDimensions();
-    const { width, height } = withBounds(
-      { width: finalWidth, height: finalHeight },
-      this.backingInstance.insetBounds
-    );
+    const { width, height } = this.backingInstance
+      .getDimensions()
+      .getSize(this.backingInstance.insetBounds);
     const x = this.backingInstance.placement.x - 1;
     const y = this.backingInstance.placement.y - 1;
     const elementsFromBackingLayout = this.backingInstance.hasRenderElements()
@@ -143,9 +153,7 @@ export default class BorderLayout implements LayoutElementDelegate<View> {
   }
 
   getLayoutTree() {
-    const { finalHeight, finalWidth } = this.getDimensions();
-    const { width, height } = withBounds(
-      { width: finalWidth, height: finalHeight },
+    const { width, height } = this.getDimensions().getSize(
       this.backingInstance.insetBounds
     );
     return {

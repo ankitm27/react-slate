@@ -1,6 +1,7 @@
 /* @flow */
 
-import type { Bounds, Dimensions } from '../../types';
+import type Dimensions from './Dimensions2';
+import type { Bounds } from '../../types';
 
 type UnitLayoutInitArgs = {
   wasLastChildUnitLayout: boolean,

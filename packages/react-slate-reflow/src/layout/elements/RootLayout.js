@@ -1,7 +1,7 @@
 /* @flow */
 
 import ContainerLayout from './ContainerLayout';
-import { makeEmptyDimensions, withBounds } from '../lib/dimensions';
+import Dimensions from '../lib/Dimensions2';
 import Placement from '../lib/Placement';
 import type { LayoutElement, LayoutElementDelegate } from '../../types';
 
@@ -13,7 +13,7 @@ export default class RootLayout implements LayoutElement<null> {
   children = [];
   lastChild = null;
 
-  dimensions = makeEmptyDimensions();
+  dimensions = new Dimensions();
   placement = new Placement();
   insetBounds = {
     top: 0,
@@ -43,23 +43,19 @@ export default class RootLayout implements LayoutElement<null> {
     // simply take the grater value. Additionally, placement x and y must
     // be taken into account also since they correspond to `left` and `top` values.
     if (childLayout.backingInstance.isAbsolute) {
-      const childDimensions = childLayout.getDimensions();
-      const { width: childWidth, height: childHeight } = withBounds(
-        {
-          width: childDimensions.finalWidth,
-          height: childDimensions.finalHeight,
-        },
-        childLayout.backingInstance.insetBounds,
-        childLayout.backingInstance.outsetBounds
-      );
-      this.dimensions.measuredWidth = Math.max(
-        this.dimensions.measuredWidth,
-        childWidth + childLayout.backingInstance.placement.x
-      );
-      this.dimensions.measuredHeight = Math.max(
-        this.dimensions.measuredHeight,
-        childHeight + childLayout.backingInstance.placement.y
-      );
+      const {
+        width: childWidth,
+        height: childHeight,
+      } = childLayout
+        .getDimensions()
+        .getSize(
+          childLayout.backingInstance.insetBounds,
+          childLayout.backingInstance.outsetBounds
+        );
+      this.dimensions.calculateFromAbsoluteElement({
+        width: childWidth + childLayout.backingInstance.placement.x,
+        height: childHeight + childLayout.backingInstance.placement.y,
+      });
     } else {
       ContainerLayout.prototype.updateDimensions.call(this, childLayout);
     }

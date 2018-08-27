@@ -1,10 +1,6 @@
 /* @flow */
 
-import {
-  makeEmptyDimensions,
-  withConstrain,
-  withBounds,
-} from '../lib/dimensions';
+import Dimensions from '../lib/Dimensions2';
 import Placement from '../lib/Placement';
 import normalizeLayoutProps from '../lib/normalizeLayoutProps';
 import { makeBlockStyle } from '../lib/makeStyle';
@@ -25,7 +21,7 @@ export default class ContainerLayout implements LayoutElement<View> {
   children = [];
   lastChild = null;
 
-  dimensions = makeEmptyDimensions();
+  dimensions = new Dimensions();
   placement = new Placement();
   insetBounds = {
     top: 0,
@@ -72,93 +68,24 @@ export default class ContainerLayout implements LayoutElement<View> {
       }
     }
 
-    // Set constrains from parent to propagate them down unless it's positioned absolutely
-    if (
-      !this.isAbsolute &&
-      this.parent.backingInstance.dimensions.fixedWidth > -1
-    ) {
-      this.dimensions = withConstrain(
-        this.dimensions,
-        'width',
-        this.parent.backingInstance.dimensions.fixedWidth,
-        this.insetBounds
-      );
-    }
-    if (
-      !this.isAbsolute &&
-      this.parent.backingInstance.dimensions.fixedHeight > -1
-    ) {
-      this.dimensions = withConstrain(
-        this.dimensions,
-        'height',
-        this.parent.backingInstance.dimensions.availableHeight,
-        this.insetBounds
-      );
-    }
+    this.dimensions.setMaxDimensions({
+      isAbsolute: this.isAbsolute,
+      insetBounds: this.insetBounds,
+      parentDimensions: this.parent.backingInstance.getDimensions(),
+    });
 
-    // Set own constrains
-    if (getWidthConstrain) {
-      // Get current element fixed width from parent's width.
-      const ownFixedWidth = getWidthConstrain(
-        this,
-        this.parent.backingInstance.dimensions.finalWidth
-      );
+    this.dimensions.setOwnConstrains({
+      getWidthConstrain,
+      getHeightConstrain,
+      insetBounds: this.insetBounds,
+      parentDimensions: this.parent.backingInstance.getDimensions(),
+    });
 
-      // Make sure current element won't overflow. Only apply
-      // own fixed width if parent either doesn't have any
-      // constrain or parent's fixed width is grater/equal own
-      // fixed width.
-      if (
-        this.parent.backingInstance.dimensions.fixedWidth === -1 ||
-        this.parent.backingInstance.dimensions.fixedWidth >= ownFixedWidth
-      ) {
-        this.dimensions = withConstrain(
-          this.dimensions,
-          'width',
-          ownFixedWidth,
-          this.insetBounds
-        );
-      }
-    }
-    if (getHeightConstrain) {
-      // Get current element fixed height from parent's height.
-      const ownFixedHeight = getHeightConstrain(
-        this,
-        this.parent.backingInstance.dimensions.finalHeight
-      );
-
-      // Make sure current element won't overflow. Only apply
-      // own fixed height if parent either doesn't have any
-      // constrain or parent's fixed height is grater/equal own
-      // fixed height.
-      if (
-        this.parent.backingInstance.dimensions.fixedHeight === -1 ||
-        this.parent.backingInstance.dimensions.fixedHeight >= ownFixedHeight
-      ) {
-        this.dimensions = withConstrain(
-          this.dimensions,
-          'height',
-          ownFixedHeight,
-          this.insetBounds
-        );
-      }
-    }
-
-    if (
-      this.isInline &&
-      this.parent.backingInstance.dimensions.fixedWidth > -1
-    ) {
-      // If current container element is inline, usedWidth must be copied from
-      // parent element.
-      this.dimensions.usedWidth = this.parent.backingInstance.dimensions.usedWidth;
-    } else if (
-      !this.isAbsolute &&
-      this.parent.backingInstance.dimensions.fixedWidth > -1
-    ) {
-      // Reset usedWidth if current element is not inline, since it will
-      // push content to the next line.
-      this.parent.backingInstance.dimensions.usedWidth = 0;
-    }
+    this.dimensions.resetState({
+      isInline: this.isInline,
+      isAbsolute: this.isAbsolute,
+      parentDimensions: this.parent.backingInstance.getDimensions(),
+    });
 
     // Calculate placement if it's relatively positioned
     this.placement.initForContainerLayout({
@@ -169,7 +96,7 @@ export default class ContainerLayout implements LayoutElement<View> {
       ),
       outsetBounds: this.outsetBounds,
       parentPlacement: this.parent.backingInstance.placement,
-      parentDimensions: this.parent.backingInstance.dimensions,
+      parentDimensions: this.parent.backingInstance.getDimensions(),
       parentInsetBounds: this.parent.backingInstance.insetBounds,
     });
   }
@@ -185,11 +112,7 @@ export default class ContainerLayout implements LayoutElement<View> {
     }
 
     const childDimensions = childLayout.getDimensions();
-    const { width: childWidth, height: childHeight } = withBounds(
-      {
-        width: childDimensions.finalWidth,
-        height: childDimensions.finalHeight,
-      },
+    const { width: childWidth, height: childHeight } = childDimensions.getSize(
       childLayout.backingInstance.insetBounds,
       childLayout.backingInstance.outsetBounds
     );
@@ -198,32 +121,30 @@ export default class ContainerLayout implements LayoutElement<View> {
 
     if (!this.lastChild) {
       // First child in this parent layout.
-      this.dimensions.measuredWidth = childWidth;
-      this.dimensions.measuredHeight = childHeight;
+      this.dimensions.calculateInitialDimensions({
+        width: childWidth,
+        height: childHeight,
+      });
     } else if (!isChildLayoutInline || !isLastChildElementInline) {
       // Either the child is a block element or previous child was a block element.
-      this.dimensions.measuredWidth = Math.max(
-        this.dimensions.measuredWidth,
-        childWidth
-      );
-      this.dimensions.measuredHeight += childHeight;
+      this.dimensions.calculateFromBlockElement({
+        width: childWidth,
+        height: childHeight,
+      });
     } else {
       // Both child and previous child are an inline elements.
-      this.dimensions.measuredWidth += childWidth;
-      this.dimensions.measuredHeight = Math.max(
-        this.dimensions.measuredHeight,
-        childHeight
-      );
+      this.dimensions.calculateFromInlineElement({
+        width: childWidth,
+        height: childHeight,
+      });
     }
     this.lastChild = childLayout;
 
-    // NOTE: add comment
-    if (
-      !childLayout.backingInstance.isInline &&
-      this.dimensions.fixedHeight > -1
-    ) {
-      this.dimensions.usedHeight +=
-        childLayout.backingInstance.dimensions.finalHeight;
+    // TODO: what if childLayout is inlined ContainerLayout?
+    if (!childLayout.backingInstance.isInline) {
+      this.dimensions.updateStateFromElement({
+        height: childHeight,
+      });
     }
   }
 
@@ -234,11 +155,7 @@ export default class ContainerLayout implements LayoutElement<View> {
   }
 
   getRenderElements() {
-    const { finalHeight, finalWidth } = this.getDimensions();
-    const { width, height } = withBounds(
-      { width: finalWidth, height: finalHeight },
-      this.insetBounds
-    );
+    const { width, height } = this.getDimensions().getSize(this.insetBounds);
     return [
       // If element has `backgroundColor`, in order to prevent overlapping background
       // elements to foreground we need to create fake body elements, which will cover the area.
@@ -263,11 +180,7 @@ export default class ContainerLayout implements LayoutElement<View> {
   }
 
   getLayoutTree() {
-    const { finalHeight, finalWidth } = this.getDimensions();
-    const { width, height } = withBounds(
-      { width: finalWidth, height: finalHeight },
-      this.insetBounds
-    );
+    const { width, height } = this.getDimensions().getSize(this.insetBounds);
     return {
       type: `${ContainerLayout.name}${this.isInline ? '(inline)' : ''}${
         this.isAbsolute ? '(absolute)' : ''

@@ -1,13 +1,8 @@
 /* @flow */
 
-import type {
-  LayoutProps,
-  Bounds,
-  LayoutElement,
-  PlacementValue,
-} from '../../types';
+import type { LayoutProps, Bounds, PlacementValue } from '../../types';
 
-type GetConstrain = (LayoutElement<*>, number) => number;
+type GetConstrain = number => number;
 type NormalizedLayoutProps = {
   insetBounds: Bounds,
   outsetBounds: Bounds,
@@ -41,21 +36,28 @@ export default function normalizeLayoutProps(
       y: layoutProps.top || 0,
       z: layoutProps.zIndex || 1,
     },
-    getWidthConstrain: layoutProps.width
-      ? makeConstrainFactory(layoutProps.width)
-      : null,
-    getHeightConstrain: layoutProps.height
-      ? makeConstrainFactory(layoutProps.height)
-      : null,
+    getWidthConstrain:
+      typeof layoutProps.width !== 'undefined' &&
+      hasValidConstrain(layoutProps.width)
+        ? makeConstrainFactory(layoutProps.width)
+        : null,
+    getHeightConstrain:
+      typeof layoutProps.height !== 'undefined' &&
+      hasValidConstrain(layoutProps.height)
+        ? makeConstrainFactory(layoutProps.height)
+        : null,
   };
 }
 
-function makeConstrainFactory(value: number | string) {
-  return (currentLayout: LayoutElement<*>, measuredDimension: number) => {
-    if (value === 'auto' || (typeof value === 'number' && value < 0)) {
-      return measuredDimension;
-    }
+function hasValidConstrain(value: number | string) {
+  return (
+    (typeof value === 'number' && value >= 0) ||
+    (typeof value === 'string' && /^\d+%?$/.test(value))
+  );
+}
 
+function makeConstrainFactory(value: number | string) {
+  return (parentValue: number) => {
     if (typeof value === 'number') {
       return value;
     }
@@ -65,23 +67,10 @@ function makeConstrainFactory(value: number | string) {
     }
 
     if (/^\d+%$/.test(value)) {
-      if (
-        currentLayout.parent.node &&
-        currentLayout.parent.node.layoutProps &&
-        currentLayout.parent.node.layoutProps.width === 'auto'
-      ) {
-        throw new Error(
-          'Cannot use percentage for width/height, if parent element has width/height set to `auto`'
-        );
-      }
-
-      const parentWidth =
-        currentLayout.parent.backingInstance.dimensions.measuredWidth;
       const percentage = parseInt(/^(\d+)%$/.exec(value)[1], 10);
-
-      return Math.floor(percentage / 100 * parentWidth);
+      return Math.floor(percentage / 100 * parentValue);
     }
 
-    return measuredDimension;
+    return 0;
   };
 }

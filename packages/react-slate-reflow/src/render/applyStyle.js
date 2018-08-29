@@ -44,10 +44,6 @@ function colorize(color: string, isBackground: boolean, text: string) {
 
 function applySingleStyle(key: string, value: string, text: string) {
   switch (key) {
-    case 'color':
-      return colorize(value, false, text);
-    case 'backgroundColor':
-      return colorize(value, true, text);
     case 'fontWeight':
       return value === 'bold' ? chalk.bold(text) : text;
     case 'fontStyle':
@@ -84,7 +80,10 @@ export default function applyStyle(
   text: string
 ) {
   const { color, backgroundColor, ...rest } = style;
-  let output = text;
+  let output = Object.keys(rest).reduce(
+    (acc, key) => applySingleStyle(key, style[key], acc),
+    text
+  );
 
   // Special cases for color and background color, since `reset` will remove both color
   // and background color, we need to change ordering depending on which one has `initial` value,
@@ -106,10 +105,5 @@ export default function applyStyle(
     output = colorize(color, false, output);
   }
 
-  return chalk.reset(
-    Object.keys(rest).reduce(
-      (acc, key) => applySingleStyle(key, style[key], acc),
-      output
-    )
-  );
+  return chalk.reset(output);
 }

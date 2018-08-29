@@ -4,7 +4,7 @@ import type Dimensions from './Dimensions';
 import type { Bounds } from '../../types';
 
 type UnitLayoutInitArgs = {
-  wasLastChildUnitLayout: boolean,
+  wasLastChildInline: boolean,
   parentPlacement: Placement,
   parentDimensions: Dimensions,
   parentInsetBounds: Bounds,
@@ -37,12 +37,12 @@ export default class Placement {
   }
 
   initForUnitLayout({
-    wasLastChildUnitLayout,
+    wasLastChildInline,
     parentPlacement,
     parentDimensions,
     parentInsetBounds,
   }: UnitLayoutInitArgs) {
-    if (wasLastChildUnitLayout) {
+    if (wasLastChildInline) {
       this.x = parentPlacement.x + parentDimensions.width.measured;
       this.y = parentPlacement.y;
     } else {

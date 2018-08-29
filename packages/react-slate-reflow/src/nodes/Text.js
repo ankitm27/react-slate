@@ -1,5 +1,6 @@
 /* @flow */
 
+import assert from 'assert';
 import type { Parent, Traversable } from '../types';
 
 export default class Text implements Traversable<*> {
@@ -9,6 +10,7 @@ export default class Text implements Traversable<*> {
   children: Array<*> = Object.freeze([]);
 
   setBody(body: string) {
+    assert(!body.includes('\n'), 'Text body cannot have new line characters');
     this.body = body;
   }
 }

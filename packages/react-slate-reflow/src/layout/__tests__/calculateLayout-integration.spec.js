@@ -237,6 +237,63 @@ describe('calculateLayout integration suite', () => {
       });
     });
 
+    describe('for view -> [view(inline) -> text, text]', () => {
+      function getTree() {
+        const root = new Root({ width: 20, height: 10 });
+        const view = new View();
+        const text1 = new Text();
+        const innerView = new View();
+        const text2 = new Text();
+
+        innerView.setLayoutProps({
+          display: 'inline',
+        });
+
+        text1.setBody(' World');
+        text2.setBody('Hello');
+        innerView.appendChild(text2);
+        view.appendChild(innerView);
+        view.appendChild(text1);
+        root.appendChild(view);
+
+        return root;
+      }
+
+      it('without style/layout props', () => {
+        const root = getTree();
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
+
+      // it('with layout props', () => {
+      //   const root = getTree();
+
+      //   root.children[0].setLayoutProps({
+      //     marginLeft: 1,
+      //     marginTop: 1,
+      //   });
+
+      //   root.children[0].children[1].setLayoutProps({
+      //     marginLeft: 1,
+      //     paddingTop: 1,
+      //     display: 'inline',
+      //   });
+
+      //   const { layoutTree, renderElements } = root.calculateLayout();
+      //   expect(layoutTree.getLayoutTree()).toMatchSnapshot();
+      //   expect(renderElements).toMatchSnapshot();
+      // });
+
+      // it('with width constrain', () => {
+      //   const root = getTree();
+      //   root.children[0].setLayoutProps({ width: 8 });
+      //   const { layoutTree, renderElements } = root.calculateLayout();
+      //   expect(layoutTree.getLayoutTree()).toMatchSnapshot();
+      //   expect(renderElements).toMatchSnapshot();
+      // });
+    });
+
     describe('for view -> [text, view -> text]', () => {
       function getTree() {
         const root = new Root({ width: 20, height: 10 });

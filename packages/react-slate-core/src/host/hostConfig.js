@@ -15,107 +15,124 @@ const NOOP = () => {};
 const RETURN_EMPTY_OBJ = () => emptyObject;
 const NO = () => false;
 
-export default (containerInstance: Root, target: Target) => ({
-  // Create instance of host environment specific node or instance of a component.
-  createInstance(type: string | Function, props: *) {
-    return createElement(type, props);
-  },
+function withErrorHandling(target: Target, config: { [key: string]: * }) {
+  return Object.keys(config).reduce(
+    (acc, key) => ({
+      ...acc,
+      [key]:
+        typeof config[key] === 'function'
+          ? (...args: *) => {
+              try {
+                return ((config[key]: any): Function)(...args);
+              } catch (error) {
+                target.raiseError(error);
+                return null;
+              }
+            }
+          : config[key],
+    }),
+    {}
+  );
+}
 
-  createTextInstance(text: string) {
-    return createElement('TEXT_NODE', { children: text });
-  },
+export default (containerInstance: Root, target: Target) =>
+  withErrorHandling(target, {
+    // Create instance of host environment specific node or instance of a component.
+    createInstance(type: string | Function, props: *) {
+      return createElement(type, props);
+    },
 
-  // Container handlers
+    createTextInstance(text: string) {
+      return createElement('TEXT_NODE', { children: text });
+    },
 
-  insertInContainerBefore(container: Root, child: *, childBefore: *) {
-    container.prependChild(child, childBefore);
-  },
+    // Container handlers
 
-  appendChildToContainer(container: Root, child: *) {
-    container.appendChild(child);
-  },
+    insertInContainerBefore(container: Root, child: *, childBefore: *) {
+      container.prependChild(child, childBefore);
+    },
 
-  removeChildFromContainer(container: Root, child: *) {
-    container.removeChild(child);
-  },
+    appendChildToContainer(container: Root, child: *) {
+      container.appendChild(child);
+    },
 
-  // Default handlers
+    removeChildFromContainer(container: Root, child: *) {
+      container.removeChild(child);
+    },
 
-  appendInitialChild(parentInstance: View, child: *) {
-    parentInstance.appendChild(child);
-  },
+    // Default handlers
 
-  appendChild(parentInstance: View, child: *) {
-    parentInstance.appendChild(child);
-  },
+    appendInitialChild(parentInstance: View, child: *) {
+      parentInstance.appendChild(child);
+    },
 
-  removeChild(parentInstance: View, child: *) {
-    parentInstance.removeChild(child);
-  },
+    appendChild(parentInstance: View, child: *) {
+      parentInstance.appendChild(child);
+    },
 
-  insertBefore(parentInstance: View, child: *, childBefore: *) {
-    parentInstance.prependChild(child, childBefore);
-  },
+    removeChild(parentInstance: View, child: *) {
+      parentInstance.removeChild(child);
+    },
 
-  // Update handlers
+    insertBefore(parentInstance: View, child: *, childBefore: *) {
+      parentInstance.prependChild(child, childBefore);
+    },
 
-  prepareUpdate() {
-    return true;
-  },
+    // Update handlers
 
-  commitUpdate(
-    instance: View,
-    updatePayload: *,
-    type: string,
-    oldProps: *,
-    newProps: *
-  ) {
-    // TODO: handle style props separately to avoid unnecessary rendering
-    // since style prop will always trigger new render.
-    if (!shallowEqual(oldProps, newProps) && instance instanceof View) {
-      const { layoutProps, styleProps, borderProps } = splitStyleProps(
-        newProps.style
-      );
-      instance.setLayoutProps(layoutProps);
-      instance.setStyleProps(styleProps);
-      instance.setBorder(borderProps);
-    }
-  },
+    prepareUpdate() {
+      return true;
+    },
 
-  commitTextUpdate(textInstance: Text, oldText: string, newText: string) {
-    textInstance.setBody(newText);
-  },
+    commitUpdate(
+      instance: View,
+      updatePayload: *,
+      type: string,
+      oldProps: *,
+      newProps: *
+    ) {
+      // TODO: handle style props separately to avoid unnecessary rendering
+      // since style prop will always trigger new render.
+      if (!shallowEqual(oldProps, newProps) && instance instanceof View) {
+        const { layoutProps, styleProps, borderProps } = splitStyleProps(
+          newProps.style
+        );
+        instance.setLayoutProps(layoutProps);
+        instance.setStyleProps(styleProps);
+        instance.setBorder(borderProps);
+      }
+    },
 
-  resetAfterCommit() {
-    // This hooks is called once per update, whereas commitUpdate is called multiple times, for
-    // each updated node. So here is the best place to flush data to host environment, using
-    // container instance.
-    try {
+    commitTextUpdate(textInstance: Text, oldText: string, newText: string) {
+      textInstance.setBody(newText);
+    },
+
+    resetAfterCommit() {
+      // This hooks is called once per update, whereas commitUpdate is called multiple times, for
+      // each updated node. So here is the best place to flush data to host environment, using
+      // container instance.
       const { renderElements } = containerInstance.calculateLayout();
       const output = render(renderElements, target.getSize());
       target.setCursorPosition(0, 0);
       target.clear();
       target.print(output);
-    } catch (error) {
-      target.raiseError(error);
-    }
-  },
+    },
 
-  // Misc
+    // Misc
 
-  getPublicInstance(inst: *) {
-    return inst;
-  },
+    getPublicInstance(inst: *) {
+      return inst;
+    },
 
-  commitMount: NOOP,
-  getRootHostContext: RETURN_EMPTY_OBJ,
-  getChildHostContext: RETURN_EMPTY_OBJ,
-  prepareForCommit: NOOP,
-  shouldSetTextContent: NO,
-  resetTextContent: NOOP,
-  finalizeInitialChildren: NOOP,
-  now: NOOP,
+    commitMount: NOOP,
+    getRootHostContext: RETURN_EMPTY_OBJ,
+    getChildHostContext: RETURN_EMPTY_OBJ,
+    prepareForCommit: NOOP,
+    shouldSetTextContent: NO,
+    resetTextContent: NOOP,
+    finalizeInitialChildren: NOOP,
+    now: NOOP,
 
-  useSyncScheduling: true,
-  supportsMutation: true,
-});
+    useSyncScheduling: true,
+    supportsMutation: true,
+  });

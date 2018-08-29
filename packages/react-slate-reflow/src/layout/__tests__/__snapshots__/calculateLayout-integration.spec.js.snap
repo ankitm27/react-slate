@@ -3176,6 +3176,98 @@ Array [
 ]
 `;
 
+exports[`calculateLayout integration suite should calculate layout for view -> [view(inline) -> text, text] without style/layout props 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "body": "Hello",
+              "dimensions": Object {
+                "height": 1,
+                "width": 5,
+              },
+              "placement": Object {
+                "x": 0,
+                "y": 0,
+                "z": 0,
+              },
+              "type": "UnitLayout",
+            },
+          ],
+          "dimensions": Object {
+            "height": 1,
+            "width": 5,
+          },
+          "placement": Object {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+          },
+          "type": "ContainerLayout(inline)",
+        },
+        Object {
+          "body": " World",
+          "dimensions": Object {
+            "height": 1,
+            "width": 6,
+          },
+          "placement": Object {
+            "x": 5,
+            "y": 0,
+            "z": 0,
+          },
+          "type": "UnitLayout",
+        },
+      ],
+      "dimensions": Object {
+        "height": 1,
+        "width": 11,
+      },
+      "placement": Object {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+      },
+      "type": "ContainerLayout",
+    },
+  ],
+  "dimensions": Object {
+    "height": 1,
+    "width": 11,
+  },
+  "placement": Object {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+  },
+  "type": "RootLayout",
+}
+`;
+
+exports[`calculateLayout integration suite should calculate layout for view -> [view(inline) -> text, text] without style/layout props 2`] = `
+Array [
+  Object {
+    "body": Object {
+      "style": null,
+      "value": "Hello",
+      "x": 0,
+      "y": 0,
+    },
+  },
+  Object {
+    "body": Object {
+      "style": null,
+      "value": " World",
+      "x": 5,
+      "y": 0,
+    },
+  },
+]
+`;
+
 exports[`calculateLayout integration suite should calculate layout for view -> [view(inline) -> text, view(inline) -> text, view(inline) -> text] without style/layout props 1`] = `
 Object {
   "children": Array [

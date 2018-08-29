@@ -51,8 +51,10 @@ export default class UnitLayout implements LayoutElement<Text> {
     this.dimensions.calculateFromText(node.body);
 
     this.placement.initForUnitLayout({
-      wasLastChildUnitLayout:
-        this.parent.backingInstance.lastChild instanceof UnitLayout,
+      wasLastChildInline: Boolean(
+        this.parent.backingInstance.lastChild &&
+          this.parent.backingInstance.lastChild.backingInstance.isInline
+      ),
       parentDimensions: this.parent.backingInstance.dimensions,
       parentPlacement: this.parent.backingInstance.placement,
       parentInsetBounds: this.parent.backingInstance.insetBounds,

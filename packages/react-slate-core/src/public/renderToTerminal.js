@@ -54,7 +54,8 @@ export default function renderToTerminal(
       };
     },
     raiseError(error: Error) {
-      throw error;
+      stream.write(`${error.toString()}\n`);
+      process.exit(1);
     },
   };
 

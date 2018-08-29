@@ -88,15 +88,17 @@ describe('in integration tests renderToString', () => {
     ).toMatch('Hello\nWorld');
   });
 
-  xdescribe('with fixed positioning', () => {
+  describe('with absolute positioning', () => {
     it('should left-trim if left is negative', () => {
       expect(
-        renderToString(
-          <View style={{ position: 'fixed', left: -2 }}>Hello</View>,
-          {
-            height: 1,
-            width: 5,
-          }
+        stripAnsi(
+          renderToString(
+            <View style={{ position: 'absolute', left: -2 }}>Hello</View>,
+            {
+              height: 1,
+              width: 5,
+            }
+          )
         )
       ).toMatch(/^llo/);
     });
@@ -104,7 +106,9 @@ describe('in integration tests renderToString', () => {
     it('should correctly left-trim element with border', () => {
       expect(
         renderToString(
-          <View style={{ position: 'fixed', left: -2, borderStyle: 'solid' }}>
+          <View
+            style={{ position: 'absolute', left: -2, borderStyle: 'solid' }}
+          >
             Hello
           </View>,
           {
@@ -116,9 +120,7 @@ describe('in integration tests renderToString', () => {
 
       expect(
         renderToString(
-          <View
-            style={{ position: 'fixed', left: -2, border: 'solid ansi-red' }}
-          >
+          <View style={{ position: 'absolute', left: -2, border: 'solid red' }}>
             Hello
           </View>,
           {
@@ -131,60 +133,47 @@ describe('in integration tests renderToString', () => {
 
     it('should right-trim if left + content width > canvas width', () => {
       expect(
-        renderToString(
-          <View style={{ position: 'fixed', left: 3 }}>Hello</View>,
-          {
-            height: 1,
-            width: 5,
-          }
+        stripAnsi(
+          renderToString(
+            <View style={{ position: 'absolute', left: 3 }}>Hello</View>,
+            {
+              height: 1,
+              width: 5,
+            }
+          )
         )
       ).toMatch(/\s{3}He$/);
     });
+
     it('should top-trim if top is negative', () => {
       expect(
-        renderToString(
-          <View style={{ position: 'fixed', top: -1 }}>{'Hello\nWorld'}</View>,
-          {
-            height: 2,
-            width: 5,
-          }
-        )
-      ).toMatch(`World\n${' '.repeat(5)}`);
-
-      expect(
-        renderToString(
-          <View style={{ position: 'fixed', top: -1 }}>
-            <View>Hello</View>
-            <View>World</View>
-          </View>,
-          {
-            height: 2,
-            width: 5,
-          }
+        stripAnsi(
+          renderToString(
+            <View style={{ position: 'absolute', top: -1 }}>
+              <View>Hello</View>
+              <View>World</View>
+            </View>,
+            {
+              height: 2,
+              width: 5,
+            }
+          )
         )
       ).toMatch(`World\n${' '.repeat(5)}`);
     });
     it('should top-trim if top + content height > canvas height', () => {
       expect(
-        renderToString(
-          <View style={{ position: 'fixed', top: 1 }}>{'Hello\nWorld'}</View>,
-          {
-            height: 2,
-            width: 5,
-          }
-        )
-      ).toMatch(`${' '.repeat(5)}\nHello`);
-
-      expect(
-        renderToString(
-          <View style={{ position: 'fixed', top: 1 }}>
-            <View>Hello</View>
-            <View>World</View>
-          </View>,
-          {
-            height: 2,
-            width: 5,
-          }
+        stripAnsi(
+          renderToString(
+            <View style={{ position: 'absolute', top: 1 }}>
+              <View>Hello</View>
+              <View>World</View>
+            </View>,
+            {
+              height: 2,
+              width: 5,
+            }
+          )
         )
       ).toMatch(`${' '.repeat(5)}\nHello`);
     });

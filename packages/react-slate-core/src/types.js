@@ -32,7 +32,7 @@ type StyleObject =
       textAlign?: 'left' | 'center' | 'right',
       top?: number,
       left?: number,
-      position?: 'relative' | 'fixed',
+      position?: 'relative' | 'absolute',
     |};
 
 export type Style = StyleObject | Array<Style>;

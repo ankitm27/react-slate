@@ -43,11 +43,11 @@ export default class Placement {
     parentInsetBounds,
   }: UnitLayoutInitArgs) {
     if (wasLastChildUnitLayout) {
-      this.x = parentPlacement.x + parentDimensions.measuredWidth;
+      this.x = parentPlacement.x + parentDimensions.width.measured;
       this.y = parentPlacement.y;
     } else {
       this.x = parentPlacement.x;
-      this.y = parentPlacement.y + parentDimensions.measuredHeight;
+      this.y = parentPlacement.y + parentDimensions.height.measured;
     }
     this.x += parentInsetBounds.left;
     this.y += parentInsetBounds.top;
@@ -69,7 +69,7 @@ export default class Placement {
       this.y =
         parentPlacement.y +
         parentInsetBounds.top +
-        parentDimensions.measuredHeight +
+        parentDimensions.height.measured +
         outsetBounds.top;
       this.z = parentPlacement.z;
     } else if (!isAbsolute) {
@@ -77,7 +77,7 @@ export default class Placement {
       this.x =
         parentPlacement.x +
         parentInsetBounds.left +
-        parentDimensions.measuredWidth +
+        parentDimensions.width.measured +
         outsetBounds.left;
       this.y = parentPlacement.y + parentInsetBounds.top + outsetBounds.top;
       this.z = parentPlacement.z;

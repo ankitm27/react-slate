@@ -439,6 +439,14 @@ describe('calculateLayout integration suite', () => {
         expect(layoutTree.getLayoutTree()).toMatchSnapshot();
         expect(renderElements).toMatchSnapshot();
       });
+
+      it('with greater width and height constrain than actual content', () => {
+        const root = getTree();
+        root.children[0].setLayoutProps({ height: 3, width: 20 });
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
     });
 
     describe('for view -> [text, view -> text, text]', () => {
@@ -626,6 +634,44 @@ describe('calculateLayout integration suite', () => {
         expect(renderElements).toMatchSnapshot();
       });
     });
+
+    describe('for view -> [view(inline) -> text, view(inline) -> text, view(inline) -> text]', () => {
+      function getTree() {
+        const root = new Root({ width: 20, height: 10 });
+        const outerView = new View();
+        const view1 = new View();
+        const text1 = new Text();
+        const view2 = new View();
+        const text2 = new Text();
+        const view3 = new View();
+        const text3 = new Text();
+
+        view1.setLayoutProps({ display: 'inline' });
+        view2.setLayoutProps({ display: 'inline' });
+        view3.setLayoutProps({ display: 'inline' });
+        outerView.setLayoutProps({ height: 1 });
+
+        text1.setBody('Brave');
+        text2.setBody('New');
+        text3.setBody('World');
+        view1.appendChild(text1);
+        view2.appendChild(text2);
+        view3.appendChild(text3);
+        outerView.appendChild(view1);
+        outerView.appendChild(view2);
+        outerView.appendChild(view3);
+        root.appendChild(outerView);
+
+        return root;
+      }
+
+      it('without style/layout props', () => {
+        const root = getTree();
+        const { layoutTree, renderElements } = root.calculateLayout();
+        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
+        expect(renderElements).toMatchSnapshot();
+      });
+    });
   });
 
   describe('should align text', () => {
@@ -661,6 +707,24 @@ describe('calculateLayout integration suite', () => {
       const root = getTree();
       root.children[0].setLayoutProps({ width: 9 });
       root.children[0].setStyleProps({ textAlign: 'center' });
+      const { renderElements } = root.calculateLayout();
+      expect(renderElements[0].body.value).toEqual('  Hello  ');
+    });
+
+    it('if width is set on non-direct parent', () => {
+      const root = new Root({ width: 20, height: 10 });
+      const view1 = new View();
+      const view2 = new View();
+      const text = new Text();
+
+      text.setBody('Hello');
+      view1.appendChild(text);
+      view2.appendChild(view1);
+      root.appendChild(view2);
+
+      view2.setLayoutProps({ width: 9 });
+      view2.setStyleProps({ textAlign: 'center' });
+
       const { renderElements } = root.calculateLayout();
       expect(renderElements[0].body.value).toEqual('  Hello  ');
     });

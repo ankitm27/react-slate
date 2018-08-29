@@ -1,6 +1,5 @@
 /* @flow */
 
-import Dimensions from '../lib/Dimensions';
 import ContainerLayout from './ContainerLayout';
 import { makeBorderStyle, makeBlockStyle } from '../lib/makeStyle';
 import type View from '../../nodes/View';
@@ -41,41 +40,15 @@ export default class BorderLayout implements LayoutElementDelegate<View> {
   }
 
   getDimensions() {
-    const {
-      measuredWidth,
-      measuredHeight,
-      fixedWidth,
-      fixedHeight,
-      usedWidth,
-      usedHeight,
-      finalWidth,
-      finalHeight,
-      availableWidth,
-      availableHeight,
-    } = this.backingInstance.getDimensions();
-    const dimensions = new Dimensions();
-    dimensions.measuredWidth = measuredWidth + 2;
-    dimensions.measuredHeight = measuredHeight + 2;
-    dimensions.fixedWidth = fixedWidth + 2;
-    dimensions.fixedHeight = fixedHeight + 2;
-    dimensions.usedWidth = usedWidth + 2;
-    dimensions.usedHeight = usedHeight + 2;
-    // $FlowFixMe
-    Object.defineProperty(dimensions, 'finalWidth', {
-      get: () => finalWidth + 2,
-    });
-    // $FlowFixMe
-    Object.defineProperty(dimensions, 'finalHeight', {
-      get: () => finalHeight + 2,
-    });
-    // $FlowFixMe
-    Object.defineProperty(dimensions, 'availableWidth', {
-      get: () => availableWidth + 2,
-    });
-    // $FlowFixMe
-    Object.defineProperty(dimensions, 'availableHeight', {
-      get: () => availableHeight + 2,
-    });
+    const dimensions = this.backingInstance.getDimensions().copy();
+    const getSize = dimensions.getSize;
+    dimensions.getSize = insetBounds => {
+      const originalSize = getSize.call(dimensions, insetBounds);
+      return {
+        width: originalSize.width + 2,
+        height: originalSize.height + 2,
+      };
+    };
     return dimensions;
   }
 

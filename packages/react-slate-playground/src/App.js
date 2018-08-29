@@ -1,8 +1,8 @@
 import React from 'react';
 import { View } from '@react-slate/core';
 import {
-  // Spinner,
-  // ProgressBar,
+  Spinner,
+  ProgressBar,
   KeyPress,
   // ScrollView,
 } from '@react-slate/components';
@@ -80,29 +80,35 @@ export default class App extends React.Component {
     }
   };
 
-  // renderPreview(componentIndex) {
-  //   switch (components[componentIndex]) {
-  //     case 'Spinner':
-  //       return (
-  //         <View>
-  //           <Spinner
-  //             style={[
-  //               styles.spinner,
-  //               {
-  //                 color: 'red',
-  //               },
-  //             ]}
-  //           />
-  //           <Spinner style={styles.spinner} type="line" />
-  //           <Spinner type="dots11" />
-  //         </View>
-  //       );
-  //     case 'ProgressBar':
-  //       return <ProgressBar barWidth={16} value={this.state.progress} />;
-  //     default:
-  //       return null;
-  //   }
-  // }
+  renderPreview(componentIndex) {
+    switch (components[componentIndex]) {
+      case 'Spinner':
+        return (
+          <View style={styles.componentPreviewItem}>
+            <Spinner
+              style={[
+                styles.spinner,
+                {
+                  color: 'red',
+                },
+              ]}
+            />
+            <Spinner style={styles.spinner} type="line" />
+            <Spinner type="dots11" />
+          </View>
+        );
+      case 'ProgressBar':
+        return (
+          <ProgressBar
+            barWidth={16}
+            value={this.state.progress}
+            style={styles.componentPreviewItem}
+          />
+        );
+      default:
+        return null;
+    }
+  }
 
   render() {
     return (
@@ -128,7 +134,8 @@ export default class App extends React.Component {
             </View>
           ))}
         </View>
-        {/* <View
+        <View
+          tagId="componentPreview"
           style={{
             ...styles.componentPreview,
             left: 30 + this.state.previewLeftOffset,
@@ -139,7 +146,7 @@ export default class App extends React.Component {
           <View style={styles.componentPreviewLabel}>Preview:</View>
           {this.renderPreview(this.state.componentPreview)}
         </View>
-        <ScrollView
+        {/* <ScrollView
           height={1}
           disabled={this.state.scrollDisabled}
           style={{ border: 'solid red' }}
@@ -184,12 +191,18 @@ const styles = {
   componentPreview: {
     borderStyle: 'solid',
     width: 20,
-    height: 6,
-    position: 'fixed',
-    textAlign: 'center',
+    height: 3,
+    position: 'absolute',
+    borderBackgroundColor: 'initial',
+    color: 'initial',
+    backgroundColor: 'initial',
   },
   componentPreviewLabel: {
+    textAlign: 'center',
     marginBottom: 1,
+  },
+  componentPreviewItem: {
+    textAlign: 'center',
   },
   spinner: {
     marginRight: 1,

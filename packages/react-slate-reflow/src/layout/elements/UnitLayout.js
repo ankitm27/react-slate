@@ -38,7 +38,18 @@ export default class UnitLayout implements LayoutElement<Text> {
     this.parent = parent;
     parent.backingInstance.children.push(this);
 
+    this.dimensions.setMaxDimensions({
+      isAbsolute: false,
+      isInline: true,
+      insetBounds: this.insetBounds,
+      isSwitching: Boolean(
+        this.parent.backingInstance.lastChild &&
+          !this.parent.backingInstance.lastChild.backingInstance.isInline
+      ),
+      parentDimensions: this.parent.backingInstance.getDimensions(),
+    });
     this.dimensions.calculateFromText(node.body);
+
     this.placement.initForUnitLayout({
       wasLastChildUnitLayout:
         this.parent.backingInstance.lastChild instanceof UnitLayout,
@@ -62,23 +73,22 @@ export default class UnitLayout implements LayoutElement<Text> {
   }
 
   getRenderElements() {
-    if (!this.parent.backingInstance.getDimensions().hasAvailableSpace()) {
+    if (!this.getDimensions().hasAvailableSpace()) {
       return [];
     }
 
-    const { textAlign } = this.parent.backingInstance.node.styleProps || {};
+    const style = makeInlineStyle(collectStyleProps(this));
     const value = trimHorizontally(
-      this.parent.backingInstance.getDimensions(),
+      this.getDimensions(),
       this.node.body,
-      textAlign
+      (style && style.textAlign) || 'left'
     );
-    this.parent.backingInstance.getDimensions().updateStateFromText(value);
 
     return [
       {
         body: {
           value,
-          style: makeInlineStyle(collectStyleProps(this)),
+          style,
           x: this.placement.x,
           y: this.placement.y,
         },
@@ -87,13 +97,9 @@ export default class UnitLayout implements LayoutElement<Text> {
   }
 
   getLayoutTree() {
-    const { finalWidth, finalHeight } = this.getDimensions();
     return {
       type: UnitLayout.name,
-      dimensions: {
-        width: finalWidth,
-        height: finalHeight,
-      },
+      dimensions: this.getDimensions().getSize(),
       placement: this.placement.valueOf(),
       body: this.node.body,
     };

@@ -70,6 +70,9 @@ export default class ContainerLayout implements LayoutElement<View> {
 
     this.dimensions.setMaxDimensions({
       isAbsolute: this.isAbsolute,
+      isInline: this.isInline,
+      isSwitching:
+        this.isInline !== isLayoutInline(this.parent.backingInstance.lastChild),
       insetBounds: this.insetBounds,
       parentDimensions: this.parent.backingInstance.getDimensions(),
     });
@@ -78,12 +81,6 @@ export default class ContainerLayout implements LayoutElement<View> {
       getWidthConstrain,
       getHeightConstrain,
       insetBounds: this.insetBounds,
-      parentDimensions: this.parent.backingInstance.getDimensions(),
-    });
-
-    this.dimensions.resetState({
-      isInline: this.isInline,
-      isAbsolute: this.isAbsolute,
       parentDimensions: this.parent.backingInstance.getDimensions(),
     });
 
@@ -118,7 +115,7 @@ export default class ContainerLayout implements LayoutElement<View> {
     );
     const isChildLayoutInline = isLayoutInline(childLayout);
     const isLastChildElementInline = isLayoutInline(this.lastChild);
-
+    // console.log(childLayout)
     if (!this.lastChild) {
       // First child in this parent layout.
       this.dimensions.calculateInitialDimensions({
@@ -139,13 +136,6 @@ export default class ContainerLayout implements LayoutElement<View> {
       });
     }
     this.lastChild = childLayout;
-
-    // TODO: what if childLayout is inlined ContainerLayout?
-    if (!childLayout.backingInstance.isInline) {
-      this.dimensions.updateStateFromElement({
-        height: childHeight,
-      });
-    }
   }
 
   hasRenderElements() {
@@ -180,15 +170,11 @@ export default class ContainerLayout implements LayoutElement<View> {
   }
 
   getLayoutTree() {
-    const { width, height } = this.getDimensions().getSize(this.insetBounds);
     return {
       type: `${ContainerLayout.name}${this.isInline ? '(inline)' : ''}${
         this.isAbsolute ? '(absolute)' : ''
       }`,
-      dimensions: {
-        width,
-        height,
-      },
+      dimensions: this.getDimensions().getSize(this.insetBounds),
       placement: this.placement.valueOf(),
       // $FlowFixMe
       children: this.children.map((child: LayoutElement<*>) =>

@@ -143,7 +143,7 @@ export default function splitStyleProps(
     fontStyle,
     textDecoration,
     textTransform,
-    textAlign,
+    // textAlign,
     border,
     borderStyle,
     borderColor,
@@ -181,7 +181,7 @@ export default function splitStyleProps(
       fontStyle,
       textDecoration,
       textTransform,
-      textAlign,
+      // textAlign,
     }),
     borderProps: getBorderProps({
       border,

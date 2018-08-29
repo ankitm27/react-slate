@@ -85,19 +85,6 @@ export type PlacementValue = {
   z: number,
 };
 
-export type DimensionsValue = {
-  measuredWidth: number,
-  measuredHeight: number,
-  fixedWidth: number,
-  fixedHeight: number,
-  usedWidth: number,
-  usedHeight: number,
-  finalWidth: number,
-  finalHeight: number,
-  availableWidth: number,
-  availableHeight: number,
-};
-
 export type Size = {
   width: number,
   height: number,

@@ -86,13 +86,10 @@ export default class Spinner extends React.Component<Props, State> {
 
     return (
       <View
-        {...{
-          ...rest,
-          style: [
-            { display: 'inline' },
-            ...(Array.isArray(rest.style) ? rest.style : [rest.style || false]),
-          ],
-        }}
+        style={[
+          { display: 'inline' },
+          ...(Array.isArray(rest.style) ? rest.style : [rest.style || false]),
+        ]}
       >
         {this.currentFrames[this.state.frame]}
       </View>

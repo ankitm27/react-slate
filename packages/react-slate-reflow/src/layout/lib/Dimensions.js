@@ -9,49 +9,56 @@ function withBounds({ width, height }: Size, ...bounds: Bounds[]) {
   };
 }
 
+function getValue(...values: number[]) {
+  const result = values.find(value => value > -1);
+  return typeof result === 'undefined' ? -1 : result;
+}
+
+function getMinValue(...values: number[]) {
+  return Math.min(...values.filter(value => value > -1));
+}
+
 export default class Dimensions {
-  measuredWidth = 0;
-  measuredHeight = 0;
-  fixedWidth = -1;
-  fixedHeight = -1;
-  usedWidth = 0;
-  usedHeight = 0;
+  width = {
+    measured: 0,
+    max: -1,
+    fixed: -1,
+  };
+  height = {
+    measured: 0,
+    max: -1,
+    fixed: -1,
+  };
 
-  get finalWidth() {
-    return this.fixedWidth === -1 ? this.measuredWidth : this.fixedWidth;
-  }
-  get finalHeight() {
-    return this.fixedHeight === -1 ? this.measuredHeight : this.fixedHeight;
-  }
-  get availableWidth() {
-    return this.fixedWidth - this.usedWidth;
-  }
-  get availableHeight() {
-    return this.fixedHeight - this.usedHeight;
-  }
-
-  setConstrain(
-    dimension: 'width' | 'height',
-    fixedValue: number,
-    insetBounds?: Bounds
-  ) {
-    const { top = 0, left = 0, right = 0, bottom = 0 } = insetBounds || {};
-    if (dimension === 'width') {
-      this.fixedWidth = fixedValue - (left + right);
-    } else if (dimension === 'height') {
-      this.fixedHeight = fixedValue - (top + bottom);
-    } else {
-      throw new Error(`Invalid dimension ${dimension}`);
-    }
+  copy() {
+    const dimensions = new Dimensions();
+    dimensions.width = {
+      ...this.width,
+    };
+    dimensions.height = {
+      ...this.height,
+    };
+    return dimensions;
   }
 
-  // Set constrains from parent to propagate them down unless it's positioned absolutely
+  getAvailableWidth() {
+    return getValue(this.width.fixed, this.width.max);
+  }
+
+  hasAvailableSpace() {
+    return getValue(this.height.fixed, this.height.max) !== 0;
+  }
+
   setMaxDimensions({
     isAbsolute,
+    isInline,
+    isSwitching,
     insetBounds,
     parentDimensions,
   }: {
     isAbsolute: boolean,
+    isInline: boolean,
+    isSwitching: boolean,
     insetBounds: Bounds,
     parentDimensions: Dimensions,
   }) {
@@ -59,20 +66,33 @@ export default class Dimensions {
       return;
     }
 
-    if (parentDimensions.fixedWidth > -1) {
-      this.setConstrain('width', parentDimensions.fixedWidth, insetBounds);
+    // If parent has fixed width/height or max value is set
+    // (because other parent has fixed width/height), set max value to current
+    // element, subtract inset bounds and space already taken from parent
+    // only if the current element is inline and it's not switching between
+    // either inline -> block or block -> inline.
+
+    if (parentDimensions.width.fixed > -1 || parentDimensions.width.max > -1) {
+      this.width.max =
+        getValue(parentDimensions.width.fixed, parentDimensions.width.max) -
+        (insetBounds.left +
+          insetBounds.right +
+          (isInline && !isSwitching ? parentDimensions.width.measured : 0));
     }
 
-    if (parentDimensions.fixedHeight > -1) {
-      this.setConstrain(
-        'height',
-        parentDimensions.availableHeight,
-        insetBounds
-      );
+    if (
+      parentDimensions.height.fixed > -1 ||
+      parentDimensions.height.max > -1
+    ) {
+      this.height.max =
+        getValue(parentDimensions.height.fixed, parentDimensions.height.max) -
+        (insetBounds.top + insetBounds.bottom + isInline && !isSwitching
+          ? 0
+          : parentDimensions.height.measured);
     }
   }
 
-  // TODO: what parent about bounds
+  // TODO: what about parent's bounds
   setOwnConstrains({
     getWidthConstrain,
     getHeightConstrain,
@@ -85,98 +105,77 @@ export default class Dimensions {
     parentDimensions: Dimensions,
   }) {
     if (getWidthConstrain) {
-      const fixedWidth = getWidthConstrain(parentDimensions.finalWidth);
-      // Make sure current element won't overflow. Only apply
-      // own fixed width if parent either doesn't have any
-      // constrain or parent's fixed width is grater/equal own
-      // fixed width.
-      if (
-        parentDimensions.fixedWidth === -1 ||
-        parentDimensions.fixedWidth >= fixedWidth
-      ) {
-        this.setConstrain('width', fixedWidth, insetBounds);
-      }
+      const fixedWidth = getWidthConstrain(parentDimensions.getSize().width);
+      // Make sure current element won't overflow.
+      this.width.fixed = getMinValue(
+        fixedWidth - (insetBounds.left + insetBounds.right),
+        this.width.max
+      );
     }
+
     if (getHeightConstrain) {
-      const fixedHeight = getHeightConstrain(parentDimensions.finalHeight);
-      // Make sure current element won't overflow. Only apply
-      // own fixed height if parent either doesn't have any
-      // constrain or parent's fixed height is grater/equal own
-      // fixed height.
-      if (
-        parentDimensions.fixedHeight === -1 ||
-        parentDimensions.fixedHeight >= fixedHeight
-      ) {
-        this.setConstrain('height', fixedHeight, insetBounds);
-      }
+      const fixedHeight = getHeightConstrain(parentDimensions.getSize().height);
+      // Make sure current element won't overflow.
+      this.height.fixed = getMinValue(
+        fixedHeight - (insetBounds.top + insetBounds.bottom),
+        this.height.max
+      );
     }
   }
 
   getSize(...bounds: Bounds[]) {
     return withBounds(
       {
-        width: this.finalWidth,
-        height: this.finalHeight,
+        width: getValue(this.width.fixed, this.width.measured),
+        height: getValue(this.height.fixed, this.height.measured),
       },
       ...bounds
     );
   }
 
   calculateFromText(text: string) {
-    this.measuredHeight = 1;
-    this.measuredWidth = text.length;
+    const TEXT_HEIGHT = 1;
+    this.width.measured = getMinValue(this.width.max, text.length);
+    this.height.measured = getMinValue(this.height.max, TEXT_HEIGHT);
   }
 
   calculateInitialDimensions({ width, height }: Size) {
-    this.measuredWidth = width;
-    this.measuredHeight = height;
+    this.width.measured = getMinValue(this.width.fixed, this.width.max, width);
+    this.height.measured = getMinValue(
+      this.height.fixed,
+      this.height.max,
+      height
+    );
   }
 
   calculateFromBlockElement({ width, height }: Size) {
-    this.measuredWidth = Math.max(this.measuredWidth, width);
-    this.measuredHeight += height;
+    this.width.measured = getMinValue(
+      this.width.fixed,
+      this.width.max,
+      Math.max(this.width.measured, width)
+    );
+    this.height.measured = getMinValue(
+      this.height.fixed,
+      this.height.max,
+      this.height.measured + height
+    );
   }
 
   calculateFromInlineElement({ width, height }: Size) {
-    this.measuredWidth += width;
-    this.measuredHeight = Math.max(this.measuredHeight, height);
+    this.width.measured = getMinValue(
+      this.width.fixed,
+      this.width.max,
+      this.width.measured + width
+    );
+    this.height.measured = getMinValue(
+      this.height.fixed,
+      this.height.max,
+      Math.max(this.height.measured, height)
+    );
   }
 
   calculateFromAbsoluteElement({ width, height }: Size) {
-    this.measuredWidth = Math.max(this.measuredWidth, width);
-    this.measuredHeight = Math.max(this.measuredHeight, height);
-  }
-
-  resetState({
-    isInline,
-    isAbsolute,
-    parentDimensions,
-  }: {
-    isInline: boolean,
-    isAbsolute: boolean,
-    parentDimensions: Dimensions,
-  }) {
-    if (isInline && parentDimensions.fixedWidth > -1) {
-      // If current container element is inline, usedWidth must be copied from
-      // parent element.
-      this.usedWidth = parentDimensions.usedWidth;
-    } else if (!isAbsolute && parentDimensions.fixedWidth > -1) {
-      // Reset usedWidth if current element is not inline, since it will
-      // push content to the next line.
-      parentDimensions.usedWidth = 0; // eslint-disable-line no-param-reassign
-    }
-  }
-
-  updateStateFromText(text: string) {
-    this.usedHeight++;
-    this.usedWidth += text.length;
-  }
-
-  updateStateFromElement({ height }: { height: number }) {
-    this.usedHeight += height;
-  }
-
-  hasAvailableSpace() {
-    return this.fixedHeight === -1 || this.availableHeight > 0;
+    this.width.measured = Math.max(this.width.measured, width);
+    this.height.measured = Math.max(this.height.measured, height);
   }
 }

@@ -70,13 +70,9 @@ export default class RootLayout implements LayoutElement<null> {
   }
 
   getLayoutTree() {
-    const { finalWidth, finalHeight } = this.getDimensions();
     return {
       type: RootLayout.name,
-      dimensions: {
-        width: finalWidth,
-        height: finalHeight,
-      },
+      dimensions: this.getDimensions().getSize(),
       placement: this.placement.valueOf(),
       // $FlowFixMe
       children: this.children.map((child: LayoutElement<*>) =>

@@ -10,15 +10,16 @@ export default function trimHorizontally(
   value: string,
   align?: 'left' | 'center' | 'right'
 ) {
-  if (dimensions.fixedWidth > -1) {
-    const trimmedValue = value.slice(0, dimensions.availableWidth);
+  const availableWidth = dimensions.getAvailableWidth();
+  if (availableWidth > -1) {
+    const trimmedValue = value.slice(0, availableWidth);
     switch (align) {
       case 'left':
       default: {
         return trimmedValue;
       }
       case 'center': {
-        const fillLength = dimensions.availableWidth - trimmedValue.length;
+        const fillLength = availableWidth - trimmedValue.length;
         const leftFillLength = Math.floor(fillLength / 2);
         const rightFillLength = fillLength - leftFillLength;
         const alignedValue = `${' '.repeat(
@@ -27,7 +28,7 @@ export default function trimHorizontally(
         return alignedValue;
       }
       case 'right': {
-        const fillLength = dimensions.availableWidth - trimmedValue.length;
+        const fillLength = availableWidth - trimmedValue.length;
         const alignedValue = `${' '.repeat(fillLength)}${trimmedValue}`;
         return alignedValue;
       }

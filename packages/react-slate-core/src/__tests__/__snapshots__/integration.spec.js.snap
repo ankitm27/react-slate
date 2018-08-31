@@ -1,30 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`in integration tests renderToString should apply backgroundColor to paddings 1`] = `
-"@[0m@[41m               @[49m@[0m                         
-@[0m@[41m               @[49m@[0m                         
-@[0m@[41m  Hello World  @[49m@[0m                         
-@[0m@[41m               @[49m@[0m                         
-@[0m@[41m               @[49m@[0m                         
-                                        "
+"@[0m@[41m               @[49m@[0m
+@[0m@[41m               @[49m@[0m
+@[0m@[41m  Hello World  @[49m@[0m
+@[0m@[41m               @[49m@[0m
+@[0m@[41m               @[49m@[0m"
 `;
 
 exports[`in integration tests renderToString should apply backgroundColor to whole content with fixed height 1`] = `
-"@[0m@[41mHello World@[49m@[0m                             
-@[0m@[41m           @[49m@[0m                             
-@[0m@[41m           @[49m@[0m                             
-@[0m@[41m           @[49m@[0m                             
-                                        
-                                        "
+"@[0m@[41mHello World@[49m@[0m
+@[0m@[41m           @[49m@[0m
+@[0m@[41m           @[49m@[0m
+@[0m@[41m           @[49m@[0m"
 `;
 
 exports[`in integration tests renderToString should apply backgroundColor to whole content with fixed height 2`] = `
-"@[0m@[41mHello World @[49m@[0m                            
-@[0m@[41m            @[49m@[0m                            
-@[0m@[41m            @[49m@[0m                            
-@[0m@[41m            @[49m@[0m                            
-                                        
-                                        "
+"@[0m@[41mHello World @[49m@[0m
+@[0m@[41m            @[49m@[0m
+@[0m@[41m            @[49m@[0m
+@[0m@[41m            @[49m@[0m"
 `;
 
 exports[`in integration tests renderToString with absolute positioning should correctly left-trim element with border 1`] = `

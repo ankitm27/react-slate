@@ -16,23 +16,7 @@ overwriteConsole({
 hideCursor(process.stdout);
 clearScrollbackOnExit(process.stdout);
 
-// const App = () => (
-//   <View
-//     style={{
-//       borderStyle: 'solid',
-//       padding: '1',
-//       margin: '1 0 0 2',
-//       backgroundColor: 'red',
-//       borderBackgroundColor: 'black',
-//       color: 'green',
-//       borderColor: 'cyan',
-//     }}
-//   >
-//     Hello world
-//   </View>
-// );
-
-// console.log(renderToString(<App />));
+// process.stdout.write(renderToString(<App />));
 
 renderToTerminal(<App />, process.stdout);
 

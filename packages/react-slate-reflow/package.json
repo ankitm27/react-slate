@@ -31,7 +31,8 @@
   "dependencies": {
     "ansi-styles": "^3.2.1",
     "chalk": "^2.4.1",
-    "buckets-js": "^1.98.2"
+    "buckets-js": "^1.98.2",
+    "strip-ansi": "^4.0.0"
   },
   "babel": {
     "presets": [

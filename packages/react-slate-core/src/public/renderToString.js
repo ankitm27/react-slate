@@ -11,7 +11,7 @@ const NOOP = () => {};
 
 export default function renderToString(
   element: any,
-  { height = 20, width = 40 }: Options = {},
+  { height = -1, width = -1 }: Options = {},
   callback: ?Function = null
 ) {
   let snapshot = '';

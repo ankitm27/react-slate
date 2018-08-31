@@ -1,7 +1,8 @@
 /* @flow */
 
+import stripAnsi from 'strip-ansi';
 import Row from './Row';
-import type { RenderElement, StyleProps, Size } from '../types';
+import type { RenderElement, Size } from '../types';
 
 function fill(rows, index, maxWidth) {
   for (let i = 0; i <= index; i++) {
@@ -13,7 +14,7 @@ function fill(rows, index, maxWidth) {
 export default function render(elements: RenderElement[], canvasSize: Size) {
   const rows = [];
   const { width: maxWidth, height: maxHeight } = canvasSize;
-
+  debugger // eslint-disable-line
   elements.forEach(element => {
     if (!element.body && !element.box) {
       return;
@@ -36,20 +37,19 @@ export default function render(elements: RenderElement[], canvasSize: Size) {
 
       const row = rows[rowIndex];
       if (element.body) {
+        const { value, x, style } = element.body;
         row.setText({
-          value: element.body.value,
-          start: element.body.x,
-          length: element.body.value.length,
-          // $FlowFixMe
-          style: normalizeStyle(element.body.style),
+          value: stripAnsi(value),
+          start: x,
+          length: stripAnsi(value).length,
+          style: normalizeStyle(style),
         });
       } else if (element.box) {
+        const { x, width, style } = element.box;
         row.applyStyle({
-          start: element.box.x,
-          // $FlowFixMe
-          length: element.box.width,
-          // $FlowFixMe
-          style: normalizeStyle(element.box.style),
+          start: x,
+          length: width,
+          style: normalizeStyle(style),
         });
       }
     }
@@ -58,7 +58,7 @@ export default function render(elements: RenderElement[], canvasSize: Size) {
   return rows.map(row => row.toString()).join('\n');
 }
 
-function normalizeStyle(style: ?StyleProps): { [key: string]: string } {
+function normalizeStyle(style: *): { [key: string]: string } {
   return (
     Object.keys(style || {})
       // $FlowFixMe

@@ -159,7 +159,7 @@ describe('in integration tests renderToString', () => {
             }
           )
         )
-      ).toMatch(`World\n${' '.repeat(5)}`);
+      ).toMatch('World');
     });
     it('should top-trim if top + content height > canvas height', () => {
       expect(
@@ -175,7 +175,7 @@ describe('in integration tests renderToString', () => {
             }
           )
         )
-      ).toMatch(`${' '.repeat(5)}\nHello`);
+      ).toMatch(`\nHello`);
     });
   });
 });

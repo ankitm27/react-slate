@@ -5,72 +5,117 @@ import Row from '../Row';
 
 describe('Row', () => {
   describe('should set text', () => {
-    it('with equal lengths', () => {
-      const row = new Row(5);
-      const style = {
-        color: 'green',
-      };
+    describe('with maxLength', () => {
+      it('with equal lengths', () => {
+        const row = new Row(5);
+        const style = {
+          color: 'green',
+        };
 
-      row.setText({
-        value: 'Hello',
-        start: 0,
-        length: 5,
-        style,
+        row.setText({
+          value: 'Hello',
+          start: 0,
+          length: 5,
+          style,
+        });
+        expect(row.cells).toEqual([
+          { style, char: 'H' },
+          { style, char: 'e' },
+          { style, char: 'l' },
+          { style, char: 'l' },
+          { style, char: 'o' },
+        ]);
       });
-      expect(row.cells).toEqual([
-        { style, char: 'H' },
-        { style, char: 'e' },
-        { style, char: 'l' },
-        { style, char: 'l' },
-        { style, char: 'o' },
-      ]);
+
+      it('with text length greater than row length', () => {
+        const row = new Row(4);
+        const style = {
+          color: 'green',
+        };
+
+        row.setText({
+          value: 'Hello',
+          start: 0,
+          length: 5,
+          style,
+        });
+        expect(row.cells).toEqual([
+          { style, char: 'H' },
+          { style, char: 'e' },
+          { style, char: 'l' },
+          { style, char: 'l' },
+        ]);
+      });
+
+      it('with text length lesser than row length', () => {
+        const row = new Row(7);
+        const style = {
+          color: 'green',
+        };
+
+        row.setText({
+          value: 'Hello',
+          start: 1,
+          length: 5,
+          style,
+        });
+        expect(row.cells).toEqual([
+          { style: null, char: ' ' },
+          { style, char: 'H' },
+          { style, char: 'e' },
+          { style, char: 'l' },
+          { style, char: 'l' },
+          { style, char: 'o' },
+          { style: null, char: ' ' },
+        ]);
+      });
     });
 
-    it('with text length greater than row length', () => {
-      const row = new Row(4);
-      const style = {
-        color: 'green',
-      };
+    describe('without maxLength', () => {
+      it('with equal lengths', () => {
+        const row = new Row(-1);
+        const style = {
+          color: 'green',
+        };
 
-      row.setText({
-        value: 'Hello',
-        start: 0,
-        length: 5,
-        style,
+        row.setText({
+          value: 'Hello',
+          start: 0,
+          length: 5,
+          style,
+        });
+        expect(row.cells).toEqual([
+          { style, char: 'H' },
+          { style, char: 'e' },
+          { style, char: 'l' },
+          { style, char: 'l' },
+          { style, char: 'o' },
+        ]);
       });
-      expect(row.cells).toEqual([
-        { style, char: 'H' },
-        { style, char: 'e' },
-        { style, char: 'l' },
-        { style, char: 'l' },
-      ]);
-    });
 
-    it('with text length lesser than row length', () => {
-      const row = new Row(7);
-      const style = {
-        color: 'green',
-      };
+      it('with text length greater than row length', () => {
+        const row = new Row(4);
+        const style = {
+          color: 'green',
+        };
 
-      row.setText({
-        value: 'Hello',
-        start: 1,
-        length: 5,
-        style,
+        row.setText({
+          value: 'Hello',
+          start: 0,
+          length: 5,
+          style,
+        });
+        expect(row.cells).toEqual([
+          { style, char: 'H' },
+          { style, char: 'e' },
+          { style, char: 'l' },
+          { style, char: 'l' },
+        ]);
       });
-      expect(row.cells).toEqual([
-        { style: null, char: ' ' },
-        { style, char: 'H' },
-        { style, char: 'e' },
-        { style, char: 'l' },
-        { style, char: 'l' },
-        { style, char: 'o' },
-        { style: null, char: ' ' },
-      ]);
     });
   });
 
-  it('should style text', () => {
+  it('should style text with maxLength', () => {
     const row = new Row(5);
     const style = {
       color: 'green',

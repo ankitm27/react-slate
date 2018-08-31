@@ -3,25 +3,38 @@
 import Row from './Row';
 import type { RenderElement, StyleProps, Size } from '../types';
 
+function fill(rows, index, maxWidth) {
+  for (let i = 0; i <= index; i++) {
+    // eslint-disable-next-line no-param-reassign
+    rows[i] = rows[i] || new Row(maxWidth);
+  }
+}
+
 export default function render(elements: RenderElement[], canvasSize: Size) {
   const rows = [];
-  for (let i = 0; i < canvasSize.height; i++) {
-    rows[i] = new Row(canvasSize.width);
-  }
+  const { width: maxWidth, height: maxHeight } = canvasSize;
 
   elements.forEach(element => {
     if (!element.body && !element.box) {
       return;
     }
-    const height = element.box ? element.box.height : 1;
+
+    const elementHeight = element.box ? element.box.height : 1;
     // $FlowFixMe
     const y = (element.box || element.body).y;
+
     for (
-      let i = 0;
-      i < height && y + i >= 0 && y + 1 <= canvasSize.height;
-      i++
+      let rowIndex = y;
+      rowIndex >= 0 &&
+      rowIndex < elementHeight + y &&
+      (maxHeight < 0 || y + 1 <= maxHeight);
+      rowIndex++
     ) {
-      const row = rows[y + i];
+      if (!rows[rowIndex]) {
+        fill(rows, rowIndex, maxWidth);
+      }
+
+      const row = rows[rowIndex];
       if (element.body) {
         row.setText({
           value: element.body.value,

@@ -9,13 +9,17 @@ type Cell = {
 };
 
 export default class Row {
-  length: number;
+  maxLength: number;
   cells: Cell[] = [];
 
-  constructor(length: number) {
+  constructor(maxLength: number) {
+    this.maxLength = maxLength;
+  }
+
+  fillCells(endIndex: number) {
     const fillValue = { char: ' ', style: null };
-    for (let i = 0; i < length; i++) {
-      this.cells[i] = { ...fillValue };
+    for (let i = 0; i < endIndex; i++) {
+      this.cells[i] = this.cells[i] || { ...fillValue };
     }
   }
 
@@ -30,8 +34,16 @@ export default class Row {
     style: ?Style,
     value: string,
   }) {
-    for (let i = 0; i < length && start + i < this.cells.length; i++) {
-      const cellIndex = start + i;
+    if (!this.cells[start]) {
+      this.fillCells(this.maxLength < 0 ? start + length : this.maxLength);
+    }
+
+    for (
+      let cellIndex = start;
+      cellIndex < start + length &&
+      (this.maxLength < 0 || cellIndex < this.maxLength);
+      cellIndex++
+    ) {
       if (cellIndex >= 0) {
         this.cells[cellIndex].style = style
           ? {
@@ -39,7 +51,7 @@ export default class Row {
               ...style,
             }
           : this.cells[cellIndex].style;
-        this.cells[cellIndex].char = value[i];
+        this.cells[cellIndex].char = value[cellIndex - start];
       }
     }
   }
@@ -57,14 +69,16 @@ export default class Row {
       return;
     }
 
+    const value = new Array(length).fill(' ');
+    this.cells.slice(start, start + length).forEach((cell, index) => {
+      value[index] = cell.char;
+    });
+
     this.setText({
       start,
       length,
       style,
-      value: this.cells
-        .slice(start, start + length)
-        .map(cell => cell.char)
-        .join(''),
+      value: value.join(''),
     });
   }
 

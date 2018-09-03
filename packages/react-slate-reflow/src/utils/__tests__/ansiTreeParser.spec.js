@@ -5,7 +5,7 @@ import ansiStyles from 'ansi-styles';
 import { getAnsiTreeFromText, getStyleFromAnsiCode } from '../ansiTreeParser';
 
 chalk.enabled = process.env.CI ? true : chalk.enabled;
-chalk.level = process.env.CI ? 1 : chalk.level;
+chalk.level = 3;
 
 function stripTreeFromInternals(node: Object) {
   const { children, code, text } = node;
@@ -181,14 +181,14 @@ describe('ansiTreeParser', () => {
       getStyleFromAnsiCode(chalk.bgKeyword('orange')._styles[0].open)
     ).toEqual({
       key: 'backgroundColor',
-      value: process.env.CI ? 'yellowBright' : 'raw(5;214)',
+      value: 'raw(2;255;165;0)',
     });
     expect(
       // $FlowFixMe
       getStyleFromAnsiCode(chalk.bgRgb(45, 89, 128)._styles[0].open)
     ).toEqual({
       key: 'backgroundColor',
-      value: 'raw(5;67)',
+      value: 'raw(2;45;89;128)',
     });
   });
 });

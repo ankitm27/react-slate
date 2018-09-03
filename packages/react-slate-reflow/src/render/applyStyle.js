@@ -14,6 +14,19 @@ function colorize(color: string, isBackground: boolean, text: string) {
     return chalk.reset(text);
   }
 
+  if (color.startsWith('raw')) {
+    const rawMatch = /raw\((.+)\)/.exec(color);
+    if (rawMatch) {
+      const [, rawColor] = rawMatch;
+      const openCode = isBackground ? 48 : 38;
+      const closeCode = openCode + 1;
+      const CSI = '\u001b[';
+      return `${CSI}${openCode};${rawColor}m${text}${CSI}${closeCode}m`;
+    }
+
+    return text;
+  }
+
   if (color.startsWith('#')) {
     return isBackground ? chalk.bgHex(color)(text) : chalk.hex(color)(text);
   } else if (color.startsWith('rgb')) {
@@ -34,12 +47,15 @@ function colorize(color: string, isBackground: boolean, text: string) {
 
     return text;
   }
-
-  return isBackground
-    ? // $FlowFixMe
-      chalk[`bg${capitalize(color)}`](text)
-    : // $FlowFixMe
-      chalk[color](text);
+  try {
+    return isBackground
+      ? // $FlowFixMe
+        chalk[`bg${capitalize(color)}`](text)
+      : // $FlowFixMe
+        chalk[color](text);
+  } catch (error) {
+    return text;
+  }
 }
 
 function applySingleStyle(key: string, value: string, text: string) {

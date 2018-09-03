@@ -4,7 +4,7 @@ import {
   Spinner,
   ProgressBar,
   KeyPress,
-  // ScrollView,
+  ScrollView,
 } from '@react-slate/components';
 
 const components = ['Spinner', 'ProgressBar'];
@@ -146,17 +146,17 @@ export default class App extends React.Component {
           <View style={styles.componentPreviewLabel}>Preview:</View>
           {this.renderPreview(this.state.componentPreview)}
         </View>
-        {/* <ScrollView
+        <ScrollView
           height={1}
           disabled={this.state.scrollDisabled}
           style={{ border: 'solid red' }}
         >
-          <View>{'Scroll!'}</View>
+          <View style={{ color: 'rgb(orange)' }}>{'Scroll!'}</View>
           <View>{'... yeah ...'}</View>
           <View>{'... you are ...'}</View>
           <View>{'... scrolling ...'}</View>
           <View>{'... awesome, right?'}</View>
-        </ScrollView> */}
+        </ScrollView>
         <View>{`Press "x" to ${
           this.state.scrollDisabled ? 'enable' : 'disable'
         } scroll`}</View>

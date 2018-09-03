@@ -14,7 +14,7 @@ function fill(rows, index, maxWidth) {
 export default function render(elements: RenderElement[], canvasSize: Size) {
   const rows = [];
   const { width: maxWidth, height: maxHeight } = canvasSize;
-  debugger // eslint-disable-line
+
   elements.forEach(element => {
     if (!element.body && !element.box) {
       return;

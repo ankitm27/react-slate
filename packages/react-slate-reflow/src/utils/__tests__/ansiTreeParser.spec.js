@@ -4,6 +4,9 @@ import chalk from 'chalk';
 import ansiStyles from 'ansi-styles';
 import { getAnsiTreeFromText, getStyleFromAnsiCode } from '../ansiTreeParser';
 
+chalk.enabled = process.env.CI ? true : chalk.enabled;
+chalk.level = process.env.CI ? 1 : chalk.level;
+
 function stripTreeFromInternals(node: Object) {
   const { children, code, text } = node;
   if (code) {

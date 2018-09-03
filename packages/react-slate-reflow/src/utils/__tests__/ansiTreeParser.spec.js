@@ -181,7 +181,7 @@ describe('ansiTreeParser', () => {
       getStyleFromAnsiCode(chalk.bgKeyword('orange')._styles[0].open)
     ).toEqual({
       key: 'backgroundColor',
-      value: 'raw(5;214)',
+      value: process.env.CI ? 'yellowBright' : 'raw(5;214)',
     });
     expect(
       // $FlowFixMe

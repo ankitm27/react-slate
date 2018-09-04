@@ -111,11 +111,17 @@ export default (containerInstance: Root, target: Target) =>
       // This hooks is called once per update, whereas commitUpdate is called multiple times, for
       // each updated node. So here is the best place to flush data to host environment, using
       // container instance.
+      target.measure('layout-start');
       const { renderElements } = containerInstance.calculateLayout();
+      target.measure('layout-end');
+      target.measure('render-start');
       const output = render(renderElements, target.getSize());
+      target.measure('render-end');
+      target.measure('draw-start');
       target.setCursorPosition(0, 0);
       target.clear();
       target.print(output);
+      target.measure('draw-end');
     },
 
     // Misc

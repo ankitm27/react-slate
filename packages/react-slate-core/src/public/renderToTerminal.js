@@ -11,25 +11,16 @@ type Options = {
 
 const streamMap = new WeakMap();
 
-export function unmountFromTerminal(stream: tty$WriteStream | stream$Writable) {
-  if (streamMap.has(stream)) {
-    render(null, ((streamMap.get(stream): any): Target));
-    return true;
-  }
-  return false;
-}
-
-export default function renderToTerminal(
-  element: any,
+export function makeTerminalTarget(
   stream: tty$WriteStream | stream$Writable,
-  { height = 20, width = 40 }: Options = {},
-  callback: ?Function = null
-) {
+  { height = 20, width = 40 }: Options = {}
+): Target {
   if (streamMap.has(stream)) {
-    return render(element, ((streamMap.get(stream): any): Target), callback);
+    return (streamMap.get(stream): any);
   }
   const target = {
     forceFullPrint: false,
+    measure: () => {}, // NOOP
     setCursorPosition(x: number, y: number) {
       readline.cursorTo(stream, x, y);
     },
@@ -41,7 +32,7 @@ export default function renderToTerminal(
     },
     getSize() {
       if (stream.isTTY) {
-        const { rows, columns } = ((stream: any): tty$WriteStream);
+        const { rows, columns } = (stream: any);
         return {
           height: rows,
           width: columns,
@@ -55,10 +46,32 @@ export default function renderToTerminal(
     },
     raiseError(error: Error) {
       stream.write(`${error.toString()}\n`);
+      console.error(error);
       process.exit(1);
     },
   };
 
   streamMap.set(stream, target);
-  return render(element, target, callback);
+  return target;
+}
+
+export function unmountFromTerminal(stream: tty$WriteStream | stream$Writable) {
+  if (streamMap.has(stream)) {
+    render(null, ((streamMap.get(stream): any): Target));
+    return true;
+  }
+  return false;
+}
+
+export default function renderToTerminal(
+  element: any,
+  stream: tty$WriteStream | stream$Writable,
+  { height = 20, width = 40 }: Options = {},
+  callback: ?() => void = null
+) {
+  return render(
+    element,
+    makeTerminalTarget(stream, { width, height }),
+    callback
+  );
 }

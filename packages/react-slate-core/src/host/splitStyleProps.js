@@ -1,6 +1,8 @@
 /* @flow */
 
-function splitOffsets(name: string, value: string) {
+import memoize from 'fast-memoize';
+
+const splitOffsets = memoize((name: string, value: string) => {
   const offsets = value.match(/\d+/g);
   if (!offsets) {
     return null;
@@ -25,48 +27,45 @@ function splitOffsets(name: string, value: string) {
   }
 
   return output;
-}
+});
 
-function getBorderProps({
-  border,
-  borderStyle,
-  borderColor,
-  borderBackgroundColor,
-}) {
-  const [, style, color, backgroundColor] =
-    /(solid|double) (rgb\(\d+,\s?\d+,\s?\d+\)|\w+|#[0-9abcdef]+) ?(rgb\(\d+,\s?\d+,\s?\d+\)|\w+|#[0-9abcdef]+)?/.exec(
-      border
-    ) || [];
-  const finalProps = {
-    style: borderStyle || style,
-    color: borderColor || color,
-    backgroundColor: borderBackgroundColor || backgroundColor,
-  };
+const getBorderProps = memoize(
+  ({ border, borderStyle, borderColor, borderBackgroundColor }) => {
+    const [, style, color, backgroundColor] =
+      /(solid|double) (rgb\(\d+,\s?\d+,\s?\d+\)|\w+|#[0-9abcdef]+) ?(rgb\(\d+,\s?\d+,\s?\d+\)|\w+|#[0-9abcdef]+)?/.exec(
+        border
+      ) || [];
+    const finalProps = {
+      style: borderStyle || style,
+      color: borderColor || color,
+      backgroundColor: borderBackgroundColor || backgroundColor,
+    };
 
-  if (finalProps.style !== 'solid' && finalProps.style !== 'double') {
-    return null;
-  }
-
-  let thickness;
-  switch (finalProps.style) {
-    case 'solid': {
-      thickness = 'single-line';
-      break;
+    if (finalProps.style !== 'solid' && finalProps.style !== 'double') {
+      return null;
     }
-    case 'double': {
-      thickness = 'double-line';
-      break;
-    }
-    default:
-      break;
-  }
 
-  return normalize({
-    thickness,
-    color: finalProps.color,
-    backgroundColor: finalProps.backgroundColor,
-  });
-}
+    let thickness;
+    switch (finalProps.style) {
+      case 'solid': {
+        thickness = 'single-line';
+        break;
+      }
+      case 'double': {
+        thickness = 'double-line';
+        break;
+      }
+      default:
+        break;
+    }
+
+    return normalize({
+      thickness,
+      color: finalProps.color,
+      backgroundColor: finalProps.backgroundColor,
+    });
+  }
+);
 
 function normalize(value: { [key: string]: * }, alternativeValue = null) {
   const keys = Object.keys(value);

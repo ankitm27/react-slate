@@ -5,6 +5,7 @@ import onExit from './utils/onExit';
 export {
   default as renderToTerminal,
   unmountFromTerminal,
+  makeTerminalTarget,
 } from './public/renderToTerminal';
 export { default as renderToString } from './public/renderToString';
 export { default as renderToTarget } from './public/render';

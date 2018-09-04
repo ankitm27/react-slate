@@ -12,7 +12,7 @@ const NOOP = () => {};
 export default function renderToString(
   element: any,
   { height = -1, width = -1 }: Options = {},
-  callback: ?Function = null
+  callback: ?() => void = null
 ) {
   let snapshot = '';
   let hasScheduledNullRender = false;
@@ -21,6 +21,7 @@ export default function renderToString(
     forceFullPrint: true,
     setCursorPosition: NOOP,
     clear: NOOP,
+    measure: NOOP,
     print(data: string) {
       if (!hasScheduledNullRender) {
         snapshot += data;

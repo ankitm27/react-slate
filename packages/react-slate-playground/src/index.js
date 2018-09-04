@@ -1,12 +1,13 @@
 import React from 'react';
 import path from 'path';
-import { renderToTerminal } from '@react-slate/core';
+import { renderToTarget, makeTerminalTarget } from '@react-slate/core';
+import { withRemoteProfiler } from '@react-slate/devtools';
 import {
   hideCursor,
   clearScrollbackOnExit,
   overwriteConsole,
 } from '@react-slate/utils';
-import throttle from 'lodash.throttle';
+// import throttle from 'lodash.throttle';
 import App from './App';
 
 overwriteConsole({
@@ -17,12 +18,12 @@ hideCursor(process.stdout);
 clearScrollbackOnExit(process.stdout);
 
 // process.stdout.write(renderToString(<App />));
+const target = withRemoteProfiler(makeTerminalTarget(process.stdout));
+renderToTarget(<App />, target);
 
-renderToTerminal(<App />, process.stdout);
-
-process.on(
-  'resize',
-  throttle(() => {
-    renderToTerminal(<App />, process.stdout);
-  }, 100)
-);
+// process.on(
+//   'resize',
+//   throttle(() => {
+//     renderToTerminal(<App />, process.stdout);
+//   }, 100)
+// );

@@ -147,6 +147,7 @@ export default class App extends React.Component {
           {this.renderPreview(this.state.componentPreview)}
         </View>
         <ScrollView
+          scrollSensitivity={0.35}
           height={1}
           disabled={this.state.scrollDisabled}
           style={{ border: 'solid red' }}

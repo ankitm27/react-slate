@@ -1,10 +1,10 @@
 {
-  "name": "@react-slate/core",
-  "version": "0.7.0",
-  "description": "Render React CLI apps to TTY terminals",
+  "name": "@react-slate/devtools",
+  "version": "0.1.0",
+  "description": "TODO",
   "license": "MIT",
   "repository": "https://github.com/zamotany/react-slate",
-  "private": false,
+  "private": true,
   "author": {
     "name": "Paweł Trysła",
     "email": "zamotany.oss@gmail.com"
@@ -29,17 +29,16 @@
     "prepublish": "yarn build"
   },
   "peerDependencies": {
-    "react": "16.x"
+    "@react-slate/core": "*" 
   },
   "dependencies": {
-    "fbjs": "^0.8.16",
-    "react-reconciler": "0.12.0",
-    "@react-slate/reflow": "*",
-    "fast-memoize": "^2.5.1"
+    "ws": "^6.0.0",
+    "react": "^16.4.2",
+    "@react-slate/utils": "^0.2.2",
+    "lodash.throttle": "^4.1.1"
   },
   "devDependencies": {
-    "react": "^16.3.2",
-    "strip-ansi": "^4.0.0"
+    "@react-slate/core": "*"
   },
   "babel": {
     "presets": [

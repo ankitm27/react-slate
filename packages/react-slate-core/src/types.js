@@ -48,4 +48,13 @@ export type Target = {
   clear(): void,
   getSize(): { width: number, height: number },
   raiseError(error: Error): void,
+  measure(
+    id:
+      | 'layout-start'
+      | 'layout-end'
+      | 'render-start'
+      | 'render-end'
+      | 'draw-start'
+      | 'draw-end'
+  ): void,
 };

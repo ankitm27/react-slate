@@ -13,7 +13,7 @@ const targetMap = new WeakMap();
 export default function render(
   element: any,
   target: Target,
-  callback: ?Function = null
+  callback: ?() => void = null
 ) {
   onExit(() => {
     if (targetMap.has(target)) {

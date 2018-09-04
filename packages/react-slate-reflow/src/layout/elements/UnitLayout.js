@@ -50,15 +50,25 @@ export default class UnitLayout implements LayoutElement<Text> {
     });
     this.dimensions.calculateFromText(node.body);
 
-    this.placement.initForUnitLayout({
-      wasLastChildInline: Boolean(
-        this.parent.backingInstance.lastChild &&
-          this.parent.backingInstance.lastChild.backingInstance.isInline
-      ),
-      parentDimensions: this.parent.backingInstance.dimensions,
-      parentPlacement: this.parent.backingInstance.placement,
-      parentInsetBounds: this.parent.backingInstance.insetBounds,
-    });
+    if (this.parent.backingInstance.lastChild) {
+      const lastChildBackingInstance = this.parent.backingInstance.lastChild
+        .backingInstance;
+      this.placement.initUnitLayoutAsNextChild({
+        isPreviousChildInline: lastChildBackingInstance.isInline,
+        previousChildDimensions: this.parent.backingInstance.lastChild.getDimensions(),
+        previousChildPlacement: lastChildBackingInstance.placement,
+        previousChildOutsetBounds: lastChildBackingInstance.outsetBounds,
+
+        previousChildInsetBounds: lastChildBackingInstance.insetBounds,
+        parentPlacement: this.parent.backingInstance.placement,
+        parentInsetBounds: this.parent.backingInstance.insetBounds,
+      });
+    } else {
+      this.placement.initUnitLayoutAsFirstChild({
+        parentPlacement: this.parent.backingInstance.placement,
+        parentInsetBounds: this.parent.backingInstance.insetBounds,
+      });
+    }
   }
 
   getDimensions() {

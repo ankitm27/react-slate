@@ -3,13 +3,6 @@
 import type Dimensions from './Dimensions';
 import type { Bounds } from '../../types';
 
-type UnitLayoutInitArgs = {
-  wasLastChildInline: boolean,
-  parentPlacement: Placement,
-  parentDimensions: Dimensions,
-  parentInsetBounds: Bounds,
-};
-
 type ContainerLayoutInitArgs = {
   isAbsolute: boolean,
   isInline: boolean,
@@ -36,22 +29,50 @@ export default class Placement {
     };
   }
 
-  initForUnitLayout({
-    wasLastChildInline,
+  initUnitLayoutAsFirstChild({
     parentPlacement,
-    parentDimensions,
     parentInsetBounds,
-  }: UnitLayoutInitArgs) {
-    if (wasLastChildInline) {
-      this.x = parentPlacement.x + parentDimensions.width.measured;
-      this.y = parentPlacement.y;
-    } else {
-      this.x = parentPlacement.x;
-      this.y = parentPlacement.y + parentDimensions.height.measured;
-    }
-    this.x += parentInsetBounds.left;
-    this.y += parentInsetBounds.top;
+  }: {
+    parentPlacement: Placement,
+    parentInsetBounds: Bounds,
+  }) {
+    this.x = parentPlacement.x + parentInsetBounds.left;
+    this.y = parentPlacement.y + parentInsetBounds.top;
     this.z = parentPlacement.z;
+  }
+
+  initUnitLayoutAsNextChild({
+    isPreviousChildInline,
+    previousChildDimensions,
+    previousChildPlacement,
+    previousChildOutsetBounds,
+    previousChildInsetBounds,
+    parentPlacement,
+    parentInsetBounds,
+  }: {
+    isPreviousChildInline: boolean,
+    previousChildDimensions: Dimensions,
+    previousChildPlacement: Placement,
+    previousChildOutsetBounds: Bounds,
+    previousChildInsetBounds: Bounds,
+    parentPlacement: Placement,
+    parentInsetBounds: Bounds,
+  }) {
+    this.z = parentPlacement.z;
+    const { width, height } = previousChildDimensions.getSize(
+      previousChildInsetBounds
+    );
+    if (isPreviousChildInline) {
+      this.x =
+        previousChildPlacement.x + width + previousChildOutsetBounds.right;
+      this.y = previousChildPlacement.y;
+    } else {
+      this.x = parentPlacement.x + parentInsetBounds.left;
+      this.y =
+        // Previous child's placement will have left outset bound already in it, so
+        // we only need to add a bottom one.
+        previousChildPlacement.y + height + previousChildOutsetBounds.bottom;
+    }
   }
 
   initForContainerLayout({
@@ -82,5 +103,15 @@ export default class Placement {
       this.y = parentPlacement.y + parentInsetBounds.top + outsetBounds.top;
       this.z = parentPlacement.z;
     }
+  }
+
+  getChildPlacementDiff(childPlacement: Placement, insetBounds: Bounds) {
+    // NOTE: left and top inset bounds have to be subtracted, since
+    // they were added in child's placement.
+    return {
+      x: childPlacement.x - this.x - insetBounds.left,
+      y: childPlacement.y - this.y - insetBounds.top,
+      z: this.z,
+    };
   }
 }

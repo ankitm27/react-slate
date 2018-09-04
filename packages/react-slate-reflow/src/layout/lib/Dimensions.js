@@ -1,6 +1,6 @@
 /* @flow */
 
-import type { Bounds, Size } from '../../types';
+import type { Bounds, Size, PlacementValue } from '../../types';
 
 function withBounds({ width, height }: Size, ...bounds: Bounds[]) {
   return {
@@ -17,6 +17,8 @@ function getValue(...values: number[]) {
 function getMinValue(...values: number[]) {
   return Math.min(...values.filter(value => value > -1));
 }
+
+const TEXT_HEIGHT = 1;
 
 export default class Dimensions {
   width = {
@@ -134,43 +136,23 @@ export default class Dimensions {
   }
 
   calculateFromText(text: string) {
-    const TEXT_HEIGHT = 1;
     this.width.measured = getMinValue(this.width.max, text.length);
     this.height.measured = getMinValue(this.height.max, TEXT_HEIGHT);
   }
 
-  calculateInitialDimensions({ width, height }: Size) {
-    this.width.measured = getMinValue(this.width.fixed, this.width.max, width);
-    this.height.measured = getMinValue(
-      this.height.fixed,
-      this.height.max,
-      height
-    );
-  }
-
-  calculateFromBlockElement({ width, height }: Size) {
+  calculateFromElement(
+    { width, height }: Size,
+    childPlacementDiff: PlacementValue
+  ) {
     this.width.measured = getMinValue(
       this.width.fixed,
       this.width.max,
-      Math.max(this.width.measured, width)
+      Math.max(this.width.measured, childPlacementDiff.x + width)
     );
     this.height.measured = getMinValue(
       this.height.fixed,
       this.height.max,
-      this.height.measured + height
-    );
-  }
-
-  calculateFromInlineElement({ width, height }: Size) {
-    this.width.measured = getMinValue(
-      this.width.fixed,
-      this.width.max,
-      this.width.measured + width
-    );
-    this.height.measured = getMinValue(
-      this.height.fixed,
-      this.height.max,
-      Math.max(this.height.measured, height)
+      Math.max(this.height.measured, childPlacementDiff.y + height)
     );
   }
 

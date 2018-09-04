@@ -111,30 +111,26 @@ export default class ContainerLayout implements LayoutElement<View> {
     const childDimensions = childLayout.getDimensions();
     const { width: childWidth, height: childHeight } = childDimensions.getSize(
       childLayout.backingInstance.insetBounds,
-      childLayout.backingInstance.outsetBounds
+      // NOTE: right and bottom outset bounds must be added, since they
+      // contribute to total child width/height from parent's perspective.
+      {
+        left: 0,
+        top: 0,
+        right: childLayout.backingInstance.outsetBounds.right,
+        bottom: childLayout.backingInstance.outsetBounds.bottom,
+      }
     );
-    const isChildLayoutInline = isLayoutInline(childLayout);
-    const isLastChildElementInline = isLayoutInline(this.lastChild);
-    // console.log(childLayout)
-    if (!this.lastChild) {
-      // First child in this parent layout.
-      this.dimensions.calculateInitialDimensions({
+
+    this.dimensions.calculateFromElement(
+      {
         width: childWidth,
         height: childHeight,
-      });
-    } else if (!isChildLayoutInline || !isLastChildElementInline) {
-      // Either the child is a block element or previous child was a block element.
-      this.dimensions.calculateFromBlockElement({
-        width: childWidth,
-        height: childHeight,
-      });
-    } else {
-      // Both child and previous child are an inline elements.
-      this.dimensions.calculateFromInlineElement({
-        width: childWidth,
-        height: childHeight,
-      });
-    }
+      },
+      this.placement.getChildPlacementDiff(
+        childLayout.backingInstance.placement,
+        this.insetBounds
+      )
+    );
     this.lastChild = childLayout;
   }
 

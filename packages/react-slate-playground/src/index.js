@@ -1,7 +1,6 @@
 import React from 'react';
 import path from 'path';
 import { renderToTarget, makeTerminalTarget } from '@react-slate/core';
-import { withRemoteProfiler } from '@react-slate/devtools';
 import {
   hideCursor,
   clearScrollbackOnExit,
@@ -18,7 +17,7 @@ hideCursor(process.stdout);
 clearScrollbackOnExit(process.stdout);
 
 // process.stdout.write(renderToString(<App />));
-const target = withRemoteProfiler(makeTerminalTarget(process.stdout));
+const target = makeTerminalTarget(process.stdout);
 renderToTarget(<App />, target);
 
 // process.on(

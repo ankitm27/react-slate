@@ -45,7 +45,7 @@ export type Target = {
   forceFullPrint: boolean,
   setCursorPosition(x: number, y: number): void,
   print(data: string): void,
-  clear(): void,
+  clear(fullScreen: boolean): void,
   getSize(): { width: number, height: number },
   raiseError(error: Error): void,
   measure(

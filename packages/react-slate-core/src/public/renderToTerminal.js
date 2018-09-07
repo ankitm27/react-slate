@@ -27,8 +27,12 @@ export function makeTerminalTarget(
     print(data: string) {
       stream.write(data);
     },
-    clear() {
-      readline.clearScreenDown(stream);
+    clear(fullScreen) {
+      if (fullScreen) {
+        readline.clearScreenDown(stream);
+      } else {
+        readline.clearLine(stream, 1);
+      }
     },
     getSize() {
       if (stream.isTTY) {

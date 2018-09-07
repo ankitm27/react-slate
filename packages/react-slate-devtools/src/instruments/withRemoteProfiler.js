@@ -22,11 +22,11 @@ function createLogger() {
   connect();
 
   return (message: string) => {
-    console.log(message);
     try {
       socket && socket.send(JSON.stringify(message));
     } catch (error) {
-      console.error(error);
+      socket = null;
+      connect();
     }
   };
 }

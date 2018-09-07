@@ -2,7 +2,7 @@
 
 /* eslint-disable no-param-reassign */
 
-import { typeof Root, typeof Text, View, render } from '@react-slate/reflow';
+import { typeof Root, typeof Text, View } from '@react-slate/reflow';
 // $FlowFixMe
 import emptyObject from 'fbjs/lib/emptyObject';
 // $FlowFixMe
@@ -35,7 +35,7 @@ function withErrorHandling(target: Target, config: { [key: string]: * }) {
   );
 }
 
-export default (containerInstance: Root, target: Target) =>
+export default (containerInstance: Root, target: Target, render: *) =>
   withErrorHandling(target, {
     // Create instance of host environment specific node or instance of a component.
     createInstance(type: string | Function, props: *) {
@@ -118,9 +118,17 @@ export default (containerInstance: Root, target: Target) =>
       const output = render(renderElements, target.getSize());
       target.measure('render-end');
       target.measure('draw-start');
-      target.setCursorPosition(0, 0);
-      target.clear();
-      target.print(output);
+      if (typeof output === 'string') {
+        target.setCursorPosition(0, 0);
+        target.clear(true);
+        target.print(output);
+      } else {
+        Object.keys(output).forEach(index => {
+          target.setCursorPosition(0, parseInt(index, 10));
+          target.clear(false);
+          target.print(output[index]);
+        });
+      }
       target.measure('draw-end');
     },
 

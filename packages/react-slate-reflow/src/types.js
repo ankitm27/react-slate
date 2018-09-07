@@ -3,8 +3,7 @@
 import type Text from './nodes/Text';
 import type View from './nodes/View';
 import type Root from './nodes/Root';
-import type Dimensions from './layout/lib/Dimensions';
-import type Placement from './layout/lib/Placement';
+import type BoxModel from './layout/lib/BoxModel';
 
 export interface Traversable<T> {
   children: Array<Traversable<T>>;
@@ -106,26 +105,23 @@ export interface LayoutElement<N> {
   children: Array<LayoutElement<*> | LayoutElementDelegate<*>>;
   lastChild: ?(LayoutElement<*> | LayoutElementDelegate<*>);
 
-  dimensions: *;
-  placement: Placement;
-  insetBounds: Bounds;
-  outsetBounds: Bounds;
+  boxModel: BoxModel;
   isInline: boolean;
   isAbsolute: boolean;
 
-  getDimensions(): Dimensions;
+  getBoxModel(): BoxModel;
   updateDimensions(LayoutElement<*> | LayoutElementDelegate<*>): void;
-  hasRenderElements(): boolean;
-  getRenderElements(): RenderElement[];
+  isDrawable(): boolean;
+  getDrawableItems(): RenderElement[];
   getLayoutTree(): JsonLayoutTree;
 }
 
 export interface LayoutElementDelegate<B> {
   backingInstance: LayoutElement<B>;
 
-  getDimensions(): Dimensions;
+  getBoxModel(): BoxModel;
   updateDimensions(LayoutElement<*> | LayoutElementDelegate<*>): void;
-  hasRenderElements(): boolean;
-  getRenderElements(): RenderElement[];
+  isDrawable(): boolean;
+  getDrawableItems(): RenderElement[];
   getLayoutTree(): JsonLayoutTree;
 }

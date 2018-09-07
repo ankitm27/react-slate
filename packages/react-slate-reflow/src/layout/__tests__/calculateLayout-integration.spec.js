@@ -608,7 +608,7 @@ describe('calculateLayout integration suite', () => {
         expect(renderElements).toMatchSnapshot();
       });
 
-      xit('with layout props', () => {
+      it('with layout props', () => {
         const root = getTree();
 
         root.children[0].setLayoutProps({
@@ -617,7 +617,7 @@ describe('calculateLayout integration suite', () => {
           marginRight: 1,
         });
 
-        root.children[0].children[1].setLayoutProps({
+        root.children[0].children[0].setLayoutProps({
           paddingLeft: 2,
           paddingTop: 1,
           paddingRight: 2,
@@ -629,29 +629,30 @@ describe('calculateLayout integration suite', () => {
         expect(renderElements).toMatchSnapshot();
       });
 
-      xit('with width constrain', () => {
-        const root = getTree();
-        root.children[0].setLayoutProps({ width: 4 });
-        const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
-        expect(renderElements).toMatchSnapshot();
-      });
+      // TODO: uncomment
+      // xit('with width constrain', () => {
+      //   const root = getTree();
+      //   root.children[0].setLayoutProps({ width: 4 });
+      //   const { layoutTree, renderElements } = root.calculateLayout();
+      //   expect(layoutTree.getLayoutTree()).toMatchSnapshot();
+      //   expect(renderElements).toMatchSnapshot();
+      // });
 
-      xit('with outer height constrain', () => {
-        const root = getTree();
-        root.children[0].setLayoutProps({ height: 2 });
-        const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
-        expect(renderElements).toMatchSnapshot();
-      });
+      // xit('with outer height constrain', () => {
+      //   const root = getTree();
+      //   root.children[0].setLayoutProps({ height: 2 });
+      //   const { layoutTree, renderElements } = root.calculateLayout();
+      //   expect(layoutTree.getLayoutTree()).toMatchSnapshot();
+      //   expect(renderElements).toMatchSnapshot();
+      // });
 
-      xit('with inner height constrain', () => {
-        const root = getTree();
-        root.children[0].children[1].setLayoutProps({ height: 2 });
-        const { layoutTree, renderElements } = root.calculateLayout();
-        expect(layoutTree.getLayoutTree()).toMatchSnapshot();
-        expect(renderElements).toMatchSnapshot();
-      });
+      // xit('with inner height constrain', () => {
+      //   const root = getTree();
+      //   root.children[0].children[1].setLayoutProps({ height: 2 });
+      //   const { layoutTree, renderElements } = root.calculateLayout();
+      //   expect(layoutTree.getLayoutTree()).toMatchSnapshot();
+      //   expect(renderElements).toMatchSnapshot();
+      // });
     });
 
     describe('for view -> [view -> text, text, view -> text]', () => {
@@ -780,7 +781,6 @@ describe('calculateLayout integration suite', () => {
         view1.setLayoutProps({ display: 'inline' });
         view2.setLayoutProps({ display: 'inline' });
         view3.setLayoutProps({ display: 'inline' });
-        outerView.setLayoutProps({ height: 1 });
 
         text1.setBody('Brave');
         text2.setBody('New');

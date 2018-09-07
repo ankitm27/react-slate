@@ -1,16 +1,14 @@
 /* @flow */
 
-import type Dimensions from './Dimensions';
-
 /**
  * Trim value's length and optionally align the value.
  */
 export default function trimHorizontally(
-  dimensions: Dimensions,
+  maxLength: number,
   value: string,
   align?: 'left' | 'center' | 'right'
 ) {
-  const availableWidth = dimensions.getAvailableWidth();
+  const availableWidth = maxLength;
   if (availableWidth > -1) {
     const trimmedValue = value.slice(0, availableWidth);
     switch (align) {

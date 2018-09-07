@@ -19,9 +19,12 @@ import type {
 function createLayoutElement(node, parent) {
   if (node instanceof Text) {
     return new UnitLayout(node, parent);
-  } else if (node instanceof View && node.borderProps) {
+  } else if (
+    /* (node instanceof View && node.borderProps) {
     return new BorderLayout(node, parent);
-  } else if (node instanceof View) {
+  } else if */ node instanceof
+    View
+  ) {
     return new ContainerLayout(node, parent);
   }
   throw new Error('Unknown node type');
@@ -41,8 +44,10 @@ export default function calculateLayout(
     );
     const currentLayout = createLayoutElement(node, parentLayout);
 
-    const index = currentLayout.hasRenderElements()
-      ? hierarchy.getIndex(currentLayout.backingInstance.placement)
+    const index = currentLayout.isDrawable()
+      ? hierarchy.getIndex(
+          currentLayout.backingInstance.getBoxModel().getPosition().z
+        )
       : null;
 
     if (node.children.length) {
@@ -57,7 +62,7 @@ export default function calculateLayout(
     }
 
     if (index) {
-      hierarchy.insertElements(index, currentLayout.getRenderElements());
+      hierarchy.insertElements(index, currentLayout.getDrawableItems());
     }
 
     return (currentLayout: LayoutElement<any> | LayoutElementDelegate<any>);

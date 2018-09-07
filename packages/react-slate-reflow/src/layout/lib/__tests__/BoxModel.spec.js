@@ -96,8 +96,8 @@ describe('BoxModel', () => {
   describe('should set max dimensions', () => {
     it('for next-line child', () => {
       const parent = new BoxModel();
-      parent.setWidthConstrain(5);
-      parent.setHeightConstrain(3);
+      parent.setWidthConstrain({ value: 5 });
+      parent.setHeightConstrain({ value: 3 });
       parent._dimensions.height.measured = 2;
       parent._dimensions.width.measured = 2;
 
@@ -114,8 +114,8 @@ describe('BoxModel', () => {
 
     it('for next-line child when switching', () => {
       const parent = new BoxModel();
-      parent.setWidthConstrain(5);
-      parent.setHeightConstrain(3);
+      parent.setWidthConstrain({ value: 5 });
+      parent.setHeightConstrain({ value: 3 });
       parent._dimensions.height.measured = 2;
       parent._dimensions.width.measured = 2;
 
@@ -132,7 +132,7 @@ describe('BoxModel', () => {
 
     it('for current-line child', () => {
       const parent = new BoxModel();
-      parent.setWidthConstrain(8);
+      parent.setWidthConstrain({ value: 8 });
       parent._dimensions.height.measured = 1;
       parent._dimensions.width.measured = 5;
 
@@ -149,8 +149,8 @@ describe('BoxModel', () => {
 
     it('for current-line child when switching', () => {
       const parent = new BoxModel();
-      parent.setWidthConstrain(8);
-      parent.setHeightConstrain(3);
+      parent.setWidthConstrain({ value: 8 });
+      parent.setHeightConstrain({ value: 3 });
       parent._dimensions.height.measured = 1;
       parent._dimensions.width.measured = 5;
 

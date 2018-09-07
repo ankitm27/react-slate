@@ -1,7 +1,6 @@
 /* @flow */
 
-import Dimensions from '../lib/Dimensions';
-import Placement from '../lib/Placement';
+import BoxModel from '../lib/BoxModel';
 import type Text from '../../nodes/Text';
 import trimHorizontally from '../lib/trimHorizontally';
 import { makeInlineStyle } from '../lib/makeStyle';
@@ -15,20 +14,7 @@ export default class UnitLayout implements LayoutElement<Text> {
   children = Object.freeze([]);
   lastChild = null;
 
-  dimensions = new Dimensions();
-  placement = new Placement();
-  insetBounds = {
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-  };
-  outsetBounds = {
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-  };
+  boxModel = new BoxModel();
   isInline = true;
   isAbsolute = false;
 
@@ -38,41 +24,39 @@ export default class UnitLayout implements LayoutElement<Text> {
     this.parent = parent;
     parent.backingInstance.children.push(this);
 
-    this.dimensions.setMaxDimensions({
-      isAbsolute: false,
-      isInline: true,
-      insetBounds: this.insetBounds,
-      isSwitching: Boolean(
-        this.parent.backingInstance.lastChild &&
-          !this.parent.backingInstance.lastChild.backingInstance.isInline
-      ),
-      parentDimensions: this.parent.backingInstance.getDimensions(),
+    const isSwitching = Boolean(
+      this.parent.backingInstance.lastChild &&
+        !this.parent.backingInstance.lastChild.backingInstance.isInline
+    );
+
+    this.boxModel.setMaxDimensions({
+      parentBox: this.parent.backingInstance.getBoxModel(),
+      variant: 'current-line',
+      isSwitching,
     });
-    this.dimensions.calculateFromText(node.body);
+
+    this.boxModel.resize({
+      width: node.body.length,
+      height: 1,
+    });
 
     if (this.parent.backingInstance.lastChild) {
-      const lastChildBackingInstance = this.parent.backingInstance.lastChild
-        .backingInstance;
-      this.placement.initUnitLayoutAsNextChild({
-        isPreviousChildInline: lastChildBackingInstance.isInline,
-        previousChildDimensions: this.parent.backingInstance.lastChild.getDimensions(),
-        previousChildPlacement: lastChildBackingInstance.placement,
-        previousChildOutsetBounds: lastChildBackingInstance.outsetBounds,
-
-        previousChildInsetBounds: lastChildBackingInstance.insetBounds,
-        parentPlacement: this.parent.backingInstance.placement,
-        parentInsetBounds: this.parent.backingInstance.insetBounds,
+      this.boxModel.setPosition({
+        parentBox: this.parent.backingInstance.getBoxModel(),
+        // $FlowFixMe
+        siblingBox: this.parent.backingInstance.lastChild.backingInstance.getBoxModel(),
+        variant: isSwitching ? 'next-line' : 'current-line',
       });
     } else {
-      this.placement.initUnitLayoutAsFirstChild({
-        parentPlacement: this.parent.backingInstance.placement,
-        parentInsetBounds: this.parent.backingInstance.insetBounds,
+      this.boxModel.setPosition({
+        parentBox: this.parent.backingInstance.getBoxModel(),
+        variant: 'init',
       });
     }
   }
 
-  getDimensions() {
-    return this.dimensions;
+  getBoxModel() {
+    return this.boxModel;
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -80,18 +64,18 @@ export default class UnitLayout implements LayoutElement<Text> {
     // NOOP
   }
 
-  hasRenderElements() {
+  isDrawable() {
     return true;
   }
 
-  getRenderElements() {
-    if (!this.getDimensions().hasAvailableSpace()) {
+  getDrawableItems() {
+    if (!this.boxModel.hasAvailableSpace()) {
       return [];
     }
 
     const style = makeInlineStyle(collectStyleProps(this));
     const value = trimHorizontally(
-      this.getDimensions(),
+      this.boxModel.getAvailableWidth(),
       this.node.body,
       (style && style.textAlign) || 'left'
     );
@@ -101,8 +85,8 @@ export default class UnitLayout implements LayoutElement<Text> {
         body: {
           value,
           style,
-          x: this.placement.x,
-          y: this.placement.y,
+          x: this.boxModel.getPosition().x,
+          y: this.boxModel.getPosition().y,
         },
       },
     ];
@@ -111,8 +95,8 @@ export default class UnitLayout implements LayoutElement<Text> {
   getLayoutTree() {
     return {
       type: UnitLayout.name,
-      dimensions: this.getDimensions().getSize(),
-      placement: this.placement.valueOf(),
+      dimensions: this.boxModel.getSize(),
+      placement: this.boxModel.getPosition(),
       body: this.node.body,
     };
   }

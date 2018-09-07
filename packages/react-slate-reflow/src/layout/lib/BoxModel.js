@@ -96,8 +96,8 @@ export default class BoxModel {
         siblingBox._outsetBounds.right +
         this._outsetBounds.left;
       this._position.y =
-        parentBox._position.y +
-        parentBox._insetBounds.top +
+        siblingBox._position.y -
+        siblingBox._outsetBounds.top +
         this._outsetBounds.top;
     }
   }
@@ -108,12 +108,32 @@ export default class BoxModel {
     this._position.z = z;
   }
 
-  setWidthConstrain(value: number) {
-    this._dimensions.width.fixed = value;
+  setWidthConstrain({
+    value,
+    parentBox,
+  }: {
+    value: number,
+    parentBox?: BoxModel,
+  }) {
+    this._dimensions.width.fixed = getMinValue(
+      parentBox ? parentBox._dimensions.width.fixed : -1,
+      parentBox ? parentBox._dimensions.width.max : -1,
+      value - (this._insetBounds.left + this._insetBounds.right)
+    );
   }
 
-  setHeightConstrain(value: number) {
-    this._dimensions.height.fixed = value;
+  setHeightConstrain({
+    value,
+    parentBox,
+  }: {
+    value: number,
+    parentBox?: BoxModel,
+  }) {
+    this._dimensions.height.fixed = getMinValue(
+      parentBox ? parentBox._dimensions.height.fixed : -1,
+      parentBox ? parentBox._dimensions.height.max : -1,
+      value - (this._insetBounds.top + this._insetBounds.bottom)
+    );
   }
 
   setMaxDimensions({
@@ -169,13 +189,23 @@ export default class BoxModel {
     );
   }
 
+  getPosition() {
+    return {
+      x: this._position.x,
+      y: this._position.y,
+      z: this._position.z,
+    };
+  }
+
   contains({ childBox }: { childBox: BoxModel }) {
     // Vertical check
     if (
       childBox._position.x +
         childBox.getSize().width +
         childBox._outsetBounds.right >
-      this._position.x + this.getSize().width
+      this._position.x +
+        this._insetBounds.left +
+        this._dimensions.width.measured
     ) {
       return false;
     }
@@ -184,7 +214,9 @@ export default class BoxModel {
       childBox._position.y +
         childBox.getSize().height +
         childBox._outsetBounds.bottom >
-      this._position.y + this.getSize().height
+      this._position.y +
+        this._insetBounds.top +
+        this._dimensions.height.measured
     ) {
       return false;
     }
@@ -209,9 +241,10 @@ export default class BoxModel {
     const { width, height } = childBox.getSize();
     // NOTE: left and top inset bounds have to be subtracted, since
     // they were added in child's placement.
-    // TODO: check that ^
-    const xDiff = childBox._position.x - this._position.x;
-    const yDiff = childBox._position.y - this._position.y;
+    const xDiff =
+      childBox._position.x - this._position.x - this._insetBounds.left;
+    const yDiff =
+      childBox._position.y - this._position.y - this._insetBounds.top;
     this.resize({
       width: Math.max(
         this._dimensions.width.measured,
@@ -222,6 +255,16 @@ export default class BoxModel {
         yDiff + height + childBox._outsetBounds.bottom
       ),
     });
+  }
+
+  getAvailableWidth() {
+    return getValue(this._dimensions.width.fixed, this._dimensions.width.max);
+  }
+
+  hasAvailableSpace() {
+    return (
+      getValue(this._dimensions.height.fixed, this._dimensions.height.max) !== 0
+    );
   }
 }
 

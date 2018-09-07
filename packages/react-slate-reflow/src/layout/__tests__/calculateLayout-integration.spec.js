@@ -863,7 +863,7 @@ describe('calculateLayout integration suite', () => {
     });
   });
 
-  describe('with border', () => {
+  xdescribe('with border', () => {
     describe('for view(border) -> text', () => {
       function getTree() {
         const root = new Root({ width: 20, height: 10 });
@@ -923,7 +923,7 @@ describe('calculateLayout integration suite', () => {
     });
   });
 
-  describe('with absolute positioning', () => {
+  xdescribe('with absolute positioning', () => {
     describe('for view(absolute) -> text', () => {
       function getTree() {
         const root = new Root({ width: 20, height: 10 });
